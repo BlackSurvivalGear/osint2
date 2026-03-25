@@ -21,6 +21,7 @@
 
 <!-- HEADER -->
 <header class="mainHeader">
+
 <div class="headerVideo">
 <video autoplay muted loop playsinline>
 <source src="HEADER3.mp4">
@@ -28,16 +29,28 @@
 </div>
 
 <div class="headerContent">
+
 <div class="headerLeft">
+
 <div class="radarLogo">
 <video autoplay muted loop playsinline>
 <source src="RADAR3.mp4">
 </video>
 </div>
+
 <h1>Global Strategic Awareness OSINT</h1>
+
 </div>
+
+<!-- 🔥 QUOTE -->
+<div class="headerQuote">
+<span id="quoteText">Loading...</span>
+</div>
+
 <div id="dateTime"></div>
+
 </div>
+
 </header>
 
 <!-- NAV -->
@@ -55,6 +68,7 @@
 
 <!-- SUB MENUS -->
 <div id="subMenuBar">
+
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'rt')" class="active">RT</button>
 <button onclick="showLive(event,'aj')">Al Jazeera</button>
@@ -75,6 +89,7 @@
 <button onclick="showMarinePoint(event,'gibraltar')">Gibraltar</button>
 <button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
+
 </div>
 
 <main>
@@ -94,18 +109,14 @@ markets, cyber activity, aviation tracking and maritime movement.
 </div>
 </div>
 
-<!-- 🔥 INTEL QUOTES -->
-<div class="intelQuotes">
-<h2 id="quoteText">Loading...</h2>
-<p id="quoteAuthor"></p>
-</div>
-
 </section>
 
 <!-- LIVE -->
 <section id="live" class="tab">
 <div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame" src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3" allowfullscreen></iframe>
+<iframe id="liveFrame"
+src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+allowfullscreen></iframe>
 </div>
 
 <div id="liveQuad" class="quadGrid">
@@ -144,7 +155,9 @@ markets, cyber activity, aviation tracking and maritime movement.
 
 <!-- MARINE -->
 <section id="marine" class="tab">
-<iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4" allowfullscreen></iframe>
+<iframe id="marineFrame"
+src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+allowfullscreen></iframe>
 </section>
 
 <!-- CYBER -->
@@ -161,6 +174,7 @@ markets, cyber activity, aviation tracking and maritime movement.
 
 <!-- FOOTER -->
 <footer class="mainFooter">
+
 <div class="footerTop">
 <a href="https://BlackSurvivalGear.com" target="_blank">
 <video autoplay muted loop playsinline>
@@ -178,6 +192,7 @@ BlackSurvivalGear.com
 <div class="footerRight">
 BSG Strategic Awareness OSINT — VBASE
 </div>
+
 </footer>
 
 <script>
@@ -250,12 +265,12 @@ showMarineTraffic()
 });
 });
 
-/* QUOTES ENGINE */
+/* QUOTES */
 const content=[
-{text:"We face neither East nor West; we face forward.",author:"Kwame Nkrumah",nation:"Ghana"},
-{text:"It always seems impossible until it is done.",author:"Nelson Mandela",nation:"South Africa"},
-{text:"When spider webs unite, they can tie up a lion.",nation:"Ethiopia"},
-{text:"A single hand cannot clap.",nation:"Nigeria"}
+{text:"We face neither East nor West; we face forward.",author:"Nkrumah"},
+{text:"It always seems impossible until it is done.",author:"Mandela"},
+{text:"When spider webs unite, they can tie up a lion."},
+{text:"A single hand cannot clap."}
 ];
 
 let i=0;
@@ -263,9 +278,8 @@ let i=0;
 function nextQuote(){
 const item=content[i++ % content.length];
 
-document.getElementById("quoteText").textContent=`"${item.text}"`;
-document.getElementById("quoteAuthor").textContent=
-`${item.author?item.author+", ":""}${item.nation}`;
+document.getElementById("quoteText").textContent =
+`"${item.text}"${item.author ? " — " + item.author : ""}`;
 }
 
 nextQuote();
