@@ -12,40 +12,17 @@
 
 <body>
 
-<!-- SPLASH -->
-<div id="introRadar">
-<video autoplay muted playsinline>
-<source src="RADAR3.mp4">
-</video>
-</div>
-
 <!-- HEADER -->
 <header class="mainHeader">
-
-<div class="headerVideo">
-<video autoplay muted loop playsinline>
-<source src="HEADER3.mp4">
-</video>
-</div>
-
 <div class="headerContent">
 
 <div class="headerLeft">
-
-<div class="radarLogo">
-<video autoplay muted loop playsinline>
-<source src="RADAR3.mp4">
-</video>
-</div>
-
 <h1>Global Strategic Awareness OSINT</h1>
-
 </div>
 
 <div id="dateTime"></div>
 
 </div>
-
 </header>
 
 <!-- NAV -->
@@ -61,7 +38,7 @@
 <button id="weatherBtn">WEATHER</button>
 </nav>
 
-<!-- SUB MENUS -->
+<!-- SUB MENU -->
 <div id="subMenuBar">
 
 <div id="liveMenu" class="subMenu">
@@ -77,12 +54,6 @@
 <button onclick="showMarineTraffic(event)" class="active">Marine Traffic</button>
 <button onclick="showMarinePoint(event,'hormuz')">Hormuz</button>
 <button onclick="showMarinePoint(event,'malacca')">Malacca</button>
-<button onclick="showMarinePoint(event,'bab')">Bab el-Mandeb</button>
-<button onclick="showMarinePoint(event,'suez')">Suez</button>
-<button onclick="showMarinePoint(event,'panama')">Panama</button>
-<button onclick="showMarinePoint(event,'bosporus')">Bosporus</button>
-<button onclick="showMarinePoint(event,'gibraltar')">Gibraltar</button>
-<button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
 
 </div>
@@ -96,26 +67,24 @@
 <img src="hero.png" class="heroImage">
 
 <div class="heroOverlay">
-
 <h2>BSG Strategic Awareness Dashboard</h2>
-
 <p>
 Integrated OSINT monitoring platform providing real-time intelligence across conflicts,
 markets, cyber activity, aviation tracking and maritime movement.
 </p>
-
-<!-- 🔥 QUOTE -->
-<div class="heroQuote">
-<span id="quoteText">Loading...</span>
+</div>
 </div>
 
-</div>
+<!-- ✅ QUOTE BELOW HERO -->
+<div class="intelQuotes">
+<h2 id="quoteText">Loading...</h2>
 </div>
 
 </section>
 
 <!-- LIVE -->
 <section id="live" class="tab">
+
 <div id="liveSingle" class="livePlayer">
 <iframe id="liveFrame"
 src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
@@ -128,22 +97,12 @@ allowfullscreen></iframe>
 <iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
 <iframe src="https://www.youtube.com/embed/vfszY1JYbMc"></iframe>
 </div>
+
 </section>
 
 <!-- MARKETS -->
 <section id="markets" class="tab">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-{
-"colorTheme":"dark",
-"locale":"en",
-"backgroundColor":"#020606",
-"width":"100%",
-"height":550
-}
-</script>
-</div>
+<iframe src="https://s.tradingview.com/embed-widget/market-overview/"></iframe>
 </section>
 
 <!-- CONFLICT -->
@@ -158,9 +117,7 @@ allowfullscreen></iframe>
 
 <!-- MARINE -->
 <section id="marine" class="tab">
-<iframe id="marineFrame"
-src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
-allowfullscreen></iframe>
+<iframe src="https://www.marinetraffic.com"></iframe>
 </section>
 
 <!-- CYBER -->
@@ -175,114 +132,70 @@ allowfullscreen></iframe>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="mainFooter">
-
-<div class="footerTop">
-<a href="https://BlackSurvivalGear.com" target="_blank">
-<video autoplay muted loop playsinline>
-<source src="RADAR3.mp4">
-</video>
-</a>
-</div>
-
-<div class="footerCenter">
-<a href="https://BlackSurvivalGear.com" target="_blank">
-BlackSurvivalGear.com
-</a>
-</div>
-
-<div class="footerRight">
-BSG Strategic Awareness OSINT — VBASE
-</div>
-
-</footer>
-
 <script>
 
 /* WEATHER */
-document.getElementById("weatherBtn").addEventListener("click", function(e){
-    e.stopPropagation();
-    window.open("https://www.windy.com/?6.842,26.166,3", "_blank");
-});
-
-/* SPLASH */
-document.addEventListener("DOMContentLoaded", function(){
-const splash = document.getElementById("introRadar");
-setTimeout(()=>{
-    splash.style.opacity = "0";
-    setTimeout(()=>{ splash.style.display="none"; },600);
-},1500);
-});
+document.getElementById("weatherBtn").onclick = () => {
+window.open("https://www.windy.com/?6.842,26.166,3","_blank");
+};
 
 /* CLOCK */
 function updateClock(){
-const now=new Date()
-const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-
-let day=days[now.getDay()]
-let date=now.getDate()
-let month=months[now.getMonth()]
-let year=now.getFullYear()
-
-let hours=now.getHours()
-let minutes=now.getMinutes()
-let ampm=hours>=12?"PM":"AM"
-
-hours=hours%12
-hours=hours?hours:12
-minutes=minutes<10?"0"+minutes:minutes
-
-document.getElementById("dateTime").textContent =
-`${day} ${date} ${month} ${year}, ${hours}:${minutes}${ampm}`
+const now=new Date();
+document.getElementById("dateTime").textContent = now.toLocaleString();
 }
-setInterval(updateClock,1000)
-updateClock()
+setInterval(updateClock,1000);
 
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.addEventListener("click",()=>{
+btn.onclick=()=>{
 if(!btn.dataset.tab) return;
 
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
 
-btn.classList.add("active")
-document.getElementById(btn.dataset.tab).classList.add("active")
+btn.classList.add("active");
+document.getElementById(btn.dataset.tab).classList.add("active");
 
-document.getElementById("subMenuBar").style.display="none"
-document.getElementById("liveMenu").style.display="none"
-document.getElementById("marineMenu").style.display="none"
+document.getElementById("subMenuBar").style.display="none";
+document.getElementById("liveMenu").style.display="none";
+document.getElementById("marineMenu").style.display="none";
 
 if(btn.dataset.tab==="live"){
-document.getElementById("subMenuBar").style.display="block"
-document.getElementById("liveMenu").style.display="flex"
+document.getElementById("subMenuBar").style.display="block";
+document.getElementById("liveMenu").style.display="flex";
 }
 
 if(btn.dataset.tab==="marine"){
-document.getElementById("subMenuBar").style.display="block"
-document.getElementById("marineMenu").style.display="flex"
-showMarineTraffic()
+document.getElementById("subMenuBar").style.display="block";
+document.getElementById("marineMenu").style.display="flex";
 }
-});
+};
 });
 
+/* LIVE SWITCH */
+function showLive(e,type){
+const frame=document.getElementById("liveFrame");
+
+if(type==="rt") frame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3";
+if(type==="aj") frame.src="https://www.youtube.com/embed/gCNeDWCI0vo";
+if(type==="wion") frame.src="https://www.youtube.com/embed/YDvsBbKfLPA";
+if(type==="sky") frame.src="https://www.youtube.com/embed/vfszY1JYbMc";
+}
+
 /* QUOTES */
-const content=[
-{text:"We face neither East nor West; we face forward.",author:"Nkrumah"},
-{text:"It always seems impossible until it is done.",author:"Mandela"},
-{text:"When spider webs unite, they can tie up a lion."},
-{text:"A single hand cannot clap."}
+const quotes=[
+"We face neither East nor West; we face forward.",
+"It always seems impossible until it is done.",
+"When spider webs unite, they can tie up a lion.",
+"A single hand cannot clap."
 ];
 
 let i=0;
 
 function nextQuote(){
-const item=content[i++ % content.length];
-
 document.getElementById("quoteText").textContent =
-`"${item.text}"${item.author ? " — " + item.author : ""}`;
+`"${quotes[i++ % quotes.length]}"`;
 }
 
 nextQuote();
