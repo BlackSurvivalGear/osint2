@@ -66,7 +66,7 @@
 <button data-tab="cyber">Cyber Attacks</button>
 <button data-tab="radio">Global Radio</button>
 
-<button data-tab="weather">WEATHER</button>
+<button onclick="openWeather()">WEATHER</button>
 
 </nav>
 
@@ -173,12 +173,6 @@ allowfullscreen></iframe>
 <iframe src="https://radio.garden/"></iframe>
 </section>
 
-<!-- WEATHER -->
-<section id="weather" class="tab">
-<iframe src="https://zoom.earth/maps/satellite/" 
-style="width:100%; height:100%; border:none;"></iframe>
-</section>
-
 </main>
 
 <!-- FOOTER -->
@@ -206,21 +200,20 @@ BSG Strategic Awareness OSINT — VBASE
 
 <script>
 
-/* SPLASH FIXED */
+/* WEATHER LAUNCH */
+function openWeather(){
+    window.open("https://www.windy.com/?6.842,26.166,3", "_blank");
+}
+
+/* SPLASH */
 document.addEventListener("DOMContentLoaded", function(){
-
 const splash = document.getElementById("introRadar");
-
 setTimeout(function(){
-
     splash.style.opacity = "0";
-
     setTimeout(function(){
         splash.style.display = "none";
     }, 600);
-
 }, 1500);
-
 });
 
 /* CLOCK */
@@ -251,6 +244,9 @@ updateClock()
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.onclick=()=>{
+
+if(!btn.dataset.tab) return;
+
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
 document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 
@@ -271,17 +267,14 @@ document.getElementById("subMenuBar").style.display="block"
 document.getElementById("marineMenu").style.display="flex"
 showMarineTraffic()
 }
+
 }
 })
 
 /* LIVE */
 function showLive(event,channel){
 const frame=document.getElementById("liveFrame")
-
-document.querySelectorAll("#liveMenu button").forEach(b=>{
-b.classList.remove("active")
-})
-
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 event.target.classList.add("active")
 
 document.getElementById("liveSingle").style.display="block"
