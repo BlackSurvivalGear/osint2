@@ -147,12 +147,39 @@
 
 <script>
 
+/* SPLASH — FIXED */
+document.addEventListener("DOMContentLoaded", function(){
+
+const splash = document.getElementById("introRadar");
+
+// Fail-safe kill
+setTimeout(()=>{
+    splash.style.display="none"
+},4000);
+
+// Fade out
+setTimeout(()=>{
+    splash.style.opacity="0";
+    setTimeout(()=>{
+        splash.style.display="none"
+    },600);
+},1500);
+
+});
+
+/* CLOCK */
+setInterval(()=>{
+document.getElementById("dateTime").textContent=new Date().toLocaleString()
+},1000)
+
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.onclick=()=>{
 if(!btn.dataset.tab) return;
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
+
 btn.classList.add("active")
 document.getElementById(btn.dataset.tab).classList.add("active")
 
@@ -174,9 +201,8 @@ marketsMenu.style.display="flex"
 }
 })
 
-/* MARKETS FIX */
+/* MARKETS */
 function showMarket(e,t){
-
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
@@ -193,16 +219,16 @@ panels[t].style.display="block"
 setTimeout(()=>window.dispatchEvent(new Event('resize')),100)
 }
 
-/* FULLSCREEN FIX */
+/* FULLSCREEN */
 function fullscreenPlayer(){
-let player = document.getElementById("liveQuad")
+let player=document.getElementById("liveQuad")
 if(player.style.display!=="grid") player=document.getElementById("liveSingle")
 player.requestFullscreen()
 }
 
 /* WEATHER */
 weatherBtn.onclick=()=>{
-window.open("https://www.windy.com","_blank")
+window.open("https://www.windy.com","_blank","noopener,noreferrer")
 }
 
 /* LIVE */
@@ -214,6 +240,17 @@ if(c==="quad"){
 liveSingle.style.display="none"
 liveQuad.style.display="grid"
 }
+}
+
+/* MARINE */
+function showMarineTraffic(){
+document.getElementById("marineFrame").src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+}
+
+function showMarinePoint(e,p){
+document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+document.getElementById("marineFrame").src=`https://maps.google.com/maps?q=${p}&output=embed`
 }
 
 </script>
