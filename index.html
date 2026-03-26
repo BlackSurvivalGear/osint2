@@ -138,28 +138,91 @@ allowfullscreen></iframe>
 
 <!-- NEW -->
 <div id="marketOverview" style="display:none;">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-{
-"colorTheme":"dark",
-"dateRange":"12M",
-"locale":"en",
-"tabs":[
-{"title":"Indices","symbols":[{"s":"FOREXCOM:SPXUSD"},{"s":"FOREXCOM:NSXUSD"},{"s":"FOREXCOM:DJI"}]},
-{"title":"Forex","symbols":[{"s":"FX:EURUSD"},{"s":"FX:GBPUSD"},{"s":"FX_IDC:USDNGN"}]},
-{"title":"Crypto","symbols":[{"s":"BINANCE:BTCUSD"},{"s":"BINANCE:ETHUSD"}]},
-{"title":"Commodities","symbols":[{"s":"TVC:GOLD"},{"s":"TVC:SILVER"}]}
-],
-"backgroundColor":"#020606",
-"width":"100%",
-"height":"550"
-}
-</script>
-</div>
-</div>
 
-</section>
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+
+  <div class="tradingview-widget-copyright">
+    <a href="https://www.tradingview.com/markets/" target="_blank">
+      <span class="blue-text">World markets</span>
+    </a>
+    <span class="trademark"> by TradingView</span>
+  </div>
+
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+  {
+  "colorTheme": "dark",
+  "dateRange": "12M",
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "showFloatingTooltip": false,
+  "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+  "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+  "gridLineColor": "rgba(240, 243, 250, 0)",
+  "scaleFontColor": "#DBDBDB",
+  "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+  "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+  "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+  "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+  "symbolActiveColor": "rgba(41, 98, 255, 0.12)",
+  "tabs": [
+    {
+      "title": "Indices",
+      "symbols": [
+        {"s": "FOREXCOM:SPXUSD","d": "S&P 500 Index"},
+        {"s": "FOREXCOM:NSXUSD","d": "US 100 Cash CFD"},
+        {"s": "FOREXCOM:DJI","d": "Dow Jones Industrial Average Index"},
+        {"s": "INDEX:NKY","d": "Japan 225"},
+        {"s": "INDEX:DEU40","d": "DAX Index"},
+        {"s": "FOREXCOM:UKXGBP","d": "FTSE 100 Index"}
+      ]
+    },
+    {
+      "title": "Forex",
+      "symbols": [
+        {"s": "FX:EURUSD","d": "EUR to USD"},
+        {"s": "FX:GBPUSD","d": "GBP to USD"},
+        {"s": "FX:USDJPY","d": "USD to JPY"},
+        {"s": "FX:USDCHF","d": "USD to CHF"},
+        {"s": "FX:AUDUSD","d": "AUD to USD"},
+        {"s": "FX:USDCAD","d": "USD to CAD"},
+        {"s": "FX_IDC:GBPNGN","d": "GBP/NGN"},
+        {"s": "FX_IDC:USDNGN","d": "USD/NGN"},
+        {"s": "FX_IDC:USDRUB","d": "USD/RUB"},
+        {"s": "FX_IDC:USDCNY","d": "USD/CNY"}
+      ]
+    },
+    {
+      "title": "Crypto",
+      "symbols": [
+        {"s": "BINANCE:BTCUSD","d": "BTC"},
+        {"s": "BINANCE:ETHUSD","d": "ETH"},
+        {"s": "BINANCE:SOLUSDT","d": "SOL"},
+        {"s": "BINANCE:AVAXUSDT","d": "AVAX"},
+        {"s": "BINANCE:BNBUSDT","d": "BNB"}
+      ]
+    },
+    {
+      "title": "Commodities",
+      "symbols": [
+        {"s": "TVC:GOLD","d": "Gold"},
+        {"s": "TVC:SILVER","d": "Silver"},
+        {"s": "ACTIVTRADES:BRENT","d": "Brent Oil"}
+      ]
+    }
+  ],
+  "support_host": "https://www.tradingview.com",
+  "backgroundColor": "#020606",
+  "width": "100%",
+  "height": "550",
+  "showSymbolLogo": true,
+  "showChart": true
+}
+  </script>
+
+</div>
+</div>
 
 <!-- OTHER TABS -->
 <section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
