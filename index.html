@@ -45,16 +45,17 @@
 <button data-tab="home" class="active">Home</button>
 <button data-tab="live">LIVE NEWS</button>
 <button data-tab="conflict">CONFLICT MAP</button>
-<button data-tab="markets">MARKETS</button>
+<button data-tab="markets">Markets</button>
 <button data-tab="aircraft">Aircraft Watch</button>
 <button data-tab="marine">Marine Watch</button>
 <button data-tab="cyber">Cyber Attacks</button>
 <button data-tab="radio">Global Radio</button>
-<button id="weatherBtn">WEATHER</button>
+<button id="weatherBtn">Weather</button>
 </nav>
 
 <!-- SUB MENUS -->
 <div id="subMenuBar">
+
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'rt')" class="active">RT</button>
 <button onclick="showLive(event,'aj')">Al Jazeera</button>
@@ -75,16 +76,21 @@
 <button onclick="showMarinePoint(event,'gibraltar')">Gibraltar</button>
 <button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
+
+<!-- ✅ NEW MARKETS SUBMENU -->
+<div id="marketsMenu" class="subMenu">
+<button onclick="showMarket(event,'quotes')" class="active">Quotes</button>
+<button onclick="showMarket(event,'overview')">Overview</button>
+</div>
+
 </div>
 
 <main>
 
 <!-- HOME -->
 <section id="home" class="tab active">
-
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
-
 <div class="heroOverlay">
 <h2>BSG Strategic Awareness Dashboard</h2>
 <p>
@@ -93,19 +99,14 @@ markets, cyber activity, aviation tracking and maritime movement.
 </p>
 </div>
 </div>
-
-<!-- 🔥 INTEL QUOTES -->
-<div class="intelQuotes">
-<h2 id="quoteText">Loading...</h2>
-<p id="quoteAuthor"></p>
-</div>
-
 </section>
 
 <!-- LIVE -->
 <section id="live" class="tab">
 <div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame" src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3" allowfullscreen></iframe>
+<iframe id="liveFrame"
+src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+allowfullscreen></iframe>
 </div>
 
 <div id="liveQuad" class="quadGrid">
@@ -118,6 +119,9 @@ markets, cyber activity, aviation tracking and maritime movement.
 
 <!-- MARKETS -->
 <section id="markets" class="tab">
+
+<!-- EXISTING -->
+<div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
@@ -130,32 +134,39 @@ markets, cyber activity, aviation tracking and maritime movement.
 }
 </script>
 </div>
+</div>
+
+<!-- NEW -->
+<div id="marketOverview" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+{
+"colorTheme":"dark",
+"dateRange":"12M",
+"locale":"en",
+"tabs":[
+{"title":"Indices","symbols":[{"s":"FOREXCOM:SPXUSD"},{"s":"FOREXCOM:NSXUSD"},{"s":"FOREXCOM:DJI"}]},
+{"title":"Forex","symbols":[{"s":"FX:EURUSD"},{"s":"FX:GBPUSD"},{"s":"FX_IDC:USDNGN"}]},
+{"title":"Crypto","symbols":[{"s":"BINANCE:BTCUSD"},{"s":"BINANCE:ETHUSD"}]},
+{"title":"Commodities","symbols":[{"s":"TVC:GOLD"},{"s":"TVC:SILVER"}]}
+],
+"backgroundColor":"#020606",
+"width":"100%",
+"height":"550"
+}
+</script>
+</div>
+</div>
+
 </section>
 
-<!-- CONFLICT -->
-<section id="conflict" class="tab">
-<iframe src="https://iran.liveuamap.com"></iframe>
-</section>
-
-<!-- AIR -->
-<section id="aircraft" class="tab">
-<iframe src="https://globe.adsbexchange.com"></iframe>
-</section>
-
-<!-- MARINE -->
-<section id="marine" class="tab">
-<iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4" allowfullscreen></iframe>
-</section>
-
-<!-- CYBER -->
-<section id="cyber" class="tab">
-<iframe src="https://threatmap.checkpoint.com"></iframe>
-</section>
-
-<!-- RADIO -->
-<section id="radio" class="tab">
-<iframe src="https://radio.garden/"></iframe>
-</section>
+<!-- OTHER TABS -->
+<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
+<section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
+<section id="marine" class="tab"><iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
+<section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
+<section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
 
 </main>
 
@@ -182,49 +193,23 @@ BSG Strategic Awareness OSINT — VBASE
 
 <script>
 
-/* WEATHER */
-document.getElementById("weatherBtn").addEventListener("click", function(e){
-    e.stopPropagation();
-    window.open("https://www.windy.com/?6.842,26.166,3", "_blank");
-});
-
 /* SPLASH */
 document.addEventListener("DOMContentLoaded", function(){
 const splash = document.getElementById("introRadar");
-setTimeout(()=>{
-    splash.style.opacity = "0";
-    setTimeout(()=>{ splash.style.display="none"; },600);
-},1500);
+setTimeout(()=>{splash.style.display="none"},1500);
 });
 
 /* CLOCK */
 function updateClock(){
 const now=new Date()
-const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-
-let day=days[now.getDay()]
-let date=now.getDate()
-let month=months[now.getMonth()]
-let year=now.getFullYear()
-
-let hours=now.getHours()
-let minutes=now.getMinutes()
-let ampm=hours>=12?"PM":"AM"
-
-hours=hours%12
-hours=hours?hours:12
-minutes=minutes<10?"0"+minutes:minutes
-
-document.getElementById("dateTime").textContent =
-`${day} ${date} ${month} ${year}, ${hours}:${minutes}${ampm}`
+document.getElementById("dateTime").textContent=now.toLocaleString()
 }
 setInterval(updateClock,1000)
-updateClock()
 
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.addEventListener("click",()=>{
+btn.addEventListener("click", ()=>{
+
 if(!btn.dataset.tab) return;
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
@@ -234,8 +219,7 @@ btn.classList.add("active")
 document.getElementById(btn.dataset.tab).classList.add("active")
 
 document.getElementById("subMenuBar").style.display="none"
-document.getElementById("liveMenu").style.display="none"
-document.getElementById("marineMenu").style.display="none"
+document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
 if(btn.dataset.tab==="live"){
 document.getElementById("subMenuBar").style.display="block"
@@ -247,29 +231,43 @@ document.getElementById("subMenuBar").style.display="block"
 document.getElementById("marineMenu").style.display="flex"
 showMarineTraffic()
 }
-});
-});
 
-/* QUOTES ENGINE */
-const content=[
-{text:"We face neither East nor West; we face forward.",author:"Kwame Nkrumah",nation:"Ghana"},
-{text:"It always seems impossible until it is done.",author:"Nelson Mandela",nation:"South Africa"},
-{text:"When spider webs unite, they can tie up a lion.",nation:"Ethiopia"},
-{text:"A single hand cannot clap.",nation:"Nigeria"}
-];
-
-let i=0;
-
-function nextQuote(){
-const item=content[i++ % content.length];
-
-document.getElementById("quoteText").textContent=`"${item.text}"`;
-document.getElementById("quoteAuthor").textContent=
-`${item.author?item.author+", ":""}${item.nation}`;
+if(btn.dataset.tab==="markets"){
+document.getElementById("subMenuBar").style.display="block"
+document.getElementById("marketsMenu").style.display="flex"
 }
 
-nextQuote();
-setInterval(nextQuote,6000);
+});
+});
+
+/* MARKETS */
+function showMarket(event,type){
+document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
+event.target.classList.add("active")
+
+const quotes=document.getElementById("marketQuotes")
+const overview=document.getElementById("marketOverview")
+
+if(type==="quotes"){
+quotes.style.display="block"
+overview.style.display="none"
+}
+
+if(type==="overview"){
+quotes.style.display="none"
+overview.style.display="block"
+}
+}
+
+/* MARINE */
+function showMarineTraffic(){
+document.getElementById("marineFrame").src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+}
+
+function showMarinePoint(event,point){
+event.target.classList.add("active")
+document.getElementById("marineFrame").src=`https://maps.google.com/maps?q=${point}&output=embed`
+}
 
 </script>
 
