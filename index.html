@@ -20,7 +20,7 @@ grid-column:1/-1;
 grid-row:1/-1;
 }
 
-/* TRADINGVIEW SIZE FIX */
+/* TRADINGVIEW FIX */
 .tradingview-widget-container,
 .tradingview-widget-container__widget{
 width:100%!important;
@@ -73,7 +73,7 @@ height:80vh!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<!-- SUBMENUS -->
+<!-- SUB MENUS -->
 <div id="subMenuBar">
 
 <div id="liveMenu" class="subMenu">
@@ -95,7 +95,6 @@ height:80vh!important;
 
 <main>
 
-<!-- HOME -->
 <section id="home" class="tab active"></section>
 
 <!-- LIVE -->
@@ -119,7 +118,6 @@ allowfullscreen></iframe>
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
-<!-- OVERVIEW -->
 <div id="marketOverview">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -134,7 +132,6 @@ allowfullscreen></iframe>
 </div>
 </div>
 
-<!-- STOCK -->
 <div id="marketStocks" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -150,7 +147,6 @@ allowfullscreen></iframe>
 </div>
 </div>
 
-<!-- CRYPTO -->
 <div id="marketCrypto" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -168,7 +164,6 @@ allowfullscreen></iframe>
 
 </section>
 
-<!-- OTHER -->
 <section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
@@ -179,16 +174,31 @@ allowfullscreen></iframe>
 
 <script>
 
-/* SAFE DOM REFERENCES */
-const subMenuBar = document.getElementById("subMenuBar");
-const liveMenu = document.getElementById("liveMenu");
-const marketsMenu = document.getElementById("marketsMenu");
+/* SPLASH — HARD FIX */
+(function(){
+function killSplash(){
+    const splash = document.getElementById("introRadar");
+    if(!splash) return;
+    splash.style.opacity="0";
+    setTimeout(()=>{splash.style.display="none"},600);
+}
+window.addEventListener("load",()=>{setTimeout(killSplash,1500)});
+setTimeout(()=>{
+    const splash=document.getElementById("introRadar");
+    if(splash) splash.style.display="none";
+},5000);
+})();
 
-const liveSingle = document.getElementById("liveSingle");
-const liveQuad = document.getElementById("liveQuad");
-const liveFrame = document.getElementById("liveFrame");
+/* CLOCK */
+setInterval(()=>{
+document.getElementById("dateTime").textContent=new Date().toLocaleString()
+},1000)
 
-/* NAV FIX */
+/* NAV */
+const subMenuBar=document.getElementById("subMenuBar");
+const liveMenu=document.getElementById("liveMenu");
+const marketsMenu=document.getElementById("marketsMenu");
+
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.onclick=()=>{
 if(!btn.dataset.tab) return;
@@ -206,7 +216,6 @@ if(btn.dataset.tab==="live"){
 subMenuBar.style.display="block"
 liveMenu.style.display="flex"
 }
-
 if(btn.dataset.tab==="markets"){
 subMenuBar.style.display="block"
 marketsMenu.style.display="flex"
@@ -215,8 +224,11 @@ marketsMenu.style.display="flex"
 })
 
 /* LIVE */
-function showLive(e,c){
+const liveSingle=document.getElementById("liveSingle");
+const liveQuad=document.getElementById("liveQuad");
+const liveFrame=document.getElementById("liveFrame");
 
+function showLive(e,c){
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
@@ -236,23 +248,20 @@ liveQuad.style.display="grid"
 
 /* MARKETS */
 function showMarket(e,t){
-
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
 ["marketOverview","marketStocks","marketCrypto"]
 .forEach(id=>document.getElementById(id).style.display="none")
 
-if(t==="overview") document.getElementById("marketOverview").style.display="block"
-if(t==="stocks") document.getElementById("marketStocks").style.display="block"
-if(t==="crypto") document.getElementById("marketCrypto").style.display="block"
+document.getElementById("market"+t.charAt(0).toUpperCase()+t.slice(1)).style.display="block"
 
 setTimeout(()=>window.dispatchEvent(new Event('resize')),120)
 }
 
 /* FULLSCREEN */
 function fullscreenPlayer(){
-let player = (liveQuad.style.display==="grid") ? liveQuad : liveSingle
+let player=(liveQuad.style.display==="grid")?liveQuad:liveSingle
 player.requestFullscreen()
 }
 
