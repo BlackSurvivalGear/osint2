@@ -78,8 +78,10 @@
 </div>
 
 <div id="marketsMenu" class="subMenu">
-<button onclick="showMarket(event,'quotes')" class="active">Overview</button>
-<button onclick="showMarket(event,'overview')">Charts</button>
+<button onclick="showMarket(event,'quotes')" class="active">Quotes</button>
+<button onclick="showMarket(event,'overview')">Overview</button>
+<button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
+<button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
 </div>
 
 </div>
@@ -119,6 +121,7 @@ allowfullscreen></iframe>
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
+<!-- QUOTES -->
 <div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -134,6 +137,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 
+<!-- OVERVIEW -->
 <div id="marketOverview" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -167,8 +171,54 @@ allowfullscreen></iframe>
 </div>
 </div>
 
+<!-- STOCK HEATMAP -->
+<div id="marketStocks" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+{
+"dataSource":"SPX500",
+"blockSize":"market_cap_basic",
+"blockColor":"change",
+"grouping":"sector",
+"locale":"en",
+"colorTheme":"dark",
+"hasTopBar":true,
+"isDataSetEnabled":true,
+"isZoomEnabled":true,
+"hasSymbolTooltip":true,
+"width":"100%",
+"height":"100%"
+}
+</script>
+</div>
+</div>
+
+<!-- CRYPTO HEATMAP -->
+<div id="marketCrypto" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+{
+"dataSource":"Crypto",
+"blockSize":"market_cap_calc",
+"blockColor":"24h_close_change|5",
+"locale":"en",
+"colorTheme":"dark",
+"hasTopBar":true,
+"isDataSetEnabled":true,
+"isZoomEnabled":true,
+"hasSymbolTooltip":true,
+"width":"100%",
+"height":"100%"
+}
+</script>
+</div>
+</div>
+
 </section>
 
+<!-- OTHER -->
 <section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
@@ -187,22 +237,16 @@ allowfullscreen></iframe>
 </div>
 
 <div class="footerCenter">
-<a href="https://BlackSurvivalGear.com" target="_blank">
-BlackSurvivalGear.com
-</a>
+<a href="https://BlackSurvivalGear.com" target="_blank">BlackSurvivalGear.com</a>
 </div>
 
-<div class="footerRight">
-BSG Strategic Awareness OSINT — VBASE
-</div>
+<div class="footerRight">BSG Strategic Awareness OSINT — VBASE</div>
 </footer>
 
 <script>
 
 /* SPLASH */
-document.addEventListener("DOMContentLoaded", function(){
-setTimeout(()=>{document.getElementById("introRadar").style.display="none"},1500);
-});
+setTimeout(()=>{document.getElementById("introRadar").style.display="none"},1500)
 
 /* CLOCK */
 setInterval(()=>{
@@ -211,8 +255,7 @@ document.getElementById("dateTime").textContent=new Date().toLocaleString()
 
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.addEventListener("click", ()=>{
-
+btn.onclick=()=>{
 if(!btn.dataset.tab) return;
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
@@ -239,81 +282,65 @@ if(btn.dataset.tab==="markets"){
 document.getElementById("subMenuBar").style.display="block"
 document.getElementById("marketsMenu").style.display="flex"
 }
-
-});
-});
+}
+})
 
 /* MARKETS */
-function showMarket(event,type){
+function showMarket(e,t){
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
-event.target.classList.add("active")
+e.target.classList.add("active")
 
-const quotes=document.getElementById("marketQuotes")
-const overview=document.getElementById("marketOverview")
+["marketQuotes","marketOverview","marketStocks","marketCrypto"]
+.forEach(id=>document.getElementById(id).style.display="none")
 
-quotes.style.display = (type==="quotes") ? "block" : "none"
-overview.style.display = (type==="overview") ? "block" : "none"
+if(t==="quotes") document.getElementById("marketQuotes").style.display="block"
+if(t==="overview") document.getElementById("marketOverview").style.display="block"
+if(t==="stocks") document.getElementById("marketStocks").style.display="block"
+if(t==="crypto") document.getElementById("marketCrypto").style.display="block"
+}
+
+/* FULLSCREEN */
+function fullscreenPlayer(){
+let player=document.getElementById("liveQuad")
+if(player.style.display!=="grid"){player=document.getElementById("liveSingle")}
+let iframe=player.querySelector("iframe")
+if(iframe.requestFullscreen){iframe.requestFullscreen()}
+}
+
+/* WEATHER */
+document.getElementById("weatherBtn").onclick=()=>{
+window.open("https://www.windy.com/?6.842,26.166,3","_blank","noopener,noreferrer")
 }
 
 /* LIVE */
-function showLive(event,channel){
-const frame=document.getElementById("liveFrame")
+function showLive(e,c){
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
-event.target.classList.add("active")
+e.target.classList.add("active")
 
+let f=document.getElementById("liveFrame")
 document.getElementById("liveSingle").style.display="block"
 document.getElementById("liveQuad").style.display="none"
 
-if(channel==="rt") frame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
-if(channel==="aj") frame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
-if(channel==="wion") frame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
-if(channel==="sky") frame.src="https://www.youtube.com/embed/vfszY1JYbMc"
+if(c==="rt") f.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(c==="aj") f.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(c==="wion") f.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(c==="sky") f.src="https://www.youtube.com/embed/vfszY1JYbMc"
 
-if(channel==="quad"){
+if(c==="quad"){
 document.getElementById("liveSingle").style.display="none"
 document.getElementById("liveQuad").style.display="grid"
 }
 }
 
-/* FULLSCREEN FIX */
-function fullscreenPlayer(){
-
-let player = document.getElementById("liveQuad")
-
-if (player.style.display !== "grid"){
-    player = document.getElementById("liveSingle")
-}
-
-let iframe = player.querySelector("iframe")
-
-if (iframe.requestFullscreen){
-    iframe.requestFullscreen()
-} else if (iframe.webkitRequestFullscreen){
-    iframe.webkitRequestFullscreen()
-} else if (iframe.msRequestFullscreen){
-    iframe.msRequestFullscreen()
-}
-
-}
-
-/* WEATHER FIX */
-document.getElementById("weatherBtn").addEventListener("click", function(){
-window.open("https://www.windy.com/?6.842,26.166,3","_blank","noopener,noreferrer");
-});
-
 /* MARINE */
-function showMarineTraffic(event){
-const frame=document.getElementById("marineFrame")
-document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
-if(event) event.target.classList.add("active")
-frame.src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+function showMarineTraffic(){
+document.getElementById("marineFrame").src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
 }
 
-function showMarinePoint(event,point){
-const frame=document.getElementById("marineFrame")
+function showMarinePoint(e,p){
 document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
-event.target.classList.add("active")
-frame.src=`https://maps.google.com/maps?q=${point}&output=embed`
+e.target.classList.add("active")
+document.getElementById("marineFrame").src=`https://maps.google.com/maps?q=${p}&output=embed`
 }
 
 </script>
