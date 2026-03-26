@@ -77,7 +77,6 @@
 <button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
 
-<!-- MARKETS SUBMENU -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'quotes')" class="active">Quotes</button>
 <button onclick="showMarket(event,'overview')">Overview</button>
@@ -120,7 +119,6 @@ allowfullscreen></iframe>
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
-<!-- QUOTES -->
 <div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -136,9 +134,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 
-<!-- OVERVIEW -->
 <div id="marketOverview" style="display:none;">
-
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 
@@ -173,7 +169,6 @@ allowfullscreen></iframe>
 
 </section>
 
-<!-- OTHER TABS -->
 <section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
@@ -182,7 +177,6 @@ allowfullscreen></iframe>
 
 </main>
 
-<!-- FOOTER -->
 <footer class="mainFooter">
 <div class="footerTop">
 <a href="https://BlackSurvivalGear.com" target="_blank">
@@ -211,10 +205,9 @@ setTimeout(()=>{document.getElementById("introRadar").style.display="none"},1500
 });
 
 /* CLOCK */
-function updateClock(){
+setInterval(()=>{
 document.getElementById("dateTime").textContent=new Date().toLocaleString()
-}
-setInterval(updateClock,1000)
+},1000)
 
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
@@ -258,15 +251,8 @@ event.target.classList.add("active")
 const quotes=document.getElementById("marketQuotes")
 const overview=document.getElementById("marketOverview")
 
-if(type==="quotes"){
-quotes.style.display="block"
-overview.style.display="none"
-}
-
-if(type==="overview"){
-quotes.style.display="none"
-overview.style.display="block"
-}
+quotes.style.display = (type==="quotes") ? "block" : "none"
+overview.style.display = (type==="overview") ? "block" : "none"
 }
 
 /* LIVE */
@@ -289,6 +275,32 @@ document.getElementById("liveQuad").style.display="grid"
 }
 }
 
+/* FULLSCREEN FIX */
+function fullscreenPlayer(){
+
+let player = document.getElementById("liveQuad")
+
+if (player.style.display !== "grid"){
+    player = document.getElementById("liveSingle")
+}
+
+let iframe = player.querySelector("iframe")
+
+if (iframe.requestFullscreen){
+    iframe.requestFullscreen()
+} else if (iframe.webkitRequestFullscreen){
+    iframe.webkitRequestFullscreen()
+} else if (iframe.msRequestFullscreen){
+    iframe.msRequestFullscreen()
+}
+
+}
+
+/* WEATHER FIX */
+document.getElementById("weatherBtn").addEventListener("click", function(){
+window.open("https://www.windy.com/?6.842,26.166,3","_blank","noopener,noreferrer");
+});
+
 /* MARINE */
 function showMarineTraffic(event){
 const frame=document.getElementById("marineFrame")
@@ -301,7 +313,6 @@ function showMarinePoint(event,point){
 const frame=document.getElementById("marineFrame")
 document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
 event.target.classList.add("active")
-
 frame.src=`https://maps.google.com/maps?q=${point}&output=embed`
 }
 
