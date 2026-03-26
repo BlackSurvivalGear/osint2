@@ -77,7 +77,7 @@
 <button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
 
-<!-- ✅ NEW MARKETS SUBMENU -->
+<!-- MARKETS SUBMENU -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'quotes')" class="active">Quotes</button>
 <button onclick="showMarket(event,'overview')">Overview</button>
@@ -120,7 +120,7 @@ allowfullscreen></iframe>
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
-<!-- EXISTING -->
+<!-- QUOTES -->
 <div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -136,93 +136,42 @@ allowfullscreen></iframe>
 </div>
 </div>
 
-<!-- NEW -->
+<!-- OVERVIEW -->
 <div id="marketOverview" style="display:none;">
 
 <div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
+<div class="tradingview-widget-container__widget"></div>
 
-  <div class="tradingview-widget-copyright">
-    <a href="https://www.tradingview.com/markets/" target="_blank">
-      <span class="blue-text">World markets</span>
-    </a>
-    <span class="trademark"> by TradingView</span>
-  </div>
+<div class="tradingview-widget-copyright">
+<a href="https://www.tradingview.com/markets/" target="_blank">
+<span class="blue-text">World markets</span>
+</a>
+<span class="trademark"> by TradingView</span>
+</div>
 
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-  {
-  "colorTheme": "dark",
-  "dateRange": "12M",
-  "locale": "en",
-  "largeChartUrl": "",
-  "isTransparent": false,
-  "showFloatingTooltip": false,
-  "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
-  "plotLineColorFalling": "rgba(41, 98, 255, 1)",
-  "gridLineColor": "rgba(240, 243, 250, 0)",
-  "scaleFontColor": "#DBDBDB",
-  "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
-  "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
-  "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
-  "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
-  "symbolActiveColor": "rgba(41, 98, 255, 0.12)",
-  "tabs": [
-    {
-      "title": "Indices",
-      "symbols": [
-        {"s": "FOREXCOM:SPXUSD","d": "S&P 500 Index"},
-        {"s": "FOREXCOM:NSXUSD","d": "US 100 Cash CFD"},
-        {"s": "FOREXCOM:DJI","d": "Dow Jones Industrial Average Index"},
-        {"s": "INDEX:NKY","d": "Japan 225"},
-        {"s": "INDEX:DEU40","d": "DAX Index"},
-        {"s": "FOREXCOM:UKXGBP","d": "FTSE 100 Index"}
-      ]
-    },
-    {
-      "title": "Forex",
-      "symbols": [
-        {"s": "FX:EURUSD","d": "EUR to USD"},
-        {"s": "FX:GBPUSD","d": "GBP to USD"},
-        {"s": "FX:USDJPY","d": "USD to JPY"},
-        {"s": "FX:USDCHF","d": "USD to CHF"},
-        {"s": "FX:AUDUSD","d": "AUD to USD"},
-        {"s": "FX:USDCAD","d": "USD to CAD"},
-        {"s": "FX_IDC:GBPNGN","d": "GBP/NGN"},
-        {"s": "FX_IDC:USDNGN","d": "USD/NGN"},
-        {"s": "FX_IDC:USDRUB","d": "USD/RUB"},
-        {"s": "FX_IDC:USDCNY","d": "USD/CNY"}
-      ]
-    },
-    {
-      "title": "Crypto",
-      "symbols": [
-        {"s": "BINANCE:BTCUSD","d": "BTC"},
-        {"s": "BINANCE:ETHUSD","d": "ETH"},
-        {"s": "BINANCE:SOLUSDT","d": "SOL"},
-        {"s": "BINANCE:AVAXUSDT","d": "AVAX"},
-        {"s": "BINANCE:BNBUSDT","d": "BNB"}
-      ]
-    },
-    {
-      "title": "Commodities",
-      "symbols": [
-        {"s": "TVC:GOLD","d": "Gold"},
-        {"s": "TVC:SILVER","d": "Silver"},
-        {"s": "ACTIVTRADES:BRENT","d": "Brent Oil"}
-      ]
-    }
-  ],
-  "support_host": "https://www.tradingview.com",
-  "backgroundColor": "#020606",
-  "width": "100%",
-  "height": "550",
-  "showSymbolLogo": true,
-  "showChart": true
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+{
+"colorTheme":"dark",
+"dateRange":"12M",
+"locale":"en",
+"tabs":[
+{"title":"Indices","symbols":[{"s":"FOREXCOM:SPXUSD"},{"s":"FOREXCOM:NSXUSD"},{"s":"FOREXCOM:DJI"},{"s":"INDEX:NKY"},{"s":"INDEX:DEU40"},{"s":"FOREXCOM:UKXGBP"}]},
+{"title":"Forex","symbols":[{"s":"FX:EURUSD"},{"s":"FX:GBPUSD"},{"s":"FX:USDJPY"},{"s":"FX:USDCHF"},{"s":"FX:AUDUSD"},{"s":"FX:USDCAD"},{"s":"FX_IDC:GBPNGN"},{"s":"FX_IDC:USDNGN"},{"s":"FX_IDC:USDRUB"},{"s":"FX_IDC:USDCNY"}]},
+{"title":"Crypto","symbols":[{"s":"BINANCE:BTCUSD"},{"s":"BINANCE:ETHUSD"},{"s":"BINANCE:SOLUSDT"},{"s":"BINANCE:AVAXUSDT"},{"s":"BINANCE:BNBUSDT"}]},
+{"title":"Commodities","symbols":[{"s":"TVC:GOLD"},{"s":"TVC:SILVER"},{"s":"ACTIVTRADES:BRENT"}]}
+],
+"backgroundColor":"#020606",
+"width":"100%",
+"height":"550",
+"showSymbolLogo":true,
+"showChart":true
 }
-  </script>
+</script>
 
 </div>
 </div>
+
+</section>
 
 <!-- OTHER TABS -->
 <section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
@@ -258,14 +207,12 @@ BSG Strategic Awareness OSINT — VBASE
 
 /* SPLASH */
 document.addEventListener("DOMContentLoaded", function(){
-const splash = document.getElementById("introRadar");
-setTimeout(()=>{splash.style.display="none"},1500);
+setTimeout(()=>{document.getElementById("introRadar").style.display="none"},1500);
 });
 
 /* CLOCK */
 function updateClock(){
-const now=new Date()
-document.getElementById("dateTime").textContent=now.toLocaleString()
+document.getElementById("dateTime").textContent=new Date().toLocaleString()
 }
 setInterval(updateClock,1000)
 
@@ -322,14 +269,40 @@ overview.style.display="block"
 }
 }
 
+/* LIVE */
+function showLive(event,channel){
+const frame=document.getElementById("liveFrame")
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
+event.target.classList.add("active")
+
+document.getElementById("liveSingle").style.display="block"
+document.getElementById("liveQuad").style.display="none"
+
+if(channel==="rt") frame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(channel==="aj") frame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(channel==="wion") frame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(channel==="sky") frame.src="https://www.youtube.com/embed/vfszY1JYbMc"
+
+if(channel==="quad"){
+document.getElementById("liveSingle").style.display="none"
+document.getElementById("liveQuad").style.display="grid"
+}
+}
+
 /* MARINE */
-function showMarineTraffic(){
-document.getElementById("marineFrame").src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+function showMarineTraffic(event){
+const frame=document.getElementById("marineFrame")
+document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
+if(event) event.target.classList.add("active")
+frame.src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
 }
 
 function showMarinePoint(event,point){
+const frame=document.getElementById("marineFrame")
+document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
 event.target.classList.add("active")
-document.getElementById("marineFrame").src=`https://maps.google.com/maps?q=${point}&output=embed`
+
+frame.src=`https://maps.google.com/maps?q=${point}&output=embed`
 }
 
 </script>
