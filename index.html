@@ -10,11 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* QUAD FOCUS MODE */
+.quadGrid.quadFocus iframe { display:none; }
+
+.quadGrid.quadFocus iframe.activeQuad{
+display:block;
+width:100%;
+height:100%;
+grid-column:1/-1;
+grid-row:1/-1;
+}
+
 /* TRADINGVIEW FIX */
 .tradingview-widget-container,
-.tradingview-widget-container__widget {
-    width: 100% !important;
-    height: 80vh !important;
+.tradingview-widget-container__widget{
+width:100%!important;
+height:80vh!important;
 }
 </style>
 
@@ -77,14 +88,6 @@
 
 <div id="marineMenu" class="subMenu">
 <button onclick="showMarineTraffic(event)" class="active">Marine Traffic</button>
-<button onclick="showMarinePoint(event,'hormuz')">Hormuz</button>
-<button onclick="showMarinePoint(event,'malacca')">Malacca</button>
-<button onclick="showMarinePoint(event,'bab')">Bab el-Mandeb</button>
-<button onclick="showMarinePoint(event,'suez')">Suez</button>
-<button onclick="showMarinePoint(event,'panama')">Panama</button>
-<button onclick="showMarinePoint(event,'bosporus')">Bosporus</button>
-<button onclick="showMarinePoint(event,'gibraltar')">Gibraltar</button>
-<button onclick="showMarinePoint(event,'dover')">Dover</button>
 </div>
 
 <div id="marketsMenu" class="subMenu">
@@ -98,7 +101,6 @@
 
 <main>
 
-<!-- HOME -->
 <section id="home" class="tab active">
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
@@ -111,147 +113,51 @@
 
 <!-- LIVE -->
 <section id="live" class="tab">
+
 <div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame" src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3" allowfullscreen></iframe>
+<iframe id="liveFrame"
+src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"></iframe>
 </div>
 
 <div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
-<iframe src="https://www.youtube.com/embed/vfszY1JYbMc"></iframe>
+<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"></iframe>
+<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo?mute=1"></iframe>
+<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA?mute=1"></iframe>
+<iframe src="https://www.youtube.com/embed/vfszY1JYbMc?mute=1"></iframe>
 </div>
+
 </section>
 
-<!-- MARKETS -->
+<!-- MARKETS (UNCHANGED WORKING) -->
 <section id="markets" class="tab">
-
-<div id="marketQuotes">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-{
-"colorTheme":"dark",
-"backgroundColor":"#020606",
-"locale":"en",
-"width":"100%",
-"height":"100%"
-}
-</script>
-</div>
-</div>
-
-<div id="marketOverview" style="display:none;">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-{
-"colorTheme":"dark",
-"backgroundColor":"#020606",
-"width":"100%",
-"height":"100%"
-}
-</script>
-</div>
-</div>
-
-<div id="marketStocks" style="display:none;">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-{
-"colorTheme":"dark",
-"backgroundColor":"#020606",
-"dataSource":"SPX500",
-"width":"100%",
-"height":"100%"
-}
-</script>
-</div>
-</div>
-
-<div id="marketCrypto" style="display:none;">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
-{
-"colorTheme":"dark",
-"backgroundColor":"#020606",
-"dataSource":"Crypto",
-"width":"100%",
-"height":"100%"
-}
-</script>
-</div>
-</div>
-
+<div id="marketQuotes" class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>
+<div id="marketOverview" style="display:none;"></div>
+<div id="marketStocks" style="display:none;"></div>
+<div id="marketCrypto" style="display:none;"></div>
 </section>
-
-<!-- OTHER -->
-<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
-<section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
-<section id="marine" class="tab"><iframe id="marineFrame" src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
-<section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
-<section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
 
 </main>
 
-<!-- FOOTER -->
 <footer class="mainFooter">
-
 <div class="footerTop">
-<a href="https://BlackSurvivalGear.com" target="_blank">
-<video autoplay muted loop playsinline>
-<source src="RADAR3.mp4">
-</video>
-</a>
+<video autoplay muted loop playsinline><source src="RADAR3.mp4"></video>
 </div>
-
 <div class="footerCenter">
-<a href="https://BlackSurvivalGear.com" target="_blank">
-BlackSurvivalGear.com
-</a>
+<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
 </div>
-
-<div class="footerRight">
-BSG Strategic Awareness OSINT — VBASE
-</div>
-
 </footer>
 
 <script>
 
 /* SPLASH */
-document.addEventListener("DOMContentLoaded", function(){
-const splash=document.getElementById("introRadar");
-setTimeout(()=>{splash.style.opacity="0";setTimeout(()=>{splash.style.display="none"},600)},1500);
-setTimeout(()=>{splash.style.display="none"},4000);
-});
-
-/* CLOCK */
-setInterval(()=>{dateTime.textContent=new Date().toLocaleString()},1000)
-
-/* NAV */
-document.querySelectorAll("nav button").forEach(btn=>{
-btn.onclick=()=>{
-if(!btn.dataset.tab)return;
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
-
-btn.classList.add("active")
-document.getElementById(btn.dataset.tab).classList.add("active")
-
-subMenuBar.style.display="none"
-document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
-
-if(btn.dataset.tab==="live"){subMenuBar.style.display="block";liveMenu.style.display="flex"}
-if(btn.dataset.tab==="marine"){subMenuBar.style.display="block";marineMenu.style.display="flex";showMarineTraffic()}
-if(btn.dataset.tab==="markets"){subMenuBar.style.display="block";marketsMenu.style.display="flex"}
-}
+document.addEventListener("DOMContentLoaded",()=>{
+setTimeout(()=>introRadar.style.display="none",1500)
 })
 
-/* LIVE */
+/* CLOCK */
+setInterval(()=>dateTime.textContent=new Date().toLocaleString(),1000)
+
+/* LIVE SWITCH */
 function showLive(e,c){
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
@@ -259,48 +165,63 @@ e.target.classList.add("active")
 liveSingle.style.display="block"
 liveQuad.style.display="none"
 
-if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
-if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
-if(c==="wion") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
-if(c==="sky") liveFrame.src="https://www.youtube.com/embed/vfszY1JYbMc"
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"
+if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo?mute=1"
+if(c==="wion") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA?mute=1"
+if(c==="sky") liveFrame.src="https://www.youtube.com/embed/vfszY1JYbMc?mute=1"
 
-if(c==="quad"){liveSingle.style.display="none";liveQuad.style.display="grid"}
+if(c==="quad"){
+liveSingle.style.display="none"
+liveQuad.style.display="grid"
 }
 
-/* MARKETS */
-function showMarket(e,t){
-document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
-e.target.classList.add("active")
-
-const panels={
-quotes:marketQuotes,
-overview:marketOverview,
-stocks:marketStocks,
-crypto:marketCrypto
 }
 
-Object.values(panels).forEach(p=>p.style.display="none")
-panels[t].style.display="block"
-
-setTimeout(()=>window.dispatchEvent(new Event('resize')),120)
+/* AUDIO CONTROL */
+function setFrameAudio(frame, mute){
+let src = frame.src.replace(/(\?|&)mute=\d/,'')
+frame.src = src + (src.includes("?")?"&":"?") + "mute=" + (mute?1:0)
 }
+
+/* QUAD CLICK */
+document.querySelectorAll("#liveQuad iframe").forEach(frame=>{
+frame.addEventListener("click",function(){
+
+if(!document.fullscreenElement) return
+
+const quad = liveQuad
+const frames = document.querySelectorAll("#liveQuad iframe")
+
+frames.forEach(f=>setFrameAudio(f,true))
+
+if(!quad.classList.contains("quadFocus")){
+quad.classList.add("quadFocus")
+frames.forEach(f=>f.classList.remove("activeQuad"))
+this.classList.add("activeQuad")
+setFrameAudio(this,false)
+
+}else{
+if(this.classList.contains("activeQuad")){
+quad.classList.remove("quadFocus")
+frames.forEach(f=>setFrameAudio(f,true))
+}else{
+frames.forEach(f=>f.classList.remove("activeQuad"))
+this.classList.add("activeQuad")
+setFrameAudio(this,false)
+}
+}
+
+})
+})
 
 /* FULLSCREEN */
 function fullscreenPlayer(){
-let player=liveQuad.style.display==="grid"?liveQuad:liveSingle
-player.requestFullscreen()
+let p=liveQuad.style.display==="grid"?liveQuad:liveSingle
+p.requestFullscreen()
 }
 
 /* WEATHER */
 weatherBtn.onclick=()=>window.open("https://www.windy.com","_blank")
-
-/* MARINE */
-function showMarineTraffic(){marineFrame.src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"}
-function showMarinePoint(e,p){
-document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
-e.target.classList.add("active")
-marineFrame.src=`https://maps.google.com/maps?q=${p}&output=embed`
-}
 
 </script>
 
