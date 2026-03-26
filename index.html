@@ -10,17 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* QUAD FOCUS */
-.quadGrid.quadFocus iframe { display:none; }
-.quadGrid.quadFocus iframe.activeQuad{
-display:block;
-width:100%;
-height:100%;
-grid-column:1/-1;
-grid-row:1/-1;
-}
-
-/* TRADINGVIEW FIX */
 .tradingview-widget-container,
 .tradingview-widget-container__widget{
 width:100%!important;
@@ -95,29 +84,37 @@ height:80vh!important;
 
 <main>
 
-<section id="home" class="tab active"></section>
+<!-- HOME -->
+<section id="home" class="tab active">
+<div class="homeHero">
+<img src="hero.png" class="heroImage">
+<div class="heroOverlay">
+<h2>BSG Strategic Awareness Dashboard</h2>
+<p>Integrated OSINT monitoring platform.</p>
+</div>
+</div>
+</section>
 
 <!-- LIVE -->
 <section id="live" class="tab">
-
 <div id="liveSingle" class="livePlayer">
 <iframe id="liveFrame"
-src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"
+src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
 allowfullscreen></iframe>
 </div>
 
 <div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"></iframe>
-<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo?mute=1"></iframe>
-<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA?mute=1"></iframe>
-<iframe src="https://www.youtube.com/embed/vfszY1JYbMc?mute=1"></iframe>
+<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
+<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
+<iframe src="https://www.youtube.com/embed/vfszY1JYbMc"></iframe>
 </div>
-
 </section>
 
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
+<!-- OVERVIEW -->
 <div id="marketOverview">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -132,6 +129,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 
+<!-- STOCK -->
 <div id="marketStocks" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -147,6 +145,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 
+<!-- CRYPTO -->
 <div id="marketCrypto" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -172,22 +171,28 @@ allowfullscreen></iframe>
 
 </main>
 
+<!-- FOOTER -->
+<footer class="mainFooter">
+<div class="footerTop">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</div>
+<div class="footerCenter">
+<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
+</div>
+</footer>
+
 <script>
 
-/* SPLASH — HARD FIX */
-(function(){
-function killSplash(){
-    const splash = document.getElementById("introRadar");
-    if(!splash) return;
-    splash.style.opacity="0";
-    setTimeout(()=>{splash.style.display="none"},600);
-}
-window.addEventListener("load",()=>{setTimeout(killSplash,1500)});
+/* SPLASH (ORIGINAL WORKING) */
+document.addEventListener("DOMContentLoaded", function(){
+const splash=document.getElementById("introRadar");
 setTimeout(()=>{
-    const splash=document.getElementById("introRadar");
-    if(splash) splash.style.display="none";
-},5000);
-})();
+splash.style.opacity="0";
+setTimeout(()=>{splash.style.display="none"},600);
+},1500);
+});
 
 /* CLOCK */
 setInterval(()=>{
@@ -195,12 +200,8 @@ document.getElementById("dateTime").textContent=new Date().toLocaleString()
 },1000)
 
 /* NAV */
-const subMenuBar=document.getElementById("subMenuBar");
-const liveMenu=document.getElementById("liveMenu");
-const marketsMenu=document.getElementById("marketsMenu");
-
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.onclick=()=>{
+btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
@@ -209,7 +210,7 @@ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 btn.classList.add("active")
 document.getElementById(btn.dataset.tab).classList.add("active")
 
-subMenuBar.style.display="none"
+document.getElementById("subMenuBar").style.display="none"
 document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
 if(btn.dataset.tab==="live"){
@@ -220,14 +221,10 @@ if(btn.dataset.tab==="markets"){
 subMenuBar.style.display="block"
 marketsMenu.style.display="flex"
 }
-}
-})
+});
+});
 
 /* LIVE */
-const liveSingle=document.getElementById("liveSingle");
-const liveQuad=document.getElementById("liveQuad");
-const liveFrame=document.getElementById("liveFrame");
-
 function showLive(e,c){
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
@@ -235,10 +232,10 @@ e.target.classList.add("active")
 liveSingle.style.display="block"
 liveQuad.style.display="none"
 
-if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3&mute=1"
-if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo?mute=1"
-if(c==="wion") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA?mute=1"
-if(c==="sky") liveFrame.src="https://www.youtube.com/embed/vfszY1JYbMc?mute=1"
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(c==="wion") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(c==="sky") liveFrame.src="https://www.youtube.com/embed/vfszY1JYbMc"
 
 if(c==="quad"){
 liveSingle.style.display="none"
@@ -255,8 +252,6 @@ e.target.classList.add("active")
 .forEach(id=>document.getElementById(id).style.display="none")
 
 document.getElementById("market"+t.charAt(0).toUpperCase()+t.slice(1)).style.display="block"
-
-setTimeout(()=>window.dispatchEvent(new Event('resize')),120)
 }
 
 /* FULLSCREEN */
