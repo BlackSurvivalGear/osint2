@@ -102,7 +102,7 @@
 <!-- LIVE -->
 <section id="live" class="tab">
 <div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame" src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
+<iframe id="liveFrame" src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3" allowfullscreen></iframe>
 </div>
 
 <div id="liveQuad" class="quadGrid">
@@ -116,16 +116,45 @@
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
+<!-- QUOTES -->
 <div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async></script>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+{
+"colorTheme":"dark",
+"locale":"en",
+"backgroundColor":"#020606",
+"width":"100%",
+"height":550
+}
+</script>
 </div>
 </div>
 
-<div id="marketOverview" style="display:none;"></div>
-<div id="marketStocks" style="display:none;"></div>
-<div id="marketCrypto" style="display:none;"></div>
+<!-- OVERVIEW -->
+<div id="marketOverview" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async></script>
+</div>
+</div>
+
+<!-- STOCK -->
+<div id="marketStocks" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async></script>
+</div>
+</div>
+
+<!-- CRYPTO -->
+<div id="marketCrypto" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async></script>
+</div>
+</div>
 
 </section>
 
@@ -138,33 +167,41 @@
 
 </main>
 
+<!-- FOOTER -->
 <footer class="mainFooter">
-<div class="footerCenter">
-<a href="https://BlackSurvivalGear.com" target="_blank">BlackSurvivalGear.com</a>
+
+<div class="footerTop">
+<a href="https://BlackSurvivalGear.com" target="_blank">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</a>
 </div>
-<div class="footerRight">BSG OSINT — VBASE</div>
+
+<div class="footerCenter">
+<a href="https://BlackSurvivalGear.com" target="_blank">
+BlackSurvivalGear.com
+</a>
+</div>
+
+<div class="footerRight">
+BSG Strategic Awareness OSINT — VBASE
+</div>
+
 </footer>
 
 <script>
 
-/* SPLASH — FIXED */
+/* SPLASH */
 document.addEventListener("DOMContentLoaded", function(){
-
 const splash = document.getElementById("introRadar");
 
-// Fail-safe kill
-setTimeout(()=>{
-    splash.style.display="none"
-},4000);
-
-// Fade out
 setTimeout(()=>{
     splash.style.opacity="0";
-    setTimeout(()=>{
-        splash.style.display="none"
-    },600);
+    setTimeout(()=>{ splash.style.display="none"; },600);
 },1500);
 
+setTimeout(()=>{ splash.style.display="none"; },4000);
 });
 
 /* CLOCK */
@@ -174,7 +211,7 @@ document.getElementById("dateTime").textContent=new Date().toLocaleString()
 
 /* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.onclick=()=>{
+btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
@@ -190,31 +227,52 @@ if(btn.dataset.tab==="live"){
 subMenuBar.style.display="block"
 liveMenu.style.display="flex"
 }
+
 if(btn.dataset.tab==="marine"){
 subMenuBar.style.display="block"
 marineMenu.style.display="flex"
+showMarineTraffic()
 }
+
 if(btn.dataset.tab==="markets"){
 subMenuBar.style.display="block"
 marketsMenu.style.display="flex"
 }
+});
+});
+
+/* LIVE */
+function showLive(event,channel){
+
+const frame=document.getElementById("liveFrame")
+
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
+event.target.classList.add("active")
+
+document.getElementById("liveSingle").style.display="block"
+document.getElementById("liveQuad").style.display="none"
+
+if(channel==="rt") frame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(channel==="aj") frame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(channel==="wion") frame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(channel==="sky") frame.src="https://www.youtube.com/embed/vfszY1JYbMc"
+
+if(channel==="quad"){
+document.getElementById("liveSingle").style.display="none"
+document.getElementById("liveQuad").style.display="grid"
 }
-})
+
+}
 
 /* MARKETS */
 function showMarket(e,t){
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
-const panels={
-quotes:marketQuotes,
-overview:marketOverview,
-stocks:marketStocks,
-crypto:marketCrypto
-}
+["marketQuotes","marketOverview","marketStocks","marketCrypto"]
+.forEach(id=>document.getElementById(id).style.display="none")
 
-Object.values(panels).forEach(p=>p.style.display="none")
-panels[t].style.display="block"
+document.getElementById("market"+t.charAt(0).toUpperCase()+t.slice(1)).style.display="block"
 
 setTimeout(()=>window.dispatchEvent(new Event('resize')),100)
 }
@@ -227,30 +285,23 @@ player.requestFullscreen()
 }
 
 /* WEATHER */
-weatherBtn.onclick=()=>{
+document.getElementById("weatherBtn").onclick=()=>{
 window.open("https://www.windy.com","_blank","noopener,noreferrer")
 }
 
-/* LIVE */
-function showLive(e,c){
-document.getElementById("liveSingle").style.display="block"
-document.getElementById("liveQuad").style.display="none"
-
-if(c==="quad"){
-liveSingle.style.display="none"
-liveQuad.style.display="grid"
-}
-}
-
 /* MARINE */
-function showMarineTraffic(){
-document.getElementById("marineFrame").src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
+function showMarineTraffic(event){
+const frame=document.getElementById("marineFrame")
+document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
+if(event) event.target.classList.add("active")
+frame.src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"
 }
 
-function showMarinePoint(e,p){
+function showMarinePoint(event,point){
+const frame=document.getElementById("marineFrame")
 document.querySelectorAll("#marineMenu button").forEach(b=>b.classList.remove("active"))
-e.target.classList.add("active")
-document.getElementById("marineFrame").src=`https://maps.google.com/maps?q=${p}&output=embed`
+event.target.classList.add("active")
+frame.src=`https://maps.google.com/maps?q=${point}&output=embed`
 }
 
 </script>
