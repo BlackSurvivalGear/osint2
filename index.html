@@ -116,23 +116,13 @@
 <!-- MARKETS -->
 <section id="markets" class="tab">
 
-<!-- QUOTES -->
 <div id="marketQuotes">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-{
-"colorTheme":"dark",
-"locale":"en",
-"backgroundColor":"#020606",
-"width":"100%",
-"height":550
-}
-</script>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async></script>
 </div>
 </div>
 
-<!-- OVERVIEW -->
 <div id="marketOverview" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -140,7 +130,6 @@
 </div>
 </div>
 
-<!-- STOCK -->
 <div id="marketStocks" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -148,7 +137,6 @@
 </div>
 </div>
 
-<!-- CRYPTO -->
 <div id="marketCrypto" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -264,17 +252,31 @@ document.getElementById("liveQuad").style.display="grid"
 
 }
 
-/* MARKETS */
+/* MARKETS — FIXED ONLY */
 function showMarket(e,t){
+
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
-["marketQuotes","marketOverview","marketStocks","marketCrypto"]
-.forEach(id=>document.getElementById(id).style.display="none")
+const panels = {
+quotes: document.getElementById("marketQuotes"),
+overview: document.getElementById("marketOverview"),
+stocks: document.getElementById("marketStocks"),
+crypto: document.getElementById("marketCrypto")
+}
 
-document.getElementById("market"+t.charAt(0).toUpperCase()+t.slice(1)).style.display="block"
+Object.values(panels).forEach(p=>{
+if(p) p.style.display="none"
+})
 
-setTimeout(()=>window.dispatchEvent(new Event('resize')),100)
+if(panels[t]){
+panels[t].style.display="block"
+}
+
+setTimeout(()=>{
+window.dispatchEvent(new Event('resize'))
+},120)
+
 }
 
 /* FULLSCREEN */
