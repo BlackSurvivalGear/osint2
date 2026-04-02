@@ -106,6 +106,29 @@ height:80vh!important;
 </div>
 </section>
 
+<!-- LIVE -->
+<section id="live" class="tab">
+<div id="liveSingle" class="livePlayer">
+<iframe id="liveFrame"
+src="https://www.youtube.com/embed/gCNeDWCI0vo"
+allowfullscreen></iframe>
+</div>
+
+<div id="liveQuad" class="quadGrid">
+<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
+<iframe src="https://www.youtube.com/embed/E8PRZmDUiPw"></iframe>
+<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+<iframe src="https://www.youtube.com/embed/h9SRBxdqNcs"></iframe>
+</div>
+
+<div id="africaQuad" class="quadGrid" style="display:none;">
+<iframe src="https://www.youtube.com/embed/live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA"></iframe>
+<iframe src="https://www.youtube.com/embed/E8PRZmDUiPw"></iframe>
+<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
+<iframe src="https://www.youtube.com/embed/live_stream?channel=UCylg6Jw0ZpV9n8l8X3Ykz9A"></iframe>
+</div>
+</section>
+
 <!-- AFRICA TAB -->
 <section id="africa" class="tab">
 
@@ -135,6 +158,13 @@ z-index:0;
 
 #africa * { position:relative; z-index:1; }
 
+#africa .title {
+font-size:32px;
+font-weight:bold;
+margin-bottom:20px;
+text-align:center;
+}
+
 #africa #news-widget {
 width:80%;
 max-width:900px;
@@ -144,7 +174,53 @@ background-color:rgba(0,0,0,0.8);
 border-radius:10px;
 backdrop-filter:blur(5px);
 }
+
+#africa .button-row {
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+margin-bottom:10px;
+}
+
+#africa button {
+margin:5px;
+padding:10px;
+font-weight:bold;
+cursor:pointer;
+border:none;
+border-radius:5px;
+background:#fff;
+color:#000;
+}
+
+#africa .country-row button {
+background:#333;
+color:#fff;
+}
+
+#africa .news-row button {
+background:#006400;
+color:#fff;
+}
+
+#africa .country-row, 
+#africa .news-row {
+display:none;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+#africa .active {
+display:flex;
+}
+
+#africa .footer {
+margin-top:20px;
+font-weight:bold;
+}
 </style>
+
+
 
 <div id="news-widget">
 <div class="button-row">
@@ -158,6 +234,7 @@ backdrop-filter:blur(5px);
 <div class="country-row" id="country-buttons"></div>
 <div class="news-row" id="news-links"></div>
 </div>
+
 
 <script>
 const africaData = {
@@ -279,16 +356,48 @@ n.classList.add('active');
 }
 </script>
 
-
 </section>
 
-</main>
+<!-- MARKETS -->
+<section id="markets" class="tab">
+<div id="marketOverview">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+{"colorTheme":"dark","backgroundColor":"#020606","width":"100%","height":"100%"}
+</script>
+</div>
+</div>
 
-<!-- GLOBAL TITLE -->
+<div id="marketStocks" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+{"colorTheme":"dark","backgroundColor":"#020606","dataSource":"SPX500","width":"100%","height":"100%"}
+</script>
+</div>
+</div>
+
+<div id="marketCrypto" style="display:none;">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+{"colorTheme":"dark","backgroundColor":"#020606","dataSource":"Crypto","width":"100%","height":"100%"}
+</script>
+</div>
+</div>
+</section>
+
+<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
+<section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
+<section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
+<section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
+<section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
+
+</main>
 <div style="text-align:center; padding:15px; font-weight:bold; background:#000;">
 BSG: Pan African News
 </div>
-
 <footer class="mainFooter">
 <div class="footerTop">
 <video autoplay muted loop playsinline>
@@ -315,6 +424,87 @@ setTimeout(()=>{splash.style.display="none"},600);
 setInterval(()=>{
 document.getElementById("dateTime").textContent=new Date().toLocaleString()
 },1000)
+
+/* NAV */
+document.querySelectorAll("nav button").forEach(btn=>{
+btn.addEventListener("click", ()=>{
+if(!btn.dataset.tab) return;
+
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
+
+btn.classList.add("active")
+document.getElementById(btn.dataset.tab).classList.add("active")
+
+document.getElementById("subMenuBar").style.display="none"
+document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
+
+if(btn.dataset.tab==="live"){
+subMenuBar.style.display="block"
+liveMenu.style.display="flex"
+}
+else if(btn.dataset.tab==="markets"){
+subMenuBar.style.display="block"
+marketsMenu.style.display="flex"
+}
+});
+});
+
+/* LIVE */
+function showLive(e,c){
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+
+liveSingle.style.display="block"
+liveQuad.style.display="none"
+africaQuad.style.display="none"
+
+if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(c==="arise") liveFrame.src="https://www.youtube.com/embed/E8PRZmDUiPw"
+if(c==="channels") liveFrame.src="https://www.youtube.com/embed/W8nThq62Vb4"
+if(c==="africanews") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA"
+if(c==="newscentral") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UCylg6Jw0ZpV9n8l8X3Ykz9A"
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(c==="sky") liveFrame.src="https://www.youtube.com/embed/9Auq9mYxFEE"
+if(c==="wion") liveFrame.src="https://www.youtube.com/embed/h9SRBxdqNcs"
+
+if(c==="quad"){
+liveSingle.style.display="none"
+liveQuad.style.display="grid"
+}
+
+if(c==="africaQuad"){
+liveSingle.style.display="none"
+africaQuad.style.display="grid"
+}
+}
+
+/* MARKETS */
+function showMarket(e,t){
+document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+
+document.getElementById("marketOverview").style.display="none"
+document.getElementById("marketStocks").style.display="none"
+document.getElementById("marketCrypto").style.display="none"
+
+if(t==="overview") document.getElementById("marketOverview").style.display="block"
+if(t==="stocks") document.getElementById("marketStocks").style.display="block"
+if(t==="crypto") document.getElementById("marketCrypto").style.display="block"
+}
+
+/* FULLSCREEN */
+function fullscreenPlayer(){
+let player=(liveQuad.style.display==="grid")?liveQuad:
+(africaQuad.style.display==="grid")?africaQuad:liveSingle
+player.requestFullscreen()
+}
+
+/* WEATHER */
+document.getElementById("weatherBtn").addEventListener("click", function(e){
+e.stopPropagation();
+window.open("https://www.windy.com/?6.842,26.166,3","_blank");
+});
 
 </script>
 
