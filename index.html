@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,14 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+.tradingview-widget-container,
+.tradingview-widget-container__widget{
+width:100%!important;
+height:80vh!important;
+}
+</style>
 
 </head>
 
@@ -54,20 +63,29 @@
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<!-- SUBMENU -->
+<!-- SUB MENUS -->
 <div id="subMenuBar">
+
 <div id="liveMenu" class="subMenu">
-
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
-<button onclick="showLive(event,'arise')">Arise</button>
-<button onclick="showLive(event,'channels')">Channels</button>
+<button onclick="showLive(event,'arise')">Arise News</button>
+<button onclick="showLive(event,'channels')">Channels TV</button>
 <button onclick="showLive(event,'africanews')">Africanews</button>
+<button onclick="showLive(event,'newscentral')">News Central</button>
 <button onclick="showLive(event,'rt')">RT</button>
-<button onclick="showLive(event,'sky')">Sky</button>
+<button onclick="showLive(event,'sky')">Sky News</button>
 <button onclick="showLive(event,'wion')">WION</button>
-<button onclick="showLive(event,'quad')">Quad</button>
-
+<button onclick="showLive(event,'quad')">Quad View</button>
+<button onclick="showLive(event,'africaQuad')">Africa Quad</button>
+<button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
+
+<div id="marketsMenu" class="subMenu">
+<button onclick="showMarket(event,'overview')" class="active">Overview</button>
+<button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
+<button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
+</div>
+
 </div>
 
 <main>
@@ -78,36 +96,61 @@
 <img src="hero.png" class="heroImage">
 <div class="heroOverlay">
 <h2>BSG Strategic Awareness Dashboard</h2>
-<p>Monitor global events in real time.</p>
+
+<p>Situational awareness is the foundation of preparedness. Monitor global events in real time — conflicts, markets, cyber threats, and movement across air and sea.</p>
+
+<p>Those who remain informed early gain the advantage to anticipate, adapt, and endure.</p>
+
 <p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
 </section>
 
-<!-- LIVE -->
-<section id="live" class="tab">
-
-<div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame"
-src="https://www.youtube.com/embed/gCNeDWCI0vo"
-allowfullscreen></iframe>
-</div>
-
-<div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-<iframe src="https://www.youtube.com/embed/live_stream?channel=UC0p8r2u4z0lXc7n9KJz6zlw"></iframe>
-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCEXGDNclvmg6RW0vipJYsTQ"></iframe>
-<iframe src="https://www.youtube.com/embed/live_stream?channel=UC_gUM8rL-Lrg6O3adPW9K1g"></iframe>
-</div>
-
-</section>
-
-<!-- AFRICA PANEL -->
+<!-- AFRICA TAB -->
 <section id="africa" class="tab">
+
+<style>
+#africa {
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100%;
+position:relative;
+background-color:#000;
+font-family:Arial, sans-serif;
+color:white;
+}
+
+#africa::before {
+content:'';
+position:absolute;
+top:0; left:0; right:0; bottom:0;
+background-image:url('https://lh3.googleusercontent.com/sitesv/AAzXCkeIqupAEJefue8xiKHNXMvMfj6zbD_FVpYwHZhV5mPciCZsdc-XQAWP4OLoO6ReMZ31IIfxTkqtrRfQreesGaYrc_FsOILTVL9BrKGNzfWWXbidp1i-wz3KJ7uLfvp5zTfAD7a8p_rHbMkBabjZJ0GaqaWvXHuHyglDA1SQDpLc3lHelLSzG1Bw_dmIkeUDGMBdu5geCkf7KzrHpFc_kHooSBamwbu-i7C1=w1280');
+background-size:cover;
+background-position:center;
+opacity:0.3;
+z-index:0;
+}
+
+#africa * { position:relative; z-index:1; }
+
+#africa #news-widget {
+width:80%;
+max-width:900px;
+border:1px solid rgba(255,255,255,0.2);
+padding:20px;
+background-color:rgba(0,0,0,0.8);
+border-radius:10px;
+backdrop-filter:blur(5px);
+}
+</style>
 
 <div id="news-widget">
 <div class="button-row">
+<button onclick="showCountries('North Africa')">North Africa</button>
 <button onclick="showCountries('West Africa')">West Africa</button>
+<button onclick="showCountries('Central Africa')">Central Africa</button>
 <button onclick="showCountries('East Africa')">East Africa</button>
 <button onclick="showCountries('Southern Africa')">Southern Africa</button>
 </div>
@@ -116,38 +159,66 @@ allowfullscreen></iframe>
 <div class="news-row" id="news-links"></div>
 </div>
 
-</section>
+<script>
+const africaData = {
+"West Africa": {
+"Nigeria":[
+"Premium Times","https://www.premiumtimesng.com",
+"Channels TV","https://www.channelstv.com",
+"Punch","https://www.punchng.com",
+"Vanguard","https://www.vanguardngr.com"
+]
+}
+};
 
-<!-- MAPS -->
-<section id="conflict" class="tab">
-<iframe src="https://iran.liveuamap.com"></iframe>
-</section>
+function showCountries(region){
+const c=document.getElementById('country-buttons');
+const n=document.getElementById('news-links');
+c.innerHTML='';
+n.innerHTML='';
 
-<section id="aircraft" class="tab">
-<iframe src="https://globe.adsbexchange.com"></iframe>
-</section>
+Object.keys(africaData[region]).forEach(country=>{
+let b=document.createElement('button');
+b.textContent=country;
+b.onclick=()=>showNews(region,country);
+c.appendChild(b);
+});
 
-<section id="marine" class="tab">
-<iframe src="https://www.marinetraffic.com"></iframe>
-</section>
+c.classList.add('active');
+n.classList.remove('active');
+}
 
-<section id="cyber" class="tab">
-<iframe src="https://threatmap.checkpoint.com"></iframe>
-</section>
+function showNews(region,country){
+const n=document.getElementById('news-links');
+n.innerHTML='';
 
-<section id="radio" class="tab">
-<iframe src="https://radio.garden"></iframe>
+let links=africaData[region][country];
+
+for(let i=0;i<links.length;i+=2){
+let b=document.createElement('button');
+b.innerHTML=`<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
+n.appendChild(b);
+}
+
+n.classList.add('active');
+}
+</script>
+
 </section>
 
 </main>
 
-<!-- GLOBAL BAR -->
-<div id="globalAfricaBar">
+<!-- GLOBAL TITLE -->
+<div style="text-align:center; padding:15px; font-weight:bold; background:#000;">
 BSG: Pan African News
 </div>
 
-<!-- FOOTER -->
 <footer class="mainFooter">
+<div class="footerTop">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</div>
 <div class="footerCenter">
 <a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
 </div>
@@ -155,82 +226,19 @@ BSG: Pan African News
 
 <script>
 
+/* SPLASH */
+document.addEventListener("DOMContentLoaded", function(){
+const splash=document.getElementById("introRadar");
+setTimeout(()=>{
+splash.style.opacity="0";
+setTimeout(()=>{splash.style.display="none"},600);
+},1500);
+});
+
 /* CLOCK */
 setInterval(()=>{
-dateTime.textContent=new Date().toLocaleString()
+document.getElementById("dateTime").textContent=new Date().toLocaleString()
 },1000)
-
-/* NAV */
-document.querySelectorAll("nav button").forEach(btn=>{
-btn.onclick=()=>{
-if(!btn.dataset.tab) return;
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-btn.classList.add("active")
-document.getElementById(btn.dataset.tab).classList.add("active")
-
-subMenuBar.style.display = btn.dataset.tab==="live" ? "block":"none"
-liveMenu.style.display = btn.dataset.tab==="live" ? "flex":"none"
-}
-})
-
-/* LIVE */
-function showLive(e,c){
-document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
-e.target.classList.add("active")
-
-liveSingle.style.display="block"
-liveQuad.style.display="none"
-
-if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
-if(c==="arise") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UC0p8r2u4z0lXc7n9KJz6zlw"
-if(c==="channels") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UCEXGDNclvmg6RW0vipJYsTQ"
-if(c==="africanews") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA"
-if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
-if(c==="sky") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UCoMdktPbSTixAyNGwb-UYkQ"
-if(c==="wion") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UC_gUM8rL-Lrg6O3adPW9K1g"
-
-if(c==="quad"){
-liveSingle.style.display="none"
-liveQuad.style.display="grid"
-}
-}
-
-/* AFRICA DATA */
-const africaData={
-"West Africa":{
-"Nigeria":["Vanguard","https://www.vanguardngr.com","Punch","https://www.punchng.com"],
-"Ghana":["Graphic","https://graphic.com.gh"]
-},
-"East Africa":{
-"Kenya":["Nation","https://nation.africa"]
-},
-"Southern Africa":{
-"South Africa":["News24","https://www.news24.com"]
-}
-};
-
-function showCountries(region){
-country-buttons.innerHTML="";
-Object.keys(africaData[region]).forEach(c=>{
-let b=document.createElement("button");
-b.textContent=c;
-b.onclick=()=>showNews(region,c);
-country-buttons.appendChild(b);
-});
-country-buttons.classList.add("active");
-}
-
-function showNews(region,country){
-news-links.innerHTML="";
-let d=africaData[region][country];
-for(let i=0;i<d.length;i+=2){
-let b=document.createElement("button");
-b.innerHTML=`<a href="${d[i+1]}" target="_blank">${d[i]}</a>`;
-news-links.appendChild(b);
-}
-news-links.classList.add("active");
-}
 
 </script>
 
