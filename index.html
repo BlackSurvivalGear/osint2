@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,19 +60,19 @@ height:80vh!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<!-- SUB MENU -->
+<!-- SUBMENU -->
 <div id="subMenuBar">
 
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
-<button onclick="showLive(event,'arise')">Arise News</button>
+<button onclick="showLive(event,'arise')">Arise</button>
 <button onclick="showLive(event,'africanews')">Africa News</button>
-<button onclick="showLive(event,'channels')">ChannelsTV</button>
+<button onclick="showLive(event,'channels')">Channels</button>
 <button onclick="showLive(event,'cgtn')">CGTN</button>
 <button onclick="showLive(event,'rt')">RT</button>
 <button onclick="showLive(event,'sky')">SKY</button>
 <button onclick="showLive(event,'wion')">WION</button>
-<button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
+<button onclick="showLive(event,'bloomberg')">Bloomberg</button>
 <button onclick="showLive(event,'quad')">News Wall</button>
 <button onclick="showLive(event,'africaQuad')">Africa Wall</button>
 <button onclick="fullscreenPlayer()">Full Screen</button>
@@ -89,6 +88,7 @@ height:80vh!important;
 
 <main>
 
+<!-- HOME -->
 <section id="home" class="tab active">
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
@@ -101,7 +101,9 @@ height:80vh!important;
 </div>
 </section>
 
+<!-- LIVE -->
 <section id="live" class="tab">
+
 <div id="liveSingle" class="livePlayer">
 <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
 </div>
@@ -116,28 +118,36 @@ height:80vh!important;
 </div>
 
 <div id="africaQuad" class="quadGrid" style="display:none;"></div>
+
 </section>
 
+<!-- MARKETS -->
 <section id="markets" class="tab">
 
 <div id="marketOverview">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async></script>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+{ "colorTheme":"dark" }
+</script>
 </div>
 </div>
 
 <div id="marketStocks" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async></script>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+{ "colorTheme":"dark" }
+</script>
 </div>
 </div>
 
 <div id="marketCrypto" style="display:none;">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async></script>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+{ "colorTheme":"dark" }
+</script>
 </div>
 </div>
 
@@ -162,12 +172,19 @@ height:80vh!important;
 </div>
 </footer>
 
+<!-- AFRICA -->
 <div id="africaDrawer">
-<button id="africaToggle">▲ AFRICA INTEL</button>
+<button id="africaToggle">▲ AFRICAN NEWS INTEL</button>
+
 <div id="africaContent">
 <div class="regionButtons">
+<button onclick="showCountries('North Africa')">North</button>
 <button onclick="showCountries('West Africa')">West</button>
+<button onclick="showCountries('Central Africa')">Central</button>
+<button onclick="showCountries('East Africa')">East</button>
+<button onclick="showCountries('Southern Africa')">South</button>
 </div>
+
 <div id="country-buttons"></div>
 <div id="news-links"></div>
 </div>
@@ -178,20 +195,20 @@ height:80vh!important;
 <script>
 
 /* SPLASH */
-document.addEventListener("DOMContentLoaded", function(){
-const splash=document.getElementById("introRadar");
-setTimeout(()=>{splash.style.display="none"},2000);
-});
+setTimeout(()=>{document.getElementById("introRadar").style.display="none"},2000)
 
 /* CLOCK */
-setInterval(()=>{document.getElementById("dateTime").textContent=new Date().toLocaleString()},1000);
+setInterval(()=>{dateTime.textContent=new Date().toLocaleString()},1000)
 
-/* NAV */
+/* NAV FIX */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 btn.classList.add("active")
+
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
 document.getElementById(btn.dataset.tab).classList.add("active")
 
 subMenuBar.style.display="none"
@@ -202,52 +219,53 @@ if(btn.dataset.tab==="markets"){subMenuBar.style.display="block";marketsMenu.sty
 });
 });
 
-/* MARKETS */
+/* MARKET FIX */
 function showMarket(e,t){
 document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
-document.getElementById("marketOverview").style.display="none"
-document.getElementById("marketStocks").style.display="none"
-document.getElementById("marketCrypto").style.display="none"
+marketOverview.style.display="none"
+marketStocks.style.display="none"
+marketCrypto.style.display="none"
 
-if(t==="overview") document.getElementById("marketOverview").style.display="block"
-if(t==="stocks") document.getElementById("marketStocks").style.display="block"
-if(t==="crypto") document.getElementById("marketCrypto").style.display="block"
+if(t==="overview") marketOverview.style.display="block"
+if(t==="stocks") marketStocks.style.display="block"
+if(t==="crypto") marketCrypto.style.display="block"
 }
 
 /* WEATHER */
-document.getElementById("weatherBtn").addEventListener("click", function(e){
-e.preventDefault();
-window.open("https://www.windy.com","_blank");
-});
+weatherBtn.onclick=()=>window.open("https://www.windy.com")
+
+/* FULLSCREEN */
+function fullscreenPlayer(){
+let el = liveSingle;
+if(liveQuad.style.display==="grid") el=liveQuad;
+if(africaQuad.style.display==="grid") el=africaQuad;
+if(el.requestFullscreen) el.requestFullscreen();
+}
 
 /* AFRICA */
+africaToggle.onclick=()=>africaContent.classList.toggle("active")
+
 function showCountries(region){
-const c=document.getElementById('country-buttons');
-c.innerHTML='';
-Object.keys(africaData[region]).forEach(country=>{
+country-buttons.innerHTML='';
+Object.keys(africaData[region]).forEach(c=>{
 let b=document.createElement('button');
-b.textContent=country;
-b.onclick=()=>showNews(region,country);
-c.appendChild(b);
+b.textContent=c;
+b.onclick=()=>showNews(region,c);
+country-buttons.appendChild(b);
 });
 }
 
 function showNews(region,country){
-const n=document.getElementById('news-links');
-n.innerHTML='';
+news-links.innerHTML='';
 let links=africaData[region][country];
 for(let i=0;i<links.length;i+=2){
 let b=document.createElement('button');
 b.innerHTML=`<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
-n.appendChild(b);
+news-links.appendChild(b);
 }
 }
-
-document.getElementById("africaToggle").onclick=function(){
-document.getElementById("africaContent").classList.toggle("active");
-};
 
 </script>
 
