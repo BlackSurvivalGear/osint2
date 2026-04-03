@@ -314,3 +314,28 @@ box-shadow:0 0 8px #00ffaa;
 color:#00ffaa;
 text-decoration:none;
 }
+
+/* AFRICA DRAWER */
+#africaDrawer{
+position:fixed;
+bottom:0;
+width:100%;
+background:#010404;
+border-top:1px solid #00ffaa33;
+z-index:999;
+}
+#africaToggle{
+width:100%;
+padding:8px;
+background:#021212;
+color:#00ffaa;
+border:none;
+cursor:pointer;
+}
+#africaContent{
+display:none;
+padding:10px;
+}
+#africaContent.active{
+display:block;
+}
