@@ -246,14 +246,13 @@ border-top:1px solid #00ffaa33;
 z-index:999;
 }
 
-/* TOGGLE BUTTON */
+/* Toggle button */
 #africaToggle{
 width:100%;
-padding:10px;
+padding:8px;
 background:#021212;
-border:none;
 color:#00ffaa;
-font-weight:bold;
+border:none;
 cursor:pointer;
 transition:.2s;
 }
@@ -263,11 +262,11 @@ background:#00ffaa22;
 box-shadow:0 0 10px #00ffaa;
 }
 
-/* CONTENT PANEL */
+/* Drawer content */
 #africaContent{
 display:none;
 padding:10px;
-max-height:300px;
+max-height:260px;
 overflow-y:auto;
 background:#000;
 }
@@ -276,25 +275,16 @@ background:#000;
 display:block;
 }
 
-/* REGION BUTTONS */
+/* Region buttons */
 .regionButtons{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:8px;
-margin-bottom:10px;
-}
-
-/* COUNTRY + NEWS */
-#country-buttons,
-#news-links{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
 gap:6px;
+margin-bottom:8px;
 }
 
-/* BUTTON STYLE */
+/* Buttons inside drawer */
 #africaDrawer button{
 padding:6px 10px;
 background:#021212;
@@ -309,33 +299,16 @@ background:#00ffaa22;
 box-shadow:0 0 8px #00ffaa;
 }
 
-/* LINKS */
+/* Lists */
+#country-buttons,
+#news-links{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:6px;
+}
+
 #news-links a{
 color:#00ffaa;
 text-decoration:none;
-}
-
-/* AFRICA DRAWER */
-#africaDrawer{
-position:fixed;
-bottom:0;
-width:100%;
-background:#010404;
-border-top:1px solid #00ffaa33;
-z-index:999;
-}
-#africaToggle{
-width:100%;
-padding:8px;
-background:#021212;
-color:#00ffaa;
-border:none;
-cursor:pointer;
-}
-#africaContent{
-display:none;
-padding:10px;
-}
-#africaContent.active{
-display:block;
 }
