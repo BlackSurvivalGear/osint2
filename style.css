@@ -231,3 +231,30 @@ font-size:12px;
 opacity:.6;
 color:#00ffaa;
 }
+
+/* AFRICA BOTTOM BUTTON BAR */
+.africaBottomBar{
+position:absolute;
+bottom:90px; /* sits above footer */
+left:50%;
+transform:translateX(-50%);
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+z-index:2;
+}
+
+.africaBottomBar button{
+padding:10px 16px;
+background:#021212;
+border:1px solid #00ffaa66;
+color:#00ffaa;
+cursor:pointer;
+transition:.25s;
+}
+
+.africaBottomBar button:hover{
+background:#00ffaa22;
+box-shadow:0 0 10px #00ffaa;
+}
