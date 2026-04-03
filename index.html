@@ -88,22 +88,18 @@ height:80vh!important;
 
 <main>
 
-<!-- HOME -->
 <section id="home" class="tab active">
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
 <div class="heroOverlay">
 <h2>BSG Strategic Awareness Dashboard</h2>
 <p>Situational awareness is the foundation of preparedness.</p>
-<p>Monitor global events in real time.</p>
 <p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
 </section>
 
-<!-- LIVE -->
 <section id="live" class="tab">
-
 <div id="liveSingle" class="livePlayer">
 <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
 </div>
@@ -118,17 +114,15 @@ height:80vh!important;
 </div>
 
 <div id="africaQuad" class="quadGrid" style="display:none;"></div>
-
 </section>
 
-<!-- MARKETS -->
 <section id="markets" class="tab">
 
 <div id="marketOverview">
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-{ "colorTheme":"dark" }
+{"colorTheme":"dark"}
 </script>
 </div>
 </div>
@@ -137,7 +131,7 @@ height:80vh!important;
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-{ "colorTheme":"dark" }
+{"colorTheme":"dark"}
 </script>
 </div>
 </div>
@@ -146,7 +140,7 @@ height:80vh!important;
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
-{ "colorTheme":"dark" }
+{"colorTheme":"dark"}
 </script>
 </div>
 </div>
@@ -172,10 +166,8 @@ height:80vh!important;
 </div>
 </footer>
 
-<!-- AFRICA -->
 <div id="africaDrawer">
 <button id="africaToggle">▲ AFRICAN NEWS INTEL</button>
-
 <div id="africaContent">
 <div class="regionButtons">
 <button onclick="showCountries('North Africa')">North</button>
@@ -184,7 +176,6 @@ height:80vh!important;
 <button onclick="showCountries('East Africa')">East</button>
 <button onclick="showCountries('Southern Africa')">South</button>
 </div>
-
 <div id="country-buttons"></div>
 <div id="news-links"></div>
 </div>
@@ -194,58 +185,63 @@ height:80vh!important;
 
 <script>
 
-/* SPLASH */
-setTimeout(()=>{document.getElementById("introRadar").style.display="none"},2000)
+/* SPLASH — WORKING VERSION */
+document.addEventListener("DOMContentLoaded", ()=>{
+const s=document.getElementById("introRadar");
+setTimeout(()=>{s.style.opacity="0"},1500);
+setTimeout(()=>{s.style.display="none"},2200);
+});
+setTimeout(()=>{
+let s=document.getElementById("introRadar");
+if(s) s.style.display="none";
+},4000);
 
 /* CLOCK */
-setInterval(()=>{dateTime.textContent=new Date().toLocaleString()},1000)
+setInterval(()=>dateTime.textContent=new Date().toLocaleString(),1000);
 
-/* NAV FIX */
+/* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
-btn.addEventListener("click", ()=>{
+btn.onclick=()=>{
 if(!btn.dataset.tab) return;
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
 
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
-btn.classList.add("active")
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+document.getElementById(btn.dataset.tab).classList.add("active");
 
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-document.getElementById(btn.dataset.tab).classList.add("active")
-
-subMenuBar.style.display="none"
-document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
+subMenuBar.style.display="none";
+document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none");
 
 if(btn.dataset.tab==="live"){subMenuBar.style.display="block";liveMenu.style.display="flex";}
 if(btn.dataset.tab==="markets"){subMenuBar.style.display="block";marketsMenu.style.display="flex";}
-});
+};
 });
 
-/* MARKET FIX */
+/* MARKET */
 function showMarket(e,t){
-document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"))
-e.target.classList.add("active")
-
-marketOverview.style.display="none"
-marketStocks.style.display="none"
-marketCrypto.style.display="none"
-
-if(t==="overview") marketOverview.style.display="block"
-if(t==="stocks") marketStocks.style.display="block"
-if(t==="crypto") marketCrypto.style.display="block"
+document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"));
+e.target.classList.add("active");
+marketOverview.style.display="none";
+marketStocks.style.display="none";
+marketCrypto.style.display="none";
+if(t==="overview") marketOverview.style.display="block";
+if(t==="stocks") marketStocks.style.display="block";
+if(t==="crypto") marketCrypto.style.display="block";
 }
 
 /* WEATHER */
-weatherBtn.onclick=()=>window.open("https://www.windy.com")
+weatherBtn.onclick=()=>window.open("https://www.windy.com");
 
 /* FULLSCREEN */
 function fullscreenPlayer(){
-let el = liveSingle;
+let el=liveSingle;
 if(liveQuad.style.display==="grid") el=liveQuad;
 if(africaQuad.style.display==="grid") el=africaQuad;
 if(el.requestFullscreen) el.requestFullscreen();
 }
 
 /* AFRICA */
-africaToggle.onclick=()=>africaContent.classList.toggle("active")
+africaToggle.onclick=()=>africaContent.classList.toggle("active");
 
 function showCountries(region){
 country-buttons.innerHTML='';
