@@ -62,7 +62,7 @@ height:80vh!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<!-- SUB MENUS -->
+<!-- SUB MENU -->
 <div id="subMenuBar">
 
 <div id="liveMenu" class="subMenu">
@@ -151,13 +151,9 @@ allowfullscreen></iframe>
 </div>
 </footer>
 
-<!-- ========================= -->
-<!-- AFRICA INTEL DRAWER (SAFE) -->
-<!-- ========================= -->
-
+<!-- AFRICA DRAWER -->
 <div id="africaDrawer">
 <button id="africaToggle">▲ AFRICA INTEL</button>
-
 <div id="africaContent">
 <div class="regionButtons">
 <button onclick="showCountries('North Africa')">North Africa</button>
@@ -166,7 +162,6 @@ allowfullscreen></iframe>
 <button onclick="showCountries('East Africa')">East Africa</button>
 <button onclick="showCountries('Southern Africa')">Southern Africa</button>
 </div>
-
 <div id="country-buttons"></div>
 <div id="news-links"></div>
 </div>
@@ -176,6 +171,22 @@ allowfullscreen></iframe>
 <script src="africaData.js"></script>
 
 <script>
+
+/* SPLASH (FIXED + FAILSAFE) */
+document.addEventListener("DOMContentLoaded", function(){
+const splash=document.getElementById("introRadar");
+if(!splash) return;
+
+setTimeout(()=>{
+splash.style.opacity="0";
+setTimeout(()=>{splash.style.display="none"},600);
+},1500);
+});
+
+setTimeout(()=>{
+let splash=document.getElementById("introRadar");
+if(splash) splash.style.display="none";
+},4000);
 
 /* CLOCK */
 setInterval(()=>{
@@ -193,7 +204,7 @@ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 btn.classList.add("active")
 document.getElementById(btn.dataset.tab).classList.add("active")
 
-document.getElementById("subMenuBar").style.display="none"
+subMenuBar.style.display="none"
 document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
 if(btn.dataset.tab==="live"){
@@ -207,13 +218,40 @@ marketsMenu.style.display="flex"
 });
 });
 
-/* AFRICA FUNCTIONS */
+/* LIVE */
+function showLive(e,c){
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+
+liveSingle.style.display="block"
+liveQuad.style.display="none"
+africaQuad.style.display="none"
+
+if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(c==="arise") liveFrame.src="https://www.youtube.com/embed/E8PRZmDUiPw"
+if(c==="channels") liveFrame.src="https://www.youtube.com/embed/W8nThq62Vb4"
+if(c==="africanews") liveFrame.src="https://www.youtube.com/embed/live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA"
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+if(c==="sky") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(c==="wion") liveFrame.src="https://www.youtube.com/embed/h9SRBxdqNcs"
+if(c==="cgtn") liveFrame.src="https://www.youtube.com/embed/BOy2xDU1LC8"
+if(c==="Bloomberg") liveFrame.src="https://www.youtube.com/embed/iEpJwprxDdk"
+
+if(c==="quad"){
+liveSingle.style.display="none"
+liveQuad.style.display="grid"
+}
+if(c==="africaQuad"){
+liveSingle.style.display="none"
+africaQuad.style.display="grid"
+}
+}
+
+/* AFRICA */
 function showCountries(region){
 const c=document.getElementById('country-buttons');
 const n=document.getElementById('news-links');
-c.innerHTML='';
-n.innerHTML='';
-
+c.innerHTML=''; n.innerHTML='';
 Object.keys(africaData[region]).forEach(country=>{
 let b=document.createElement('button');
 b.textContent=country;
@@ -225,9 +263,7 @@ c.appendChild(b);
 function showNews(region,country){
 const n=document.getElementById('news-links');
 n.innerHTML='';
-
 let links=africaData[region][country];
-
 for(let i=0;i<links.length;i+=2){
 let b=document.createElement('button');
 b.innerHTML=`<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
@@ -235,7 +271,6 @@ n.appendChild(b);
 }
 }
 
-/* TOGGLE */
 document.getElementById("africaToggle").onclick=function(){
 document.getElementById("africaContent").classList.toggle("active");
 };
