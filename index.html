@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
 <meta name="color-scheme" content="dark">
 
 <style>
@@ -17,6 +18,7 @@ width:100%!important;
 height:80vh!important;
 }
 </style>
+
 </head>
 
 <body>
@@ -55,18 +57,17 @@ height:80vh!important;
 <button data-tab="live">LIVE NEWS</button>
 <button data-tab="conflict">CONFLICT MAP</button>
 <button data-tab="markets">Markets</button>
-<button data-tab="tools">Tools</button>
 <button data-tab="aircraft">Aircraft Watch</button>
 <button data-tab="marine">Marine Watch</button>
 <button data-tab="cyber">Cyber Attacks</button>
 <button data-tab="radio">Global Radio</button>
+<button data-tab="intel">INTEL CORE</button>
 <button id="weatherBtn">Weather</button>
 </nav>
 
 <!-- SUB MENU -->
 <div id="subMenuBar">
 
-<!-- LIVE -->
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
 <button onclick="showLive(event,'arise')">Arise News</button>
@@ -82,78 +83,53 @@ height:80vh!important;
 <button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
 
-<!-- CONFLICT (ISR) -->
-<div id="conflictMenu" class="subMenu">
-<button onclick="showConflict('liveuamap')" class="active">LiveUAMap</button>
-<button onclick="showConflict('monitor')">Monitor Situation</button>
-<button onclick="fullscreenConflict()">Full Screen</button>
-</div>
-
-<!-- MARKETS -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'overview')" class="active">Overview</button>
 <button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
 <button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
 </div>
 
-<!-- TOOLS -->
-<div id="toolsMenu" class="subMenu">
-<button onclick="showTool(event,'quickview')" class="active">Quick View</button>
+<div class="marketTicker">
+<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
+<tv-ticker-tape 
+symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT"
+item-size="compact"
+hover-type="performance-grid"
+show-hover
+theme="dark">
+</tv-ticker-tape>
 </div>
 
 </div>
 
 <main>
 
-<!-- HOME -->
 <section id="home" class="tab active">
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
 <div class="heroOverlay">
 <h2>BSG Strategic Awareness Dashboard</h2>
 <p>Situational awareness is the foundation of preparedness.</p>
+<p>Monitor global events in real time.</p>
 <p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
 </section>
 
-<!-- LIVE -->
-<section id="live" class="tab">
-<div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-</div>
+<section id="live" class="tab"> ... </section>
 
-<div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
-<iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
-<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
-<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
-</div>
+<section id="markets" class="tab"> ... </section>
 
-<div id="africaQuad" class="quadGrid" style="display:none;"></div>
-</section>
-
-<!-- CONFLICT -->
-<section id="conflict" class="tab">
-<iframe id="conflictFrame" src="https://iran.liveuamap.com"></iframe>
-</section>
-
-<!-- MARKETS -->
-<section id="markets" class="tab">
-<!-- KEEP YOUR EXISTING MARKETS CODE -->
-</section>
-
-<!-- TOOLS -->
-<section id="tools" class="tab">
-<iframe src="tools/quickview.html" style="width:100%;height:80vh;border:none;"></iframe>
-</section>
-
+<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
 <section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
 <section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
+
+<!-- ✅ INTEL CORE -->
+<section id="intel" class="tab">
+<iframe src="https://www.worldmonitor.app" style="width:100%; height:100vh; border:none;"></iframe>
+</section>
 
 </main>
 
@@ -163,16 +139,15 @@ height:80vh!important;
 <source src="RADAR3.mp4">
 </video>
 </div>
+<div class="footerVersion">BSG OSINT: VBase3</div>
 <div class="footerCenter">
 <a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
 </div>
 </footer>
 
-<script src="africaData.js"></script>
-
 <script>
 
-/* NAV */
+/* NAV FIX FOR INTEL */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
@@ -186,23 +161,16 @@ document.getElementById(btn.dataset.tab).classList.add("active")
 subMenuBar.style.display="none"
 document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
-if(btn.dataset.tab==="live"){subMenuBar.style.display="block";liveMenu.style.display="flex";}
-if(btn.dataset.tab==="markets"){subMenuBar.style.display="block";marketsMenu.style.display="flex";}
-if(btn.dataset.tab==="tools"){subMenuBar.style.display="block";toolsMenu.style.display="flex";}
-if(btn.dataset.tab==="conflict"){subMenuBar.style.display="block";conflictMenu.style.display="flex";}
-});
-});
-
-/* CONFLICT SWITCH */
-function showConflict(type){
-if(type==="liveuamap") conflictFrame.src="https://iran.liveuamap.com";
-if(type==="monitor") conflictFrame.src="https://monitor-the-situation.com/";
+if(btn.dataset.tab==="live"){
+subMenuBar.style.display="block"
+liveMenu.style.display="flex"
 }
-
-/* WEATHER */
-document.getElementById("weatherBtn").onclick=function(){
-window.open("https://www.windy.com","_blank");
-};
+else if(btn.dataset.tab==="markets"){
+subMenuBar.style.display="block"
+marketsMenu.style.display="flex"
+}
+});
+});
 
 </script>
 
