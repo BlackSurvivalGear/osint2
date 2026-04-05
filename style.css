@@ -336,3 +336,10 @@ gap:6px;
 color:#00ffaa;
 text-decoration:none;
 }
+
+/* INTEL CORE */
+#intel iframe{
+width:100%;
+height:100vh;
+border:none;
+}
