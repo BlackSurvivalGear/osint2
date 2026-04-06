@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,109 +8,166 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
+<meta name="color-scheme" content="dark">
+
+<style>
+.tradingview-widget-container,
+.tradingview-widget-container__widget{
+width:100%!important;
+height:80vh!important;
+}
+</style>
+
 </head>
 
 <body>
 
-<!-- SPLASH -->
 <div id="introRadar">
-  <div class="radar-text">BSG OSINT SYSTEM</div>
+<video autoplay muted playsinline>
+<source src="RADAR3.mp4">
+</video>
 </div>
 
-<!-- NAV -->
-<div class="navbar">
-  <button class="tab-btn active" onclick="openTab('live')">LIVE</button>
-  <button class="tab-btn" onclick="openTab('markets')">MARKETS</button>
-  <button class="tab-btn" onclick="openTab('osint')">OSINT</button>
-  <button class="tab-btn" onclick="openTab('tools')">TOOLS</button>
+<header class="mainHeader">
+<div class="headerVideo">
+<video autoplay muted loop playsinline>
+<source src="HEADER3.mp4">
+</video>
 </div>
 
-<!-- LIVE -->
-<div id="live" class="tab-content active">
-  <div class="quad">
-    <iframe src="https://www.aljazeera.com/live/" frameborder="0"></iframe>
-    <iframe src="https://www.rt.com/on-air/" frameborder="0"></iframe>
-    <iframe src="https://www.youtube.com/embed/21X5lGlDOfg" frameborder="0"></iframe>
-    <iframe src="https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YDb3RA" frameborder="0"></iframe>
-  </div>
+<div class="headerContent">
+<div class="headerLeft">
+<div class="radarLogo">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</div>
+<h1>Global Strategic Awareness OSINT</h1>
+</div>
+<div id="dateTime"></div>
+</div>
+</header>
+
+<nav>
+<button data-tab="home" class="active">Home</button>
+<button data-tab="live">LIVE NEWS</button>
+<button data-tab="intelFeed">INTEL FEED</button>
+<button data-tab="conflict">CONFLICT MAP</button>
+<button data-tab="markets">Markets</button>
+<button data-tab="aircraft">Aircraft Watch</button>
+<button data-tab="marine">Marine Watch</button>
+<button data-tab="cyber">Cyber Attacks</button>
+<button data-tab="radio">Global Radio</button>
+<button id="weatherBtn">Weather</button>
+</nav>
+
+<div id="subMenuBar">
+
+<div id="liveMenu" class="subMenu">
+<button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
+<button onclick="showLive(event,'arise')">Arise News</button>
+<button onclick="showLive(event,'africanews')">Africa News</button>
+<button onclick="showLive(event,'channels')">ChannelsTV</button>
+<button onclick="showLive(event,'cgtn')">CGTN</button>
+<button onclick="showLive(event,'rt')">RT</button>
+<button onclick="showLive(event,'sky')">SKY</button>
+<button onclick="showLive(event,'wion')">WION</button>
+<button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
+<button onclick="showLive(event,'quad')">News Wall</button>
+<button onclick="showLive(event,'africaQuad')">Africa Wall</button>
+<button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
 
-<!-- MARKETS -->
-<div id="markets" class="tab-content">
-  <div class="quad">
-    <iframe src="https://s.tradingview.com/embed-widget/market-overview/" frameborder="0"></iframe>
-    <iframe src="https://s.tradingview.com/embed-widget/crypto-screener/" frameborder="0"></iframe>
-    <iframe src="https://s.tradingview.com/embed-widget/forex-cross-rates/" frameborder="0"></iframe>
-    <div class="placeholder">MARKETS PANEL</div>
-  </div>
+<div id="marketsMenu" class="subMenu">
+<button onclick="showMarket(event,'overview')" class="active">Overview</button>
+<button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
+<button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
 </div>
-
-<!-- OSINT -->
-<div id="osint" class="tab-content">
-  <div class="quad">
-    <iframe src="https://liveuamap.com" frameborder="0"></iframe>
-    <iframe src="https://globe.adsbexchange.com" frameborder="0"></iframe>
-    <iframe src="https://www.marinetraffic.com" frameborder="0"></iframe>
-    <iframe src="https://cybermap.kaspersky.com" frameborder="0"></iframe>
-  </div>
-</div>
-
-<!-- TOOLS -->
-<div id="tools" class="tab-content">
-
-  <div class="subnav">
-    <button class="sub-btn active" onclick="openTool('tool1', this)">WorldMonitor</button>
-    <button class="sub-btn" onclick="openTool('tool2', this)">Tool 2</button>
-    <button class="sub-btn" onclick="openTool('tool3', this)">Tool 3</button>
-  </div>
-
-  <!-- :contentReference[oaicite:0]{index=0} -->
-  <div id="tool1" class="tool-panel active">
-  <a href="https://www.worldmonitor.app" target="_blank">
-<button>OPEN INTEL CORE</button>
-</a>
-  </div>
-
-  <div id="tool2" class="tool-panel">
-    <div class="placeholder">TOOL SLOT 2 READY</div>
-  </div>
-
-  <div id="tool3" class="tool-panel">
-    <div class="placeholder">TOOL SLOT 3 READY</div>
-  </div>
 
 </div>
 
-<!-- SCRIPT -->
+<main>
+
+<section id="home" class="tab active">
+<div class="homeHero">
+<img src="hero.png" class="heroImage">
+<div class="heroOverlay">
+<h2>BSG Strategic Awareness Dashboard</h2>
+<p>Monitor global events in real time.</p>
+</div>
+</div>
+</section>
+
+<section id="live" class="tab">
+<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+</section>
+
+<!-- 🔥 INTEL FEED -->
+<section id="intelFeed" class="tab">
+
+<div class="intelGrid">
+
+<div class="intelMap">
+<iframe src="https://iran.liveuamap.com"></iframe>
+</div>
+
+<div class="intelNews">
+<h3>LIVE INTEL FEED</h3>
+<ul id="newsList"></ul>
+</div>
+
+</div>
+
+</section>
+
+<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
+<section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
+<section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
+<section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
+<section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
+
+</main>
+
+<footer class="mainFooter">
+<div class="footerVersion">BSG OSINT: VBase3</div>
+</footer>
+
 <script>
 
-function openTab(tabId) {
-  const tabs = document.querySelectorAll('.tab-content');
-  const buttons = document.querySelectorAll('.tab-btn');
+setInterval(()=>{
+document.getElementById("dateTime").textContent=new Date().toLocaleString()
+},1000)
 
-  tabs.forEach(t => t.classList.remove('active'));
-  buttons.forEach(b => b.classList.remove('active'));
+document.querySelectorAll("nav button").forEach(btn=>{
+btn.addEventListener("click", ()=>{
+if(!btn.dataset.tab) return;
 
-  document.getElementById(tabId).classList.add('active');
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 
-  event.target.classList.add('active');
+btn.classList.add("active")
+document.getElementById(btn.dataset.tab).classList.add("active")
+});
+});
+
+/* LIVE NEWS FEED */
+async function loadNews(){
+const feed="https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/world/rss.xml";
+const res=await fetch(feed);
+const data=await res.json();
+
+const list=document.getElementById("newsList");
+list.innerHTML="";
+
+data.items.slice(0,15).forEach(item=>{
+const li=document.createElement("li");
+li.innerHTML=`<a href="${item.link}" target="_blank">${item.title}</a>`;
+list.appendChild(li);
+});
 }
 
-function openTool(toolId, btn) {
-  const panels = document.querySelectorAll('.tool-panel');
-  const buttons = document.querySelectorAll('.sub-btn');
-
-  panels.forEach(p => p.classList.remove('active'));
-  buttons.forEach(b => b.classList.remove('active'));
-
-  document.getElementById(toolId).classList.add('active');
-  btn.classList.add('active');
-}
-
-/* Splash remove */
-setTimeout(() => {
-  document.getElementById("introRadar").style.display = "none";
-}, 2000);
+loadNews();
 
 </script>
 
