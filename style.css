@@ -1,112 +1,36 @@
-body{
-  margin:0;
-  font-family:'Rajdhani',sans-serif;
-  background:#020606;
-  color:white;
-  overflow:hidden;
+.intelGrid{
+display:grid;
+grid-template-columns: 2fr 1fr;
+height:100vh;
 }
 
-/* SPLASH */
-#introRadar{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
+.intelMap iframe{
+width:100%;
+height:100%;
+border:none;
 }
 
-.radar-text{
-  color:#00ffc8;
-  font-size:30px;
+.intelNews{
+background:#020606;
+padding:10px;
+overflow-y:auto;
+border-left:1px solid #0f3;
 }
 
-/* NAV */
-.navbar{
-  display:flex;
-  background:#000;
-  border-bottom:1px solid rgba(0,255,200,0.2);
+.intelNews h3{
+color:#0f3;
+margin-bottom:10px;
 }
 
-.tab-btn{
-  flex:1;
-  padding:10px;
-  background:none;
-  border:none;
-  color:#00ffc8;
-  cursor:pointer;
+.intelNews li{
+margin-bottom:10px;
+font-size:14px;
+border-bottom:1px solid #0f3;
+padding-bottom:5px;
 }
 
-.tab-btn.active{
-  background:rgba(0,255,200,0.2);
-}
-
-/* TABS */
-.tab-content{
-  display:none;
-  height:calc(100vh - 50px);
-}
-
-.tab-content.active{
-  display:block;
-}
-
-/* QUAD */
-.quad{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:1fr 1fr;
-  height:100%;
-}
-
-.quad iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
-
-/* TOOLS */
-.subnav{
-  display:flex;
-  gap:10px;
-  padding:10px;
-  border-bottom:1px solid rgba(0,255,200,0.2);
-}
-
-.sub-btn{
-  background:none;
-  border:1px solid rgba(0,255,200,0.3);
-  color:#00ffc8;
-  padding:5px 10px;
-  cursor:pointer;
-}
-
-.sub-btn.active{
-  background:rgba(0,255,200,0.2);
-}
-
-.tool-panel{
-  display:none;
-  height:calc(100vh - 100px);
-}
-
-.tool-panel.active{
-  display:block;
-}
-
-.tool-panel iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
-
-/* PLACEHOLDER */
-.placeholder{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100%;
-  color:rgba(255,255,255,0.4);
+.tab iframe{
+width:100%;
+height:100vh;
+border:none;
 }
