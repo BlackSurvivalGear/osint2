@@ -67,111 +67,44 @@ height:80vh!important;
 <!-- SUB MENU -->
 <div id="subMenuBar">
 
-<!-- LIVE MENU -->
+<!-- LIVE -->
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
-<button onclick="showLive(event,'arise')">Arise News</button>
-<button onclick="showLive(event,'africanews')">Africa News</button>
-<button onclick="showLive(event,'channels')">ChannelsTV</button>
-<button onclick="showLive(event,'cgtn')">CGTN</button>
-<button onclick="showLive(event,'rt')">RT</button>
-<button onclick="showLive(event,'sky')">SKY</button>
-<button onclick="showLive(event,'wion')">WION</button>
-<button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
 <button onclick="showLive(event,'quad')">News Wall</button>
-<button onclick="showLive(event,'africaQuad')">Africa Wall</button>
 <button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
 
-<!-- MARKETS MENU -->
+<!-- MARKETS -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'overview')" class="active">Overview</button>
 <button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
 <button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
 </div>
 
-<!-- ✅ NEW CONFLICT MENU -->
+<!-- CONFLICT -->
 <div id="conflictMenu" class="subMenu">
 <button onclick="showConflict(event,'liveuamap')" class="active">Live Map</button>
 <button onclick="showConflict(event,'situation')">Situation</button>
 <button onclick="showConflict(event,'world')">World</button>
 </div>
 
-<!-- TICKER -->
-<div class="marketTicker">
-<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
-<tv-ticker-tape 
-symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT"
-item-size="compact"
-hover-type="performance-grid"
-show-hover
-theme="dark">
-</tv-ticker-tape>
-</div>
-
 </div>
 
 <main>
 
-<!-- HOME -->
-<section id="home" class="tab active">
-<div class="homeHero">
-<img src="hero.png" class="heroImage">
-<div class="heroOverlay">
-<h2>BSG Strategic Awareness Dashboard</h2>
-<p>Situational awareness is the foundation of preparedness.</p>
-<p>Monitor global events in real time.</p>
-<p class="heroTag">Stay informed. Stay ready.</p>
-</div>
-</div>
-</section>
+<section id="home" class="tab active"></section>
 
-<!-- LIVE -->
 <section id="live" class="tab">
-<div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame"
-src="https://www.youtube.com/embed/gCNeDWCI0vo"
-allowfullscreen></iframe>
-</div>
-
-<div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
-<iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
-<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
-<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
-</div>
-
-<div id="africaQuad" class="quadGrid" style="display:none;">
-<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
-<iframe src="https://www.youtube.com/embed/E8PRZmDUiPw"></iframe>
-<iframe src="https://www.youtube.com/embed/NQjabLGdP5g"></iframe>
-<iframe src="https://www.youtube.com/embed/Mv14aabg4mA"></iframe>
-<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-</div>
+<iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
 </section>
 
-<!-- MARKETS -->
 <section id="markets" class="tab">
 <div id="marketOverview" class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async></script>
 </div>
-
-<div id="marketStocks" style="display:none;" class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async></script>
-</div>
-
-<div id="marketCrypto" style="display:none;" class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async></script>
-</div>
 </section>
 
-<!-- ✅ UPDATED CONFLICT -->
 <section id="conflict" class="tab">
 <iframe id="conflictFrame" src="https://iran.liveuamap.com"></iframe>
 </section>
@@ -183,19 +116,35 @@ allowfullscreen></iframe>
 
 </main>
 
-<footer class="mainFooter">
-<div class="footerTop">
-<video autoplay muted loop playsinline>
-<source src="RADAR3.mp4">
-</video>
-</div>
-<div class="footerVersion">BSG OSINT: VBase3</div>
-<div class="footerCenter">
-<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
-</div>
-</footer>
-
 <script>
+
+/* ========================= */
+/* SPLASH HARD FIX */
+/* ========================= */
+
+window.addEventListener("load", function(){
+
+const splash = document.getElementById("introRadar");
+
+if(!splash) return;
+
+setTimeout(()=>{
+splash.style.opacity="0";
+splash.style.pointerEvents="none";
+
+setTimeout(()=>{
+if(splash) splash.remove();
+},600);
+
+},1500);
+
+/* failsafe */
+setTimeout(()=>{
+const s=document.getElementById("introRadar");
+if(s) s.remove();
+},4000);
+
+});
 
 /* CLOCK */
 setInterval(()=>{
@@ -236,15 +185,9 @@ function showConflict(e,type){
 document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
-if(type==="liveuamap"){
-conflictFrame.src="https://iran.liveuamap.com"
-}
-if(type==="situation"){
-conflictFrame.src="https://monitor-the-situation.com/"
-}
-if(type==="world"){
-conflictFrame.src="https://www.worldmonitor.app/?hl=en-GB"
-}
+if(type==="liveuamap") conflictFrame.src="https://iran.liveuamap.com"
+if(type==="situation") conflictFrame.src="https://monitor-the-situation.com/"
+if(type==="world") conflictFrame.src="https://www.worldmonitor.app/?hl=en-GB"
 }
 
 </script>
