@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSG Strategic Awareness OSINT</title>
+    <title>BSG Strategic Awareness OSINT - VBase4</title>
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
         .tradingview-widget-container,
         .tradingview-widget-container__widget {
             width: 100% !important;
-            height: 80vh !important;
+            height: 100% !important;
         }
     </style>
 </head>
@@ -78,8 +78,8 @@
         </div>
 
         <div id="conflictMenu" class="subMenu">
-            <a href="https://monitor-the-situation.com/" target="_blank" rel="noopener noreferrer" class="subLinkBtn">Situation</a>
-            <a href="https://www.worldmonitor.app/" target="_blank" rel="noopener noreferrer" class="subLinkBtn">World</a>
+            <a href="https://monitor-the-situation.com/" target="_blank" rel="noopener noreferrer" class="subMenuLink">Situation</a>
+            <a href="https://www.worldmonitor.app/" target="_blank" rel="noopener noreferrer" class="subMenuLink">World</a>
         </div>
 
         <div id="marketsMenu" class="subMenu">
@@ -139,20 +139,27 @@
 
         <section id="markets" class="tab">
             <div id="marketOverview">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                        {
-                            "colorTheme": "dark",
-                            "dateRange": "12M",
-                            "showChart": true,
-                            "locale": "en",
-                            "isTransparent": false,
-                            "showSymbolLogo": true,
-                            "width": "100%",
-                            "height": "100%"
-                        }
-                    </script>
+                <div class="marketSplitLayout">
+                    <div class="marketWidgetSide">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                                {
+                                    "colorTheme": "dark",
+                                    "dateRange": "12M",
+                                    "showChart": true,
+                                    "locale": "en",
+                                    "isTransparent": false,
+                                    "showSymbolLogo": true,
+                                    "width": "100%",
+                                    "height": "100%"
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="marketVideoSide">
+                        <iframe src="https://www.youtube.com/embed/iEpJwprxDdk" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
 
@@ -201,7 +208,7 @@
                 <source src="RADAR3.mp4">
             </video>
         </div>
-        <div class="footerVersion">BSG OSINT: VBase3</div>
+        <div class="footerVersion">BSG OSINT: VBase4</div>
         <div class="footerCenter">
             <a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
         </div>
@@ -231,7 +238,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             const splash = document.getElementById("introRadar");
             if (!splash) return;
-
             setTimeout(() => {
                 splash.style.opacity = "0";
                 setTimeout(() => {
@@ -239,11 +245,6 @@
                 }, 600);
             }, 1500);
         });
-
-        setTimeout(() => {
-            let splash = document.getElementById("introRadar");
-            if (splash) splash.style.display = "none";
-        }, 4000);
 
         /* CLOCK */
         setInterval(() => {
@@ -254,25 +255,24 @@
         document.querySelectorAll("nav button").forEach(btn => {
             btn.addEventListener("click", () => {
                 if (!btn.dataset.tab) return;
-
                 document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"))
                 document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"))
-
                 btn.classList.add("active")
                 document.getElementById(btn.dataset.tab).classList.add("active")
 
+                const subMenuBar = document.getElementById("subMenuBar");
                 subMenuBar.style.display = "none"
                 document.querySelectorAll(".subMenu").forEach(m => m.style.display = "none")
 
                 if (btn.dataset.tab === "live") {
                     subMenuBar.style.display = "block"
-                    liveMenu.style.display = "flex"
+                    document.getElementById("liveMenu").style.display = "flex"
                 } else if (btn.dataset.tab === "conflict") {
                     subMenuBar.style.display = "block"
-                    conflictMenu.style.display = "flex"
+                    document.getElementById("conflictMenu").style.display = "flex"
                 } else if (btn.dataset.tab === "markets") {
                     subMenuBar.style.display = "block"
-                    marketsMenu.style.display = "flex"
+                    document.getElementById("marketsMenu").style.display = "flex"
                 }
             });
         });
@@ -281,11 +281,9 @@
         function showMarket(e, t) {
             document.querySelectorAll("#marketsMenu button").forEach(b => b.classList.remove("active"))
             e.target.classList.add("active")
-
             document.getElementById("marketOverview").style.display = "none"
             document.getElementById("marketStocks").style.display = "none"
             document.getElementById("marketCrypto").style.display = "none"
-
             if (t === "overview") document.getElementById("marketOverview").style.display = "block"
             if (t === "stocks") document.getElementById("marketStocks").style.display = "block"
             if (t === "crypto") document.getElementById("marketCrypto").style.display = "block"
@@ -296,19 +294,14 @@
             window.open("https://www.windy.com", "_blank");
         };
 
-        /* FULLSCREEN */
-        function fullscreenPlayer() {
-            let el = liveSingle;
-            if (liveQuad.style.display === "grid") el = liveQuad;
-            if (africaQuad.style.display === "grid") el = africaQuad;
-
-            if (el.requestFullscreen) el.requestFullscreen();
-        }
-
-        /* LIVE */
+        /* LIVE NEWS */
         function showLive(e, c) {
             document.querySelectorAll("#liveMenu button").forEach(b => b.classList.remove("active"))
             e.target.classList.add("active")
+            const liveSingle = document.getElementById("liveSingle");
+            const liveQuad = document.getElementById("liveQuad");
+            const africaQuad = document.getElementById("africaQuad");
+            const liveFrame = document.getElementById("liveFrame");
 
             liveSingle.style.display = "block"
             liveQuad.style.display = "none"
@@ -324,22 +317,23 @@
             if (c === "cgtn") liveFrame.src = "https://www.youtube.com/embed/BOy2xDU1LC8"
             if (c === "Bloomberg") liveFrame.src = "https://www.youtube.com/embed/iEpJwprxDdk"
 
-            if (c === "quad") {
-                liveSingle.style.display = "none"
-                liveQuad.style.display = "grid"
-            }
-            if (c === "africaQuad") {
-                liveSingle.style.display = "none"
-                africaQuad.style.display = "grid"
-            }
+            if (c === "quad") { liveSingle.style.display = "none"; liveQuad.style.display = "grid"; }
+            if (c === "africaQuad") { liveSingle.style.display = "none"; africaQuad.style.display = "grid"; }
         }
 
-        /* AFRICA */
+        /* FULLSCREEN */
+        function fullscreenPlayer() {
+            let el = document.getElementById("liveSingle");
+            if (document.getElementById("liveQuad").style.display === "grid") el = document.getElementById("liveQuad");
+            if (document.getElementById("africaQuad").style.display === "grid") el = document.getElementById("africaQuad");
+            if (el.requestFullscreen) el.requestFullscreen();
+        }
+
+        /* AFRICA DRAWER */
         function showCountries(region) {
             const c = document.getElementById('country-buttons');
             const n = document.getElementById('news-links');
-            c.innerHTML = '';
-            n.innerHTML = '';
+            c.innerHTML = ''; n.innerHTML = '';
             Object.keys(africaData[region]).forEach(country => {
                 let b = document.createElement('button');
                 b.textContent = country;
@@ -347,7 +341,6 @@
                 c.appendChild(b);
             });
         }
-
         function showNews(region, country) {
             const n = document.getElementById('news-links');
             n.innerHTML = '';
@@ -358,12 +351,10 @@
                 n.appendChild(b);
             }
         }
-
         document.getElementById("africaToggle").onclick = function() {
             document.getElementById("africaContent").classList.toggle("active");
         };
     </script>
-
 </body>
 
 </html>
