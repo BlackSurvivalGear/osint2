@@ -67,10 +67,9 @@ height:80vh!important;
 <!-- SUB MENU -->
 <div id="subMenuBar">
 
-<!-- LIVE -->
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
-<button onclick="showLive(event,'arise')">Arise News</button>
+<button onclick="showLive(event,'arise')">Arise</button>
 <button onclick="showLive(event,'africanews')">Africa News</button>
 <button onclick="showLive(event,'channels')">ChannelsTV</button>
 <button onclick="showLive(event,'cgtn')">CGTN</button>
@@ -78,18 +77,15 @@ height:80vh!important;
 <button onclick="showLive(event,'sky')">Sky</button>
 <button onclick="showLive(event,'wion')">WION</button>
 <button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
-<button onclick="showLive(event,'quad')">News Wall</button>
 <button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
 
-<!-- MARKETS -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'overview')" class="active">Overview</button>
-<button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
-<button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
+<button onclick="showMarket(event,'stocks')">Stocks</button>
+<button onclick="showMarket(event,'crypto')">Crypto</button>
 </div>
 
-<!-- CONFLICT -->
 <div id="conflictMenu" class="subMenu">
 <button onclick="showConflict(event,'liveuamap')" class="active">Live Map</button>
 <button onclick="showConflict(event,'situation')">Situation</button>
@@ -100,15 +96,15 @@ height:80vh!important;
 
 <main>
 
-<!-- HOME (HERO RESTORED) -->
+<!-- HOME -->
 <section id="home" class="tab active">
 
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
+
 <div class="heroOverlay">
-<h2>BSG Strategic Awareness Dashboard</h2>
+<h2>Global Strategic Awareness OSINT</h2>
 <p>Situational awareness is the foundation of preparedness.</p>
-<p>Monitor global events in real time.</p>
 <p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
@@ -117,10 +113,8 @@ height:80vh!important;
 
 <!-- LIVE -->
 <section id="live" class="tab">
-<div id="liveSingle" class="livePlayer">
-<iframe id="liveFrame"
-src="https://www.youtube.com/embed/gCNeDWCI0vo"
-allowfullscreen></iframe>
+<div class="livePlayer">
+<iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
 </div>
 </section>
 
@@ -151,14 +145,11 @@ allowfullscreen></iframe>
 </video>
 </div>
 <div class="footerVersion">BSG OSINT: VBase3</div>
-<div class="footerCenter">
-<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
-</div>
 </footer>
 
 <script>
 
-/* SPLASH FIX */
+/* SPLASH */
 window.addEventListener("load", function(){
 const splash=document.getElementById("introRadar");
 if(!splash) return;
@@ -194,56 +185,37 @@ document.getElementById(btn.dataset.tab).classList.add("active")
 subMenuBar.style.display="none"
 document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
-if(btn.dataset.tab==="live"){
-subMenuBar.style.display="block"
-liveMenu.style.display="flex"
-}
-else if(btn.dataset.tab==="markets"){
-subMenuBar.style.display="block"
-marketsMenu.style.display="flex"
-}
-else if(btn.dataset.tab==="conflict"){
-subMenuBar.style.display="block"
-conflictMenu.style.display="flex"
-}
+if(btn.dataset.tab==="live"){subMenuBar.style.display="block";liveMenu.style.display="flex";}
+if(btn.dataset.tab==="markets"){subMenuBar.style.display="block";marketsMenu.style.display="flex";}
+if(btn.dataset.tab==="conflict"){subMenuBar.style.display="block";conflictMenu.style.display="flex";}
 });
 });
 
-/* LIVE CHANNEL FIX */
+/* LIVE */
 function showLive(e,c){
-
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
-
-liveSingle.style.display="block"
 
 if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
 if(c==="channels") liveFrame.src="https://www.youtube.com/embed/W8nThq62Vb4"
 if(c==="cgtn") liveFrame.src="https://www.youtube.com/embed/BOy2xDU1LC8"
 if(c==="sky") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
 if(c==="Bloomberg") liveFrame.src="https://www.youtube.com/embed/iEpJwprxDdk"
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
 
 if(c==="arise") window.open("https://www.youtube.com/watch?v=E8PRZmDUiPw","_blank")
 if(c==="wion") window.open("https://www.youtube.com/watch?v=h9SRBxdqNcs","_blank")
 if(c==="africanews") window.open("https://www.youtube.com/@africanews/live","_blank")
-
-if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
 }
 
-/* CONFLICT FIX */
+/* CONFLICT */
 function showConflict(e,type){
 document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
 if(type==="liveuamap") conflictFrame.src="https://iran.liveuamap.com"
-
-if(type==="situation"){
-window.open("https://monitor-the-situation.com/","_blank");
-}
-
-if(type==="world"){
-window.open("https://www.worldmonitor.app/?hl=en-GB","_blank");
-}
+if(type==="situation") window.open("https://monitor-the-situation.com/","_blank")
+if(type==="world") window.open("https://www.worldmonitor.app/?hl=en-GB","_blank")
 }
 
 </script>
