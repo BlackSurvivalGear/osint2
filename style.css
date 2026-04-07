@@ -1,7 +1,6 @@
 /* ========================= */
 /* GLOBAL */
 /* ========================= */
-
 body {
     margin: 0;
     font-family: 'Rajdhani', sans-serif;
@@ -13,7 +12,6 @@ body {
 /* ========================= */
 /* SPLASH */
 /* ========================= */
-
 #introRadar {
     position: fixed;
     top: 0;
@@ -27,21 +25,16 @@ body {
     z-index: 9999;
     transition: opacity .6s ease;
 }
-
-#introRadar video {
-    width: 420px;
-}
+#introRadar video { width: 420px; }
 
 /* ========================= */
 /* HEADER */
 /* ========================= */
-
 .mainHeader {
     position: relative;
     border-bottom: 1px solid #00ffaa33;
     height: 90px;
 }
-
 .headerVideo {
     position: absolute;
     width: 100%;
@@ -49,42 +42,20 @@ body {
     opacity: .15;
     z-index: -1;
 }
-
-.headerVideo video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+.headerVideo video { width: 100%; height: 100%; object-fit: cover; }
 .headerContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px;
 }
-
-.headerLeft {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.radarLogo video {
-    height: 55px;
-}
-
-header h1 {
-    color: #00ffaa;
-}
-
-#dateTime {
-    color: #00ffaa;
-}
+.headerLeft { display: flex; align-items: center; gap: 15px; }
+.radarLogo video { height: 55px; }
+header h1, #dateTime { color: #00ffaa; }
 
 /* ========================= */
 /* NAV */
 /* ========================= */
-
 nav {
     display: flex;
     justify-content: center;
@@ -93,7 +64,6 @@ nav {
     padding: 12px;
     border-bottom: 1px solid #00ffaa33;
 }
-
 nav button {
     padding: 10px 22px;
     background: #021212;
@@ -102,37 +72,20 @@ nav button {
     cursor: pointer;
     transition: .25s;
 }
-
-nav button:hover {
-    background: #00ffaa22;
-    box-shadow: 0 0 12px #00ffaa;
-}
-
-nav button.active {
-    background: #00ffaa33;
-    box-shadow: 0 0 18px #00ffaa;
-}
+nav button:hover { background: #00ffaa22; box-shadow: 0 0 12px #00ffaa; }
+nav button.active { background: #00ffaa33; box-shadow: 0 0 18px #00ffaa; }
 
 /* ========================= */
-/* SUB MENU */
+/* SUB MENU & NEW TAB LINKS */
 /* ========================= */
-
 #subMenuBar {
     background: #020606;
     border-bottom: 1px solid #00ffaa33;
     padding: 6px 20px;
     display: none;
 }
-
-.subMenu {
-    display: none;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.subMenu button,
-.subLinkBtn {
+.subMenu { display: none; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.subMenu button, .subMenuLink {
     padding: 6px 14px;
     background: #021212;
     border: 1px solid #00ffaa66;
@@ -140,33 +93,47 @@ nav button.active {
     cursor: pointer;
     text-decoration: none;
     font-size: 14px;
+    display: inline-block;
 }
-
-.subMenu button:hover,
-.subLinkBtn:hover {
-    background: #00ffaa22;
-    box-shadow: 0 0 10px #00ffaa;
-}
-
-.subMenu button.active {
-    background: #00ffaa33;
-    box-shadow: 0 0 14px #00ffaa;
-}
+.subMenu button:hover, .subMenuLink:hover { background: #00ffaa22; box-shadow: 0 0 10px #00ffaa; }
+.subMenu button.active { background: #00ffaa33; box-shadow: 0 0 14px #00ffaa; }
 
 /* ========================= */
-/* LIVE */
+/* MARKET SPLIT LAYOUT */
 /* ========================= */
-
-.livePlayer iframe {
+.marketSplitLayout {
+    display: flex;
+    gap: 15px;
+    height: 80vh;
     width: 100%;
-    height: 75vh;
-    border: 0;
+}
+.marketWidgetSide {
+    flex: 1.5;
+    height: 100%;
+}
+.marketVideoSide {
+    flex: 1;
+    height: 100%;
+    background: #000;
+    border: 1px solid #00ffaa33;
+}
+.marketVideoSide iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /* ========================= */
-/* QUAD GRID */
+/* PANELS / TABS */
 /* ========================= */
+.tab { display: none; padding: 10px 20px; }
+.tab.active { display: block; }
+section iframe { width: 100%; height: 80vh; border: 0; }
 
+/* ========================= */
+/* LIVE & GRID */
+/* ========================= */
+.livePlayer iframe { width: 100%; height: 75vh; border: 0; }
 .quadGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -175,54 +142,18 @@ nav button.active {
     width: 100%;
     height: 100%;
 }
-
-.quadGrid iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* ========================= */
-/* PANELS */
-/* ========================= */
-
-.tab {
-    display: none;
-    padding: 10px 20px;
-}
-
-.tab.active {
-    display: block;
-}
-
-section iframe {
-    width: 100%;
-    height: 80vh;
-    border: 0;
-}
+.quadGrid iframe { width: 100%; height: 100%; border: none; }
 
 /* ========================= */
 /* HERO */
 /* ========================= */
-
-.homeHero {
-    position: relative;
-    height: 65vh;
-    overflow: hidden;
-}
-
-.heroImage {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+.homeHero { position: relative; height: 65vh; overflow: hidden; }
+.heroImage { position: absolute; width: 100%; height: 100%; object-fit: cover; }
 .heroOverlay {
     position: absolute;
     bottom: 140px;
     left: 40px;
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0,0,0,.6);
     padding: 20px;
     max-width: 500px;
     border-left: 3px solid #00ffaa;
@@ -231,39 +162,13 @@ section iframe {
 /* ========================= */
 /* FOOTER */
 /* ========================= */
-
-.mainFooter {
-    border-top: 1px solid #00ffaa33;
-    padding: 18px 30px;
-    text-align: center;
-    position: relative;
-}
-
-.footerTop {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 6px;
-}
-
-.footerTop video {
-    width: 55px;
-}
-
-.footerCenter {
-    text-align: center;
-    margin-bottom: 6px;
-}
-
-.footerCenter a {
-    color: #00ffaa;
-    text-decoration: none;
-    font-size: 16px;
-}
+.mainFooter { border-top: 1px solid #00ffaa33; padding: 18px 30px; text-align: center; }
+.footerTop video { width: 55px; }
+.footerCenter a { color: #00ffaa; text-decoration: none; font-size: 16px; }
 
 /* ========================= */
-/* AFRICAN NEWS INTEL DRAWER */
+/* AFRICA DRAWER */
 /* ========================= */
-
 #africaDrawer {
     position: fixed;
     bottom: 0;
@@ -273,70 +178,15 @@ section iframe {
     border-top: 1px solid #00ffaa33;
     z-index: 999;
 }
+#africaToggle { width: 100%; padding: 8px; background: #021212; color: #00ffaa; border: none; cursor: pointer; }
+#africaContent { display: none; padding: 10px; max-height: 260px; overflow-y: auto; background: #000; }
+#africaContent.active { display: block; }
+.regionButtons, #country-buttons, #news-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+#africaDrawer button { padding: 6px 10px; background: #021212; border: 1px solid #00ffaa66; color: #00ffaa; cursor: pointer; }
+#news-links a { color: #00ffaa; text-decoration: none; }
 
-/* toggle button */
-#africaToggle {
-    width: 100%;
-    padding: 8px;
-    background: #021212;
-    color: #00ffaa;
-    border: none;
-    cursor: pointer;
-    transition: .2s;
-}
-
-#africaToggle:hover {
-    background: #00ffaa22;
-    box-shadow: 0 0 10px #00ffaa;
-}
-
-/* drawer content */
-#africaContent {
-    display: none;
-    padding: 10px;
-    max-height: 260px;
-    overflow-y: auto;
-    background: #000;
-}
-
-#africaContent.active {
-    display: block;
-}
-
-/* region buttons */
-.regionButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 8px;
-}
-
-/* buttons */
-#africaDrawer button {
-    padding: 6px 10px;
-    background: #021212;
-    border: 1px solid #00ffaa66;
-    color: #00ffaa;
-    cursor: pointer;
-    transition: .2s;
-}
-
-#africaDrawer button:hover {
-    background: #00ffaa22;
-    box-shadow: 0 0 8px #00ffaa;
-}
-
-/* lists */
-#country-buttons,
-#news-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-}
-
-#news-links a {
-    color: #00ffaa;
-    text-decoration: none;
+/* Responsive split for Markets Overview */
+@media (max-width: 1024px) {
+    .marketSplitLayout { flex-direction: column; height: auto; }
+    .marketWidgetSide, .marketVideoSide { height: 50vh; }
 }
