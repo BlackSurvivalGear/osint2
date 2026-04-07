@@ -1,36 +1,127 @@
-.intelGrid{
-display:grid;
-grid-template-columns: 2fr 1fr;
-height:100vh;
-}
-
-.intelMap iframe{
-width:100%;
-height:100%;
-border:none;
-}
-
-.intelNews{
+body{
+margin:0;
+font-family:'Rajdhani',sans-serif;
 background:#020606;
+color:white;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+text-align:center;
 padding:10px;
-overflow-y:auto;
-border-left:1px solid #0f3;
+background:#010303;
+border-bottom:1px solid #0f2a2a;
 }
 
-.intelNews h3{
-color:#0f3;
+header h1{
+margin:0;
+font-size:22px;
+letter-spacing:2px;
+}
+
+/* NAV */
+.main-nav{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:10px;
+background:#020808;
+border-bottom:1px solid #0f2a2a;
+}
+
+.main-nav button{
+background:#031212;
+color:#00ffee;
+border:1px solid #0a3a3a;
+padding:8px 14px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.main-nav button:hover{
+background:#062626;
+}
+
+/* TAB CONTENT */
+.tab-content{
+display:none;
+padding:10px;
+}
+
+.tab-content.active{
+display:block;
+}
+
+/* SUB NAV */
+.sub-nav{
+display:flex;
+gap:10px;
 margin-bottom:10px;
 }
 
-.intelNews li{
-margin-bottom:10px;
-font-size:14px;
-border-bottom:1px solid #0f3;
-padding-bottom:5px;
+.sub-nav button{
+background:#021010;
+color:#00ffee;
+border:1px solid #0a3a3a;
+padding:6px 12px;
+cursor:pointer;
 }
 
-.tab iframe{
-width:100%;
-height:100vh;
-border:none;
+.sub-nav button:hover{
+background:#063030;
+}
+
+/* SUB CONTENT */
+.sub-content{
+display:none;
+}
+
+.sub-content.active{
+display:block;
+}
+
+/* PANELS */
+.panel-center{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:70vh;
+text-align:center;
+opacity:0.8;
+}
+
+/* PLACEHOLDER */
+.placeholder-panel{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:80vh;
+text-align:center;
+opacity:0.6;
+}
+
+.placeholder-panel h2{
+font-size:26px;
+letter-spacing:2px;
+}
+
+.placeholder-panel p{
+color:#aaa;
+}
+
+/* IFRAME FIX */
+iframe{
+background:#000;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:6px;
+font-size:12px;
+opacity:0.6;
+border-top:1px solid #0f2a2a;
 }
