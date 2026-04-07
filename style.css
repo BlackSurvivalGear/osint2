@@ -1,7 +1,3 @@
-/* ========================= */
-/* GLOBAL */
-/* ========================= */
-
 body{
 margin:0;
 font-family:'Rajdhani',sans-serif;
@@ -10,14 +6,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ========================= */
 /* SPLASH */
-/* ========================= */
-
-/* ========================= */
-/* SPLASH (FIXED + HARD EXIT SAFE) */
-/* ========================= */
-
 #introRadar{
 position:fixed;
 top:0;
@@ -28,11 +17,9 @@ background:black;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:99999; /* ensure absolute top layer */
+z-index:999999;
 opacity:1;
-visibility:visible;
-pointer-events:all;
-transition:opacity .6s ease, visibility .6s ease;
+transition:opacity .6s ease;
 }
 
 #introRadar video{
@@ -40,16 +27,7 @@ width:420px;
 max-width:80%;
 }
 
-/* hidden state (used by JS fade out) */
-#introRadar.hidden{
-opacity:0;
-visibility:hidden;
-pointer-events:none;
-}
-/* ========================= */
 /* HEADER */
-/* ========================= */
-
 .mainHeader{
 position:relative;
 border-bottom:1px solid #00ffaa33;
@@ -77,28 +55,11 @@ justify-content:space-between;
 padding:15px 30px;
 }
 
-.headerLeft{
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.radarLogo video{
-height:55px;
-}
-
-header h1{
+header h1,#dateTime{
 color:#00ffaa;
 }
 
-#dateTime{
-color:#00ffaa;
-}
-
-/* ========================= */
 /* NAV */
-/* ========================= */
-
 nav{
 display:flex;
 justify-content:center;
@@ -114,96 +75,11 @@ background:#021212;
 border:1px solid #00ffaa66;
 color:#00ffaa;
 cursor:pointer;
-transition:.25s;
 }
 
-nav button:hover{
-background:#00ffaa22;
-box-shadow:0 0 12px #00ffaa;
-}
-
-nav button.active{
-background:#00ffaa33;
-box-shadow:0 0 18px #00ffaa;
-}
-
-/* ========================= */
-/* SUB MENU */
-/* ========================= */
-
-#subMenuBar{
-background:#020606;
-border-bottom:1px solid #00ffaa33;
-padding:6px 20px;
-display:none;
-}
-
-.subMenu{
-display:none;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.subMenu button{
-padding:6px 14px;
-background:#021212;
-border:1px solid #00ffaa66;
-color:#00ffaa;
-cursor:pointer;
-}
-
-.subMenu button:hover{
-background:#00ffaa22;
-box-shadow:0 0 10px #00ffaa;
-}
-
-.subMenu button.active{
-background:#00ffaa33;
-box-shadow:0 0 14px #00ffaa;
-}
-
-/* ========================= */
-/* LIVE */
-/* ========================= */
-
-.livePlayer iframe{
-width:100%;
-height:75vh;
-border:0;
-}
-
-/* ========================= */
-/* QUAD GRID */
-/* ========================= */
-
-.quadGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-grid-template-rows:repeat(2,1fr);
-gap:5px;
-width:100%;
-height:100%;
-}
-
-.quadGrid iframe{
-width:100%;
-height:100%;
-border:none;
-}
-
-/* ========================= */
 /* PANELS */
-/* ========================= */
-
-.tab{
-display:none;
-padding:10px 20px;
-}
-
-.tab.active{
-display:block;
-}
+.tab{display:none;padding:10px;}
+.tab.active{display:block;}
 
 section iframe{
 width:100%;
@@ -211,142 +87,7 @@ height:80vh;
 border:0;
 }
 
-/* ========================= */
-/* HERO */
-/* ========================= */
-
-.homeHero{
-position:relative;
-height:65vh;
-overflow:hidden;
-}
-
-.heroImage{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.heroOverlay{
-position:absolute;
-bottom:140px;
-left:40px;
-background:rgba(0,0,0,.6);
-padding:20px;
-max-width:500px;
-border-left:3px solid #00ffaa;
-}
-
-/* ========================= */
-/* FOOTER */
-/* ========================= */
-
-.mainFooter{
-border-top:1px solid #00ffaa33;
-padding:18px 30px;
-text-align:center;
-position:relative;
-}
-
-.footerTop{
-display:flex;
-justify-content:center;
-margin-bottom:6px;
-}
-
-.footerTop video{
-width:55px;
-}
-
-.footerCenter{
-text-align:center;
-margin-bottom:6px;
-}
-
-.footerCenter a{
-color:#00ffaa;
-text-decoration:none;
-font-size:16px;
-}
-
-/* ========================= */
-/* AFRICAN NEWS INTEL DRAWER */
-/* ========================= */
-
-#africaDrawer{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#010404;
-border-top:1px solid #00ffaa33;
-z-index:999;
-}
-
-/* toggle button */
-#africaToggle{
-width:100%;
-padding:8px;
-background:#021212;
-color:#00ffaa;
-border:none;
-cursor:pointer;
-transition:.2s;
-}
-
-#africaToggle:hover{
-background:#00ffaa22;
-box-shadow:0 0 10px #00ffaa;
-}
-
-/* drawer content */
-#africaContent{
-display:none;
-padding:10px;
-max-height:260px;
-overflow-y:auto;
-background:#000;
-}
-
-#africaContent.active{
-display:block;
-}
-
-/* region buttons */
-.regionButtons{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:6px;
-margin-bottom:8px;
-}
-
-/* buttons */
-#africaDrawer button{
-padding:6px 10px;
-background:#021212;
-border:1px solid #00ffaa66;
-color:#00ffaa;
-cursor:pointer;
-transition:.2s;
-}
-
-#africaDrawer button:hover{
-background:#00ffaa22;
-box-shadow:0 0 8px #00ffaa;
-}
-
-/* lists */
-#country-buttons,
-#news-links{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:6px;
-}
-
-#news-links a{
-color:#00ffaa;
-text-decoration:none;
-}
+/* SUBMENU */
+#subMenuBar{display:none;padding:6px;}
+.subMenu{display:none;justify-content:center;gap:10px;}
+.subMenu button{color:#00ffaa;background:#021212;border:1px solid #00ffaa66;}
