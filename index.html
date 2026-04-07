@@ -23,14 +23,18 @@ height:80vh!important;
 
 <body>
 
-<!-- SPLASH -->
+<!-- ========================= -->
+<!-- 🔒 SPLASH (LOCKED) -->
+<!-- ========================= -->
 <div id="introRadar">
 <video autoplay muted playsinline>
 <source src="RADAR3.mp4">
 </video>
 </div>
 
-<!-- HEADER -->
+<!-- ========================= -->
+<!-- 🔒 HEADER (LOCKED) -->
+<!-- ========================= -->
 <header class="mainHeader">
 <div class="headerVideo">
 <video autoplay muted loop playsinline>
@@ -51,7 +55,9 @@ height:80vh!important;
 </div>
 </header>
 
-<!-- NAV -->
+<!-- ========================= -->
+<!-- 🔒 NAV (LOCKED) -->
+<!-- ========================= -->
 <nav>
 <button data-tab="home" class="active">Home</button>
 <button data-tab="live">LIVE NEWS</button>
@@ -64,7 +70,9 @@ height:80vh!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<!-- SUB MENU -->
+<!-- ========================= -->
+<!-- 🔒 SUB MENUS (LOCKED STRUCTURE) -->
+<!-- ========================= -->
 <div id="subMenuBar">
 
 <div id="liveMenu" class="subMenu">
@@ -94,43 +102,43 @@ height:80vh!important;
 
 </div>
 
+<!-- ========================= -->
+<!-- 🔁 MAIN CONTENT (EDITABLE AREA) -->
+<!-- ========================= -->
 <main>
 
-<!-- HOME -->
+<!-- 🔒 HERO (LOCKED) -->
 <section id="home" class="tab active">
-
 <div class="homeHero">
-<img src="hero.png" class="heroImage">
-
 <div class="heroOverlay">
 <h2>Global Strategic Awareness OSINT</h2>
 <p>Situational awareness is the foundation of preparedness.</p>
 <p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
-
 </section>
 
-<!-- LIVE -->
+<!-- 🔁 LIVE MODULE -->
 <section id="live" class="tab">
 <div class="livePlayer">
 <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
 </div>
 </section>
 
-<!-- MARKETS -->
+<!-- 🔁 MARKETS MODULE -->
 <section id="markets" class="tab">
-<div id="marketOverview" class="tradingview-widget-container">
+<div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async></script>
 </div>
 </section>
 
-<!-- CONFLICT -->
+<!-- 🔁 CONFLICT MODULE -->
 <section id="conflict" class="tab">
 <iframe id="conflictFrame" src="https://iran.liveuamap.com"></iframe>
 </section>
 
+<!-- 🔁 OSINT MODULES -->
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
 <section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
@@ -138,6 +146,9 @@ height:80vh!important;
 
 </main>
 
+<!-- ========================= -->
+<!-- 🔒 FOOTER (LOCKED) -->
+<!-- ========================= -->
 <footer class="mainFooter">
 <div class="footerTop">
 <video autoplay muted loop playsinline>
@@ -147,6 +158,9 @@ height:80vh!important;
 <div class="footerVersion">BSG OSINT: VBase3</div>
 </footer>
 
+<!-- ========================= -->
+<!-- 🔧 CORE SYSTEM SCRIPT (DO NOT BREAK) -->
+<!-- ========================= -->
 <script>
 
 /* SPLASH */
@@ -171,7 +185,7 @@ setInterval(()=>{
 document.getElementById("dateTime").textContent=new Date().toLocaleString()
 },1000)
 
-/* NAV */
+/* NAV SYSTEM */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
@@ -191,7 +205,7 @@ if(btn.dataset.tab==="conflict"){subMenuBar.style.display="block";conflictMenu.s
 });
 });
 
-/* LIVE */
+/* LIVE CHANNEL CONTROL */
 function showLive(e,c){
 document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
@@ -208,7 +222,7 @@ if(c==="wion") window.open("https://www.youtube.com/watch?v=h9SRBxdqNcs","_blank
 if(c==="africanews") window.open("https://www.youtube.com/@africanews/live","_blank")
 }
 
-/* CONFLICT */
+/* CONFLICT CONTROL */
 function showConflict(e,type){
 document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
