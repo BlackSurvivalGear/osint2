@@ -23,12 +23,14 @@ height:80vh!important;
 
 <body>
 
+<!-- SPLASH -->
 <div id="introRadar">
 <video autoplay muted playsinline>
 <source src="RADAR3.mp4">
 </video>
 </div>
 
+<!-- HEADER -->
 <header class="mainHeader">
 <div class="headerVideo">
 <video autoplay muted loop playsinline>
@@ -49,10 +51,10 @@ height:80vh!important;
 </div>
 </header>
 
+<!-- NAV -->
 <nav>
 <button data-tab="home" class="active">Home</button>
 <button data-tab="live">LIVE NEWS</button>
-<button data-tab="intelFeed">INTEL FEED</button>
 <button data-tab="conflict">CONFLICT MAP</button>
 <button data-tab="markets">Markets</button>
 <button data-tab="aircraft">Aircraft Watch</button>
@@ -62,8 +64,10 @@ height:80vh!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
+<!-- SUB MENU -->
 <div id="subMenuBar">
 
+<!-- LIVE MENU -->
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
 <button onclick="showLive(event,'arise')">Arise News</button>
@@ -79,49 +83,99 @@ height:80vh!important;
 <button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
 
+<!-- MARKETS MENU -->
 <div id="marketsMenu" class="subMenu">
 <button onclick="showMarket(event,'overview')" class="active">Overview</button>
 <button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
 <button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
 </div>
 
+<!-- ✅ NEW CONFLICT MENU -->
+<div id="conflictMenu" class="subMenu">
+<button onclick="showConflict(event,'liveuamap')" class="active">Live Map</button>
+<button onclick="showConflict(event,'situation')">Situation</button>
+<button onclick="showConflict(event,'world')">World</button>
+</div>
+
+<!-- TICKER -->
+<div class="marketTicker">
+<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
+<tv-ticker-tape 
+symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT"
+item-size="compact"
+hover-type="performance-grid"
+show-hover
+theme="dark">
+</tv-ticker-tape>
+</div>
+
 </div>
 
 <main>
 
+<!-- HOME -->
 <section id="home" class="tab active">
 <div class="homeHero">
 <img src="hero.png" class="heroImage">
 <div class="heroOverlay">
 <h2>BSG Strategic Awareness Dashboard</h2>
+<p>Situational awareness is the foundation of preparedness.</p>
 <p>Monitor global events in real time.</p>
+<p class="heroTag">Stay informed. Stay ready.</p>
 </div>
 </div>
 </section>
 
+<!-- LIVE -->
 <section id="live" class="tab">
+<div id="liveSingle" class="livePlayer">
+<iframe id="liveFrame"
+src="https://www.youtube.com/embed/gCNeDWCI0vo"
+allowfullscreen></iframe>
+</div>
+
+<div id="liveQuad" class="quadGrid">
+<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
 <iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
+<iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
+<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
+<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
+</div>
+
+<div id="africaQuad" class="quadGrid" style="display:none;">
+<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
+<iframe src="https://www.youtube.com/embed/E8PRZmDUiPw"></iframe>
+<iframe src="https://www.youtube.com/embed/NQjabLGdP5g"></iframe>
+<iframe src="https://www.youtube.com/embed/Mv14aabg4mA"></iframe>
+<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
+<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
+</div>
 </section>
 
-<!-- 🔥 INTEL FEED -->
-<section id="intelFeed" class="tab">
-
-<div class="intelGrid">
-
-<div class="intelMap">
-<iframe src="https://iran.liveuamap.com"></iframe>
+<!-- MARKETS -->
+<section id="markets" class="tab">
+<div id="marketOverview" class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async></script>
 </div>
 
-<div class="intelNews">
-<h3>LIVE INTEL FEED</h3>
-<ul id="newsList"></ul>
+<div id="marketStocks" style="display:none;" class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async></script>
 </div>
 
+<div id="marketCrypto" style="display:none;" class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async></script>
 </div>
-
 </section>
 
-<section id="conflict" class="tab"><iframe src="https://iran.liveuamap.com"></iframe></section>
+<!-- ✅ UPDATED CONFLICT -->
+<section id="conflict" class="tab">
+<iframe id="conflictFrame" src="https://iran.liveuamap.com"></iframe>
+</section>
+
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
 <section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
@@ -130,15 +184,25 @@ height:80vh!important;
 </main>
 
 <footer class="mainFooter">
+<div class="footerTop">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</div>
 <div class="footerVersion">BSG OSINT: VBase3</div>
+<div class="footerCenter">
+<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
+</div>
 </footer>
 
 <script>
 
+/* CLOCK */
 setInterval(()=>{
 document.getElementById("dateTime").textContent=new Date().toLocaleString()
 },1000)
 
+/* NAV */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
@@ -148,26 +212,40 @@ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
 
 btn.classList.add("active")
 document.getElementById(btn.dataset.tab).classList.add("active")
-});
-});
 
-/* LIVE NEWS FEED */
-async function loadNews(){
-const feed="https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/world/rss.xml";
-const res=await fetch(feed);
-const data=await res.json();
+subMenuBar.style.display="none"
+document.querySelectorAll(".subMenu").forEach(m=>m.style.display="none")
 
-const list=document.getElementById("newsList");
-list.innerHTML="";
-
-data.items.slice(0,15).forEach(item=>{
-const li=document.createElement("li");
-li.innerHTML=`<a href="${item.link}" target="_blank">${item.title}</a>`;
-list.appendChild(li);
-});
+if(btn.dataset.tab==="live"){
+subMenuBar.style.display="block"
+liveMenu.style.display="flex"
 }
+else if(btn.dataset.tab==="markets"){
+subMenuBar.style.display="block"
+marketsMenu.style.display="flex"
+}
+else if(btn.dataset.tab==="conflict"){
+subMenuBar.style.display="block"
+conflictMenu.style.display="flex"
+}
+});
+});
 
-loadNews();
+/* CONFLICT SWITCH */
+function showConflict(e,type){
+document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+
+if(type==="liveuamap"){
+conflictFrame.src="https://iran.liveuamap.com"
+}
+if(type==="situation"){
+conflictFrame.src="https://monitor-the-situation.com/"
+}
+if(type==="world"){
+conflictFrame.src="https://www.worldmonitor.app/?hl=en-GB"
+}
+}
 
 </script>
 
