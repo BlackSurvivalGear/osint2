@@ -70,6 +70,14 @@ height:80vh!important;
 <!-- LIVE -->
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
+<button onclick="showLive(event,'arise')">Arise News</button>
+<button onclick="showLive(event,'africanews')">Africa News</button>
+<button onclick="showLive(event,'channels')">ChannelsTV</button>
+<button onclick="showLive(event,'cgtn')">CGTN</button>
+<button onclick="showLive(event,'rt')">RT</button>
+<button onclick="showLive(event,'sky')">Sky</button>
+<button onclick="showLive(event,'wion')">WION</button>
+<button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
 <button onclick="showLive(event,'quad')">News Wall</button>
 <button onclick="fullscreenPlayer()">Full Screen</button>
 </div>
@@ -92,12 +100,31 @@ height:80vh!important;
 
 <main>
 
-<section id="home" class="tab active"></section>
+<!-- HOME (HERO RESTORED) -->
+<section id="home" class="tab active">
 
-<section id="live" class="tab">
-<iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+<div class="homeHero">
+<img src="hero.png" class="heroImage">
+<div class="heroOverlay">
+<h2>BSG Strategic Awareness Dashboard</h2>
+<p>Situational awareness is the foundation of preparedness.</p>
+<p>Monitor global events in real time.</p>
+<p class="heroTag">Stay informed. Stay ready.</p>
+</div>
+</div>
+
 </section>
 
+<!-- LIVE -->
+<section id="live" class="tab">
+<div id="liveSingle" class="livePlayer">
+<iframe id="liveFrame"
+src="https://www.youtube.com/embed/gCNeDWCI0vo"
+allowfullscreen></iframe>
+</div>
+</section>
+
+<!-- MARKETS -->
 <section id="markets" class="tab">
 <div id="marketOverview" class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
@@ -105,6 +132,7 @@ height:80vh!important;
 </div>
 </section>
 
+<!-- CONFLICT -->
 <section id="conflict" class="tab">
 <iframe id="conflictFrame" src="https://iran.liveuamap.com"></iframe>
 </section>
@@ -116,34 +144,35 @@ height:80vh!important;
 
 </main>
 
+<footer class="mainFooter">
+<div class="footerTop">
+<video autoplay muted loop playsinline>
+<source src="RADAR3.mp4">
+</video>
+</div>
+<div class="footerVersion">BSG OSINT: VBase3</div>
+<div class="footerCenter">
+<a href="https://BlackSurvivalGear.com">BlackSurvivalGear.com</a>
+</div>
+</footer>
+
 <script>
 
-/* ========================= */
-/* SPLASH HARD FIX */
-/* ========================= */
-
+/* SPLASH FIX */
 window.addEventListener("load", function(){
-
-const splash = document.getElementById("introRadar");
-
+const splash=document.getElementById("introRadar");
 if(!splash) return;
 
 setTimeout(()=>{
 splash.style.opacity="0";
 splash.style.pointerEvents="none";
-
-setTimeout(()=>{
-if(splash) splash.remove();
-},600);
-
+setTimeout(()=>{if(splash) splash.remove();},600);
 },1500);
 
-/* failsafe */
 setTimeout(()=>{
 const s=document.getElementById("introRadar");
 if(s) s.remove();
 },4000);
-
 });
 
 /* CLOCK */
@@ -180,14 +209,41 @@ conflictMenu.style.display="flex"
 });
 });
 
-/* CONFLICT SWITCH */
+/* LIVE CHANNEL FIX */
+function showLive(e,c){
+
+document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"))
+e.target.classList.add("active")
+
+liveSingle.style.display="block"
+
+if(c==="aj") liveFrame.src="https://www.youtube.com/embed/gCNeDWCI0vo"
+if(c==="channels") liveFrame.src="https://www.youtube.com/embed/W8nThq62Vb4"
+if(c==="cgtn") liveFrame.src="https://www.youtube.com/embed/BOy2xDU1LC8"
+if(c==="sky") liveFrame.src="https://www.youtube.com/embed/YDvsBbKfLPA"
+if(c==="Bloomberg") liveFrame.src="https://www.youtube.com/embed/iEpJwprxDdk"
+
+if(c==="arise") window.open("https://www.youtube.com/watch?v=E8PRZmDUiPw","_blank")
+if(c==="wion") window.open("https://www.youtube.com/watch?v=h9SRBxdqNcs","_blank")
+if(c==="africanews") window.open("https://www.youtube.com/@africanews/live","_blank")
+
+if(c==="rt") liveFrame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
+}
+
+/* CONFLICT FIX */
 function showConflict(e,type){
 document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"))
 e.target.classList.add("active")
 
 if(type==="liveuamap") conflictFrame.src="https://iran.liveuamap.com"
-if(type==="situation") conflictFrame.src="https://monitor-the-situation.com/"
-if(type==="world") conflictFrame.src="https://www.worldmonitor.app/?hl=en-GB"
+
+if(type==="situation"){
+window.open("https://monitor-the-situation.com/","_blank");
+}
+
+if(type==="world"){
+window.open("https://www.worldmonitor.app/?hl=en-GB","_blank");
+}
 }
 
 </script>
