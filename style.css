@@ -18,7 +18,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 z-index:999999;
-opacity:1;
 transition:opacity .6s ease;
 }
 
@@ -30,8 +29,8 @@ max-width:80%;
 /* HEADER */
 .mainHeader{
 position:relative;
-border-bottom:1px solid #00ffaa33;
 height:90px;
+border-bottom:1px solid #00ffaa33;
 }
 
 .headerVideo{
@@ -50,8 +49,8 @@ object-fit:cover;
 
 .headerContent{
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 padding:15px 30px;
 }
 
@@ -63,22 +62,42 @@ color:#00ffaa;
 nav{
 display:flex;
 justify-content:center;
-gap:14px;
-flex-wrap:wrap;
-padding:12px;
+gap:12px;
+padding:10px;
 border-bottom:1px solid #00ffaa33;
 }
 
 nav button{
-padding:10px 22px;
+padding:10px 20px;
 background:#021212;
 border:1px solid #00ffaa66;
 color:#00ffaa;
 cursor:pointer;
 }
 
+/* SUBMENU */
+#subMenuBar{
+display:none;
+padding:6px;
+border-bottom:1px solid #00ffaa33;
+}
+
+.subMenu{
+display:none;
+justify-content:center;
+gap:10px;
+}
+
+.subMenu button{
+background:#021212;
+border:1px solid #00ffaa66;
+color:#00ffaa;
+padding:6px 12px;
+cursor:pointer;
+}
+
 /* PANELS */
-.tab{display:none;padding:10px;}
+.tab{display:none;}
 .tab.active{display:block;}
 
 section iframe{
@@ -87,7 +106,54 @@ height:80vh;
 border:0;
 }
 
-/* SUBMENU */
-#subMenuBar{display:none;padding:6px;}
-.subMenu{display:none;justify-content:center;gap:10px;}
-.subMenu button{color:#00ffaa;background:#021212;border:1px solid #00ffaa66;}
+/* HERO */
+.homeHero{
+position:relative;
+width:100%;
+height:60vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+
+.heroImage{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0.35;
+}
+
+.heroOverlay{
+position:relative;
+z-index:2;
+text-align:center;
+background:rgba(0,0,0,0.6);
+padding:25px 40px;
+border-left:3px solid #00ffaa;
+box-shadow:0 0 20px #00ffaa33;
+}
+
+.heroOverlay h2{
+color:#00ffaa;
+}
+
+.heroTag{
+color:#00ffaa;
+font-weight:bold;
+}
+
+/* LIVE */
+.livePlayer iframe{
+width:100%;
+height:75vh;
+border:0;
+}
+
+/* FOOTER */
+.mainFooter{
+border-top:1px solid #00ffaa33;
+text-align:center;
+padding:15px;
+}
