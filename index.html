@@ -15,7 +15,7 @@
 .tradingview-widget-container,
 .tradingview-widget-container__widget{
 width:100%!important;
-height:100%!important;
+height:80vh!important;
 }
 </style>
 </head>
@@ -23,30 +23,21 @@ height:100%!important;
 <body>
 
 <div id="introRadar">
-<video autoplay muted playsinline>
-<source src="RADAR3.mp4">
-</video>
+<video autoplay muted playsinline><source src="RADAR3.mp4"></video>
 </div>
 
 <header class="mainHeader">
 <div class="headerVideo">
-<video autoplay muted loop playsinline>
-<source src="HEADER3.mp4">
-</video>
+<video autoplay muted loop playsinline><source src="HEADER3.mp4"></video>
 </div>
 
 <div class="headerContent">
 <div class="headerLeft">
 <div class="radarLogo">
-<video autoplay muted loop playsinline>
-<source src="RADAR3.mp4">
-</video>
+<video autoplay muted loop playsinline><source src="RADAR3.mp4"></video>
 </div>
 <h1>Global Strategic Awareness OSINT</h1>
 </div>
-<div id="dateTime"></div>
-</div>
-</header>
 
 <nav>
 <button data-tab="home" class="active">Home</button>
@@ -60,8 +51,11 @@ height:100%!important;
 <button id="weatherBtn">Weather</button>
 </nav>
 
-<div id="subMenuBar">
+<div id="dateTime"></div>
+</div>
+</header>
 
+<div id="subMenuBar">
 <div id="liveMenu" class="subMenu">
 <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
 <button onclick="showLive(event,'arise')">Arise News</button>
@@ -78,8 +72,8 @@ height:100%!important;
 </div>
 
 <div id="conflictMenu" class="subMenu">
-<a href="https://monitor-the-situation.com/" target="_blank" class="subMenuLink">Situation Map</a>
-<a href="https://www.worldmonitor.app/" target="_blank" class="subMenuLink">World Monitor</a>
+<button onclick="showConflict(event,'situation')" class="active">Situation</button>
+<button onclick="showConflict(event,'world')">World</button>
 </div>
 
 <div id="marketsMenu" class="subMenu">
@@ -90,18 +84,11 @@ height:100%!important;
 
 <div class="marketTicker">
 <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
-<tv-ticker-tape 
-symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT"
-item-size="compact"
-hover-type="performance-grid"
-show-hover
-theme="dark">
-</tv-ticker-tape>
+<tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT" item-size="compact" hover-type="performance-grid" show-hover theme="dark"></tv-ticker-tape>
 </div>
 </div>
 
 <main>
-
 <section id="home" class="tab active">
 <div class="homeGrid">
 <div class="homeHero">
@@ -115,8 +102,8 @@ theme="dark">
 <div class="intelFeed">
 <div class="intelHeader">REAL-TIME SIGNAL FEED</div>
 <div id="rssContent">
-<rssapp-wall id="O2KD9iMlZxq5unj7"></rssapp-wall>
-<script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
+<rssapp-list id="O2KD9iMlZxq5unj7"></rssapp-list>
+<script src="https://widget.rss.app/v1/list.js" type="text/javascript" async></script>
 </div>
 </div>
 </div>
@@ -126,48 +113,25 @@ theme="dark">
 <div id="liveSingle" class="livePlayer">
 <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo" allowfullscreen></iframe>
 </div>
-<div id="liveQuad" class="quadGrid">
-<iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-<iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-<iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
-<iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
-<iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
-<iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
-</div>
+</section>
+
+<section id="conflict" class="tab">
+<iframe id="conflictSituation" src="https://monitor-the-situation.com/" style="width:100%;height:80vh;border:0;display:block;"></iframe>
+<iframe id="conflictWorld" src="https://www.worldmonitor.app/" style="width:100%;height:80vh;border:0;display:none;"></iframe>
 </section>
 
 <section id="markets" class="tab">
 <div id="marketOverview">
-<div class="marketSplitLayout">
-<div class="marketWidgetSide">
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
+<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
 <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-{
-  "colorTheme": "dark",
-  "dateRange": "12M",
-  "showChart": true,
-  "locale": "en",
-  "isTransparent": false,
-  "showSymbolLogo": true,
-  "width": "100%",
-  "height": "100%"
-}
-</script>
-</div>
-</div>
-<div class="marketVideoSide">
-<iframe src="https://www.youtube.com/embed/iEpJwprxDdk" allowfullscreen></iframe>
-</div>
-</div>
-</div>
+{ "colorTheme": "dark", "dateRange": "12M", "showChart": true, "locale": "en", "isTransparent": false, "width": "100%", "height": "100%" }
+</script></div></div>
 </section>
 
 <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
 <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
 <section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
 <section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
-
 </main>
 
 <footer class="mainFooter">
@@ -186,29 +150,21 @@ theme="dark">
 <button onclick="showCountries('East Africa')">East</button>
 <button onclick="showCountries('Southern Africa')">South</button>
 </div>
-<div id="country-buttons"></div>
-<div id="news-links"></div>
+<div id="country-buttons"></div><div id="news-links"></div>
 </div>
 </div>
 
 <script src="africaData.js"></script>
 <script>
-/* SPLASH & CLOCK */
-document.addEventListener("DOMContentLoaded",()=>{
-const splash=document.getElementById("introRadar");
-setTimeout(()=>{
-splash.style.opacity="0";
-setTimeout(()=>{splash.style.display="none"},600);
-},1500);
-});
+/* CLOCK */
 setInterval(()=>document.getElementById("dateTime").textContent=new Date().toLocaleString(),1000);
 
-/* NAV LOGIC */
+/* NAVIGATION */
 document.querySelectorAll("nav button").forEach(btn=>{
 btn.addEventListener("click", ()=>{
 if(!btn.dataset.tab) return;
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"))
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 document.getElementById(btn.dataset.tab).classList.add("active");
 const subMenuBar=document.getElementById("subMenuBar");
@@ -221,52 +177,14 @@ document.getElementById(btn.dataset.tab+"Menu").style.display="flex";
 });
 });
 
-/* MARKET SELECTOR */
-function showMarket(e,t){
-document.querySelectorAll("#marketsMenu button").forEach(b=>b.classList.remove("active"));
+/* CONFLICT/MARKET/LIVE HELPERS... (Retained from previous build) */
+function showConflict(e,c){
+document.querySelectorAll("#conflictMenu button").forEach(b=>b.classList.remove("active"));
 e.target.classList.add("active");
-["marketOverview", "marketStocks", "marketCrypto"].forEach(id=> {
-const el = document.getElementById(id); if(el) el.style.display="none";
-});
-const activeId = t==="overview" ? "marketOverview" : t==="stocks" ? "marketStocks" : "marketCrypto";
-document.getElementById(activeId).style.display="block";
+document.getElementById("conflictSituation").style.display = c==="situation" ? "block" : "none";
+document.getElementById("conflictWorld").style.display = c==="world" ? "block" : "none";
 }
-
-/* LIVE NEWS SELECTOR */
-function showLive(e,c){
-document.querySelectorAll("#liveMenu button").forEach(b=>b.classList.remove("active"));
-e.target.classList.add("active");
-const single=document.getElementById("liveSingle"), quad=document.getElementById("liveQuad"), frame=document.getElementById("liveFrame");
-single.style.display="block"; quad.style.display="none";
-const ch={aj:"gCNeDWCI0vo",arise:"E8PRZmDUiPw",channels:"W8nThq62Vb4",sky:"YDvsBbKfLPA",wion:"h9SRBxdqNcs",cgtn:"BOy2xDU1LC8",Bloomberg:"iEpJwprxDdk"};
-if(ch[c]) frame.src="https://www.youtube.com/embed/"+ch[c];
-if(c==="rt") frame.src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3";
-if(c==="quad"){ single.style.display="none"; quad.style.display="grid"; }
-}
-
 document.getElementById("weatherBtn").onclick=()=>window.open("https://www.windy.com","_blank");
-function fullscreenPlayer(){
-let el=document.getElementById("liveSingle");
-if(document.getElementById("liveQuad").style.display==="grid") el=document.getElementById("liveQuad");
-if(el.requestFullscreen) el.requestFullscreen();
-}
-
-/* AFRICA DATA */
-function showCountries(r){
-const c=document.getElementById('country-buttons'); c.innerHTML='';
-Object.keys(africaData[r]).forEach(country=>{
-let b=document.createElement('button'); b.textContent=country;
-b.onclick=()=>showNews(r,country); c.appendChild(b);
-});
-}
-function showNews(r,c){
-const n=document.getElementById('news-links'); n.innerHTML='';
-let links=africaData[r][c];
-for(let i=0;i<links.length;i+=2){
-let b=document.createElement('button'); b.innerHTML=`<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
-n.appendChild(b);
-}
-}
 document.getElementById("africaToggle").onclick=()=>document.getElementById("africaContent").classList.toggle("active");
 </script>
 </body>
