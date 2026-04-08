@@ -93,18 +93,23 @@
             <tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,CMCMARKETS:GOLD,TVC:SILVER,BLACKBULL:BRENT,OANDA:GBPUSD,FX_IDC:GBPNGN,BINANCE:SOLUSDT,BINANCE:AVAXUSDT,BINANCE:RENDERUSDT" item-size="compact" hover-type="performance-grid" show-hover theme="dark">
             </tv-ticker-tape>
         </div>
-        </div>
+    </div>
 
     <main>
 
         <section id="home" class="tab active">
-            <div class="homeHero">
-                <img src="hero.png" class="heroImage">
-                <div class="heroOverlay">
-                    <h2>BSG Strategic Awareness Dashboard</h2>
-                    <p>Situational awareness is the foundation of preparedness.</p>
-                    <p>Monitor global events in real time.</p>
-                    <p class="heroTag">Stay informed. Stay ready.</p>
+            <div class="homeGrid">
+                <div class="homeHero">
+                    <img src="hero.png" class="heroImage">
+                    <div class="heroOverlay">
+                        <h2>BSG Strategic Awareness Dashboard</h2>
+                        <p>Situational awareness is the foundation of preparedness.</p>
+                        <p class="heroTag">Stay informed. Stay ready.</p>
+                    </div>
+                </div>
+                <div class="intelFeed">
+                    <div class="intelHeader">REAL-TIME SIGNAL: @Liveuamap</div>
+                    <div id="rssContent">Initialising secure link...</div>
                 </div>
             </div>
         </section>
@@ -216,7 +221,6 @@
 
     <div id="africaDrawer">
         <button id="africaToggle">▲ PAN AFRICAN NEWS DRAW</button>
-
         <div id="africaContent">
             <div class="regionButtons">
                 <button onclick="showCountries('North Africa')">North</button>
@@ -225,7 +229,6 @@
                 <button onclick="showCountries('East Africa')">East</button>
                 <button onclick="showCountries('Southern Africa')">South</button>
             </div>
-
             <div id="country-buttons"></div>
             <div id="news-links"></div>
         </div>
@@ -234,94 +237,82 @@
     <script src="africaData.js"></script>
 
     <script>
-        /* SPLASH */
-        document.addEventListener("DOMContentLoaded", function() {
+        /* SPLASH & CLOCK */
+        document.addEventListener("DOMContentLoaded", () => {
             const splash = document.getElementById("introRadar");
-            if (!splash) return;
             setTimeout(() => {
                 splash.style.opacity = "0";
-                setTimeout(() => {
-                    splash.style.display = "none"
-                }, 600);
+                setTimeout(() => splash.style.display = "none", 600);
             }, 1500);
+            fetchIntel();
         });
+        setInterval(() => document.getElementById("dateTime").textContent = new Date().toLocaleString(), 1000);
 
-        /* CLOCK */
-        setInterval(() => {
-            document.getElementById("dateTime").textContent = new Date().toLocaleString()
-        }, 1000)
+        /* INTEL FEED FETCH */
+        async function fetchIntel() {
+            const rssUrl = 'https://nitter.net/Liveuamap/rss';
+            const proxy = 'https://api.allorigins.win/get?url=';
+            try {
+                const response = await fetch(proxy + encodeURIComponent(rssUrl));
+                const data = await response.json();
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(data.contents, "text/xml");
+                const items = xml.querySelectorAll("item");
+                let html = "";
+                items.forEach(el => {
+                    html += `<div class="rssItem">
+                        <span class="rssDate">${el.querySelector("pubDate").textContent}</span>
+                        <a href="${el.querySelector("link").textContent}" target="_blank">> ${el.querySelector("title").textContent}</a>
+                    </div>`;
+                });
+                document.getElementById("rssContent").innerHTML = html;
+            } catch (err) {
+                document.getElementById("rssContent").innerHTML = "LINK INTERRUPTED: RETRYING...";
+            }
+        }
+        setInterval(fetchIntel, 300000);
 
-        /* NAV */
+        /* NAV LOGIC */
         document.querySelectorAll("nav button").forEach(btn => {
             btn.addEventListener("click", () => {
                 if (!btn.dataset.tab) return;
-                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"))
-                document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"))
-                btn.classList.add("active")
-                document.getElementById(btn.dataset.tab).classList.add("active")
-
+                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+                document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
                 const subMenuBar = document.getElementById("subMenuBar");
-                subMenuBar.style.display = "none"
-                document.querySelectorAll(".subMenu").forEach(m => m.style.display = "none")
-
-                if (btn.dataset.tab === "live") {
-                    subMenuBar.style.display = "block"
-                    document.getElementById("liveMenu").style.display = "flex"
-                } else if (btn.dataset.tab === "conflict") {
-                    subMenuBar.style.display = "block"
-                    document.getElementById("conflictMenu").style.display = "flex"
-                } else if (btn.dataset.tab === "markets") {
-                    subMenuBar.style.display = "block"
-                    document.getElementById("marketsMenu").style.display = "flex"
+                subMenuBar.style.display = "none";
+                document.querySelectorAll(".subMenu").forEach(m => m.style.display = "none");
+                if (["live", "conflict", "markets"].includes(btn.dataset.tab)) {
+                    subMenuBar.style.display = "block";
+                    document.getElementById(btn.dataset.tab + "Menu").style.display = "flex";
                 }
             });
         });
 
-        /* MARKETS */
+        /* MARKET SELECTOR */
         function showMarket(e, t) {
-            document.querySelectorAll("#marketsMenu button").forEach(b => b.classList.remove("active"))
-            e.target.classList.add("active")
-            document.getElementById("marketOverview").style.display = "none"
-            document.getElementById("marketStocks").style.display = "none"
-            document.getElementById("marketCrypto").style.display = "none"
-            if (t === "overview") document.getElementById("marketOverview").style.display = "block"
-            if (t === "stocks") document.getElementById("marketStocks").style.display = "block"
-            if (t === "crypto") document.getElementById("marketCrypto").style.display = "block"
+            document.querySelectorAll("#marketsMenu button").forEach(b => b.classList.remove("active"));
+            e.target.classList.add("active");
+            ["marketOverview", "marketStocks", "marketCrypto"].forEach(id => document.getElementById(id).style.display = "none");
+            document.getElementById(t === "overview" ? "marketOverview" : t === "stocks" ? "marketStocks" : "marketCrypto").style.display = "block";
         }
 
-        /* WEATHER */
-        document.getElementById("weatherBtn").onclick = function() {
-            window.open("https://www.windy.com", "_blank");
-        };
-
-        /* LIVE NEWS */
+        /* LIVE PLAYER LOGIC */
         function showLive(e, c) {
-            document.querySelectorAll("#liveMenu button").forEach(b => b.classList.remove("active"))
-            e.target.classList.add("active")
-            const liveSingle = document.getElementById("liveSingle");
-            const liveQuad = document.getElementById("liveQuad");
-            const africaQuad = document.getElementById("africaQuad");
-            const liveFrame = document.getElementById("liveFrame");
-
-            liveSingle.style.display = "block"
-            liveQuad.style.display = "none"
-            africaQuad.style.display = "none"
-
-            if (c === "aj") liveFrame.src = "https://www.youtube.com/embed/gCNeDWCI0vo"
-            if (c === "arise") liveFrame.src = "https://www.youtube.com/embed/E8PRZmDUiPw"
-            if (c === "channels") liveFrame.src = "https://www.youtube.com/embed/W8nThq62Vb4"
-            if (c === "africanews") liveFrame.src = "https://www.youtube.com/embed/live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA"
-            if (c === "rt") liveFrame.src = "https://rumble.com/embed/v33aw1a/?pub=4jw3x3"
-            if (c === "sky") liveFrame.src = "https://www.youtube.com/embed/YDvsBbKfLPA"
-            if (c === "wion") liveFrame.src = "https://www.youtube.com/embed/h9SRBxdqNcs"
-            if (c === "cgtn") liveFrame.src = "https://www.youtube.com/embed/BOy2xDU1LC8"
-            if (c === "Bloomberg") liveFrame.src = "https://www.youtube.com/embed/iEpJwprxDdk"
-
+            document.querySelectorAll("#liveMenu button").forEach(b => b.classList.remove("active"));
+            e.target.classList.add("active");
+            const liveSingle = document.getElementById("liveSingle"), liveQuad = document.getElementById("liveQuad"), africaQuad = document.getElementById("africaQuad"), liveFrame = document.getElementById("liveFrame");
+            liveSingle.style.display = "block"; liveQuad.style.display = "none"; africaQuad.style.display = "none";
+            const channels = { aj: "gCNeDWCI0vo", arise: "E8PRZmDUiPw", channels: "W8nThq62Vb4", sky: "YDvsBbKfLPA", wion: "h9SRBxdqNcs", cgtn: "BOy2xDU1LC8", Bloomberg: "iEpJwprxDdk" };
+            if (channels[c]) liveFrame.src = `https://www.youtube.com/embed/${channels[c]}`;
+            if (c === "rt") liveFrame.src = "https://rumble.com/embed/v33aw1a/?pub=4jw3x3";
             if (c === "quad") { liveSingle.style.display = "none"; liveQuad.style.display = "grid"; }
             if (c === "africaQuad") { liveSingle.style.display = "none"; africaQuad.style.display = "grid"; }
         }
 
-        /* FULLSCREEN */
+        /* WEATHER & FULLSCREEN */
+        document.getElementById("weatherBtn").onclick = () => window.open("https://www.windy.com", "_blank");
         function fullscreenPlayer() {
             let el = document.getElementById("liveSingle");
             if (document.getElementById("liveQuad").style.display === "grid") el = document.getElementById("liveQuad");
@@ -329,32 +320,23 @@
             if (el.requestFullscreen) el.requestFullscreen();
         }
 
-        /* AFRICA DRAWER */
-        function showCountries(region) {
-            const c = document.getElementById('country-buttons');
-            const n = document.getElementById('news-links');
-            c.innerHTML = ''; n.innerHTML = '';
-            Object.keys(africaData[region]).forEach(country => {
-                let b = document.createElement('button');
-                b.textContent = country;
-                b.onclick = () => showNews(region, country);
-                c.appendChild(b);
+        /* AFRICA DATA HELPERS */
+        function showCountries(r) {
+            const c = document.getElementById('country-buttons'); c.innerHTML = '';
+            Object.keys(africaData[r]).forEach(country => {
+                let b = document.createElement('button'); b.textContent = country;
+                b.onclick = () => showNews(r, country); c.appendChild(b);
             });
         }
-        function showNews(region, country) {
-            const n = document.getElementById('news-links');
-            n.innerHTML = '';
-            let links = africaData[region][country];
+        function showNews(r, c) {
+            const n = document.getElementById('news-links'); n.innerHTML = '';
+            let links = africaData[r][c];
             for (let i = 0; i < links.length; i += 2) {
-                let b = document.createElement('button');
-                b.innerHTML = `<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
+                let b = document.createElement('button'); b.innerHTML = `<a href="${links[i + 1]}" target="_blank">${links[i]}</a>`;
                 n.appendChild(b);
             }
         }
-        document.getElementById("africaToggle").onclick = function() {
-            document.getElementById("africaContent").classList.toggle("active");
-        };
+        document.getElementById("africaToggle").onclick = () => document.getElementById("africaContent").classList.toggle("active");
     </script>
 </body>
-
 </html>
