@@ -244,11 +244,11 @@
                 splash.style.opacity = "0";
                 setTimeout(() => splash.style.display = "none", 600);
             }, 1500);
-            fetchIntel();
+            fetchIntel(); // Trigger RSS on load
         });
         setInterval(() => document.getElementById("dateTime").textContent = new Date().toLocaleString(), 1000);
 
-        /* INTEL FEED FETCH */
+        /* INTEL FEED (RSS) */
         async function fetchIntel() {
             const rssUrl = 'https://nitter.net/Liveuamap/rss';
             const proxy = 'https://api.allorigins.win/get?url=';
@@ -260,19 +260,22 @@
                 const items = xml.querySelectorAll("item");
                 let html = "";
                 items.forEach(el => {
-                    html += `<div class="rssItem">
-                        <span class="rssDate">${el.querySelector("pubDate").textContent}</span>
-                        <a href="${el.querySelector("link").textContent}" target="_blank">> ${el.querySelector("title").textContent}</a>
-                    </div>`;
+                    html += `
+                        <div class="rssItem">
+                            <span class="rssDate">${el.querySelector("pubDate").textContent}</span>
+                            <a href="${el.querySelector("link").textContent}" target="_blank">
+                                > ${el.querySelector("title").textContent}
+                            </a>
+                        </div>`;
                 });
                 document.getElementById("rssContent").innerHTML = html;
             } catch (err) {
                 document.getElementById("rssContent").innerHTML = "LINK INTERRUPTED: RETRYING...";
             }
         }
-        setInterval(fetchIntel, 300000);
+        setInterval(fetchIntel, 300000); // Refresh every 5 mins
 
-        /* NAV LOGIC */
+        /* NAVIGATION */
         document.querySelectorAll("nav button").forEach(btn => {
             btn.addEventListener("click", () => {
                 if (!btn.dataset.tab) return;
@@ -280,9 +283,11 @@
                 document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
                 document.getElementById(btn.dataset.tab).classList.add("active");
+
                 const subMenuBar = document.getElementById("subMenuBar");
                 subMenuBar.style.display = "none";
                 document.querySelectorAll(".subMenu").forEach(m => m.style.display = "none");
+
                 if (["live", "conflict", "markets"].includes(btn.dataset.tab)) {
                     subMenuBar.style.display = "block";
                     document.getElementById(btn.dataset.tab + "Menu").style.display = "flex";
@@ -290,22 +295,36 @@
             });
         });
 
-        /* MARKET SELECTOR */
+        /* MARKETS OVERVIEW LOGIC */
         function showMarket(e, t) {
             document.querySelectorAll("#marketsMenu button").forEach(b => b.classList.remove("active"));
             e.target.classList.add("active");
-            ["marketOverview", "marketStocks", "marketCrypto"].forEach(id => document.getElementById(id).style.display = "none");
-            document.getElementById(t === "overview" ? "marketOverview" : t === "stocks" ? "marketStocks" : "marketCrypto").style.display = "block";
+            document.getElementById("marketOverview").style.display = "none";
+            document.getElementById("marketStocks").style.display = "none";
+            document.getElementById("marketCrypto").style.display = "none";
+            if (t === "overview") document.getElementById("marketOverview").style.display = "block";
+            if (t === "stocks") document.getElementById("marketStocks").style.display = "block";
+            if (t === "crypto") document.getElementById("marketCrypto").style.display = "block";
         }
 
-        /* LIVE PLAYER LOGIC */
+        /* LIVE NEWS LOGIC */
         function showLive(e, c) {
             document.querySelectorAll("#liveMenu button").forEach(b => b.classList.remove("active"));
             e.target.classList.add("active");
-            const liveSingle = document.getElementById("liveSingle"), liveQuad = document.getElementById("liveQuad"), africaQuad = document.getElementById("africaQuad"), liveFrame = document.getElementById("liveFrame");
+            const liveSingle = document.getElementById("liveSingle"),
+                  liveQuad = document.getElementById("liveQuad"),
+                  africaQuad = document.getElementById("africaQuad"),
+                  liveFrame = document.getElementById("liveFrame");
+
             liveSingle.style.display = "block"; liveQuad.style.display = "none"; africaQuad.style.display = "none";
-            const channels = { aj: "gCNeDWCI0vo", arise: "E8PRZmDUiPw", channels: "W8nThq62Vb4", sky: "YDvsBbKfLPA", wion: "h9SRBxdqNcs", cgtn: "BOy2xDU1LC8", Bloomberg: "iEpJwprxDdk" };
-            if (channels[c]) liveFrame.src = `https://www.youtube.com/embed/${channels[c]}`;
+
+            const channels = {
+                aj: "gCNeDWCI0vo", arise: "E8PRZmDUiPw", channels: "W8nThq62Vb4", 
+                africanews: "live_stream?channel=UC1_E8NeF5QHY2dtdLRBCCLA", 
+                sky: "YDvsBbKfLPA", wion: "h9SRBxdqNcs", cgtn: "BOy2xDU1LC8", Bloomberg: "iEpJwprxDdk"
+            };
+
+            if (channels[c]) liveFrame.src = "https://www.youtube.com/embed/" + channels[c];
             if (c === "rt") liveFrame.src = "https://rumble.com/embed/v33aw1a/?pub=4jw3x3";
             if (c === "quad") { liveSingle.style.display = "none"; liveQuad.style.display = "grid"; }
             if (c === "africaQuad") { liveSingle.style.display = "none"; africaQuad.style.display = "grid"; }
@@ -320,19 +339,20 @@
             if (el.requestFullscreen) el.requestFullscreen();
         }
 
-        /* AFRICA DATA HELPERS */
-        function showCountries(r) {
+        /* AFRICA DATA HANDLERS */
+        function showCountries(region) {
             const c = document.getElementById('country-buttons'); c.innerHTML = '';
-            Object.keys(africaData[r]).forEach(country => {
+            Object.keys(africaData[region]).forEach(country => {
                 let b = document.createElement('button'); b.textContent = country;
-                b.onclick = () => showNews(r, country); c.appendChild(b);
+                b.onclick = () => showNews(region, country); c.appendChild(b);
             });
         }
-        function showNews(r, c) {
+        function showNews(region, country) {
             const n = document.getElementById('news-links'); n.innerHTML = '';
-            let links = africaData[r][c];
+            let links = africaData[region][country];
             for (let i = 0; i < links.length; i += 2) {
-                let b = document.createElement('button'); b.innerHTML = `<a href="${links[i + 1]}" target="_blank">${links[i]}</a>`;
+                let b = document.createElement('button');
+                b.innerHTML = `<a href="${links[i+1]}" target="_blank">${links[i]}</a>`;
                 n.appendChild(b);
             }
         }
