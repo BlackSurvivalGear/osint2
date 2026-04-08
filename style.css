@@ -1,74 +1,65 @@
 /* ========================= */
 /* GLOBAL & THEME */
 /* ========================= */
-body { margin: 0; font-family: 'Rajdhani', sans-serif; background: #020606; color: white; overflow-x: hidden; }
-#introRadar { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity .6s ease; }
-#introRadar video { width: 420px; }
+body{ margin:0; font-family:'Rajdhani',sans-serif; background:#020606; color:white; overflow-x:hidden; }
+#introRadar{ position:fixed; top:0; left:0; width:100%; height:100%; background:black; display:flex; align-items:center; justify-content:center; z-index:9999; transition:opacity .6s ease; }
+#introRadar video{ width:420px; }
 
 /* ========================= */
 /* HEADER & NAVIGATION */
 /* ========================= */
-.mainHeader { position: relative; border-bottom: 1px solid #00ffaa33; height: 90px; }
-.headerVideo { position: absolute; width: 100%; height: 100%; opacity: .15; z-index: -1; }
-.headerVideo video { width: 100%; height: 100%; object-fit: cover; }
-.headerContent { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; }
-header h1, #dateTime { color: #00ffaa; }
-.radarLogo video { height: 55px; }
+.mainHeader{ position:relative; border-bottom:1px solid #00ffaa33; height:90px; }
+.headerVideo{ position:absolute; width:100%; height:100%; opacity:.15; z-index:-1; }
+.headerVideo video{ width:100%; height:100%; object-fit:cover; }
+.headerContent{ display:flex; align-items:center; justify-content:space-between; padding:15px 30px; }
+header h1, #dateTime{ color:#00ffaa; }
+.radarLogo video{ height:55px; }
 
-nav { display: flex; justify-content: center; gap: 14px; padding: 12px; border-bottom: 1px solid #00ffaa33; }
-nav button, .subMenu button, .subMenuLink { padding: 10px 22px; background: #021212; border: 1px solid #00ffaa66; color: #00ffaa; cursor: pointer; transition: .25s; text-decoration: none; font-size: 14px; }
-nav button:hover, .subMenu button:hover, .subMenuLink:hover { background: #00ffaa22; box-shadow: 0 0 12px #00ffaa; }
-nav button.active, .subMenu button.active { background: #00ffaa33; box-shadow: 0 0 18px #00ffaa; }
+nav{ display:flex; justify-content:center; gap:14px; padding:12px; border-bottom:1px solid #00ffaa33; }
+nav button, .subMenu button, .subMenuLink{ padding:10px 22px; background:#021212; border:1px solid #00ffaa66; color:#00ffaa; cursor:pointer; transition:.25s; text-decoration:none; font-family:inherit; }
+nav button:hover, .subMenu button:hover, .subMenuLink:hover{ background:#00ffaa22; box-shadow:0 0 12px #00ffaa; }
+nav button.active, .subMenu button.active{ background:#00ffaa33; box-shadow:0 0 18px #00ffaa; }
 
-#subMenuBar { background: #020606; border-bottom: 1px solid #00ffaa33; padding: 6px 20px; display: none; }
-.subMenu { display: none; justify-content: center; gap: 10px; flex-wrap: wrap; }
+#subMenuBar{ background:#020606; border-bottom:1px solid #00ffaa33; padding:6px 20px; display:none; }
+.subMenu{ display:none; justify-content:center; gap:10px; flex-wrap:wrap; }
 
 /* ========================= */
 /* HOME GRID & INTEL FEED */
 /* ========================= */
-.homeGrid { display: flex; gap: 20px; height: 75vh; }
-.homeHero { flex: 2; position: relative; overflow: hidden; border: 1px solid #00ffaa33; }
-.heroImage { width: 100%; height: 100%; object-fit: cover; }
-.heroOverlay { position: absolute; bottom: 40px; left: 20px; background: rgba(0,0,0,.7); padding: 15px; border-left: 3px solid #00ffaa; }
+.homeGrid{ display:flex; gap:20px; height:75vh; }
+.homeHero{ flex:1.5; position:relative; overflow:hidden; border:1px solid #00ffaa33; }
+.heroImage{ width:100%; height:100%; object-fit:cover; }
+.heroOverlay{ position:absolute; bottom:40px; left:20px; background:rgba(0,0,0,.7); padding:15px; border-left:3px solid #00ffaa; }
 
-.intelFeed { flex: 1; background: #010808; border: 1px solid #00ffaa33; padding: 15px; overflow-y: auto; font-family: 'Courier New', Courier, monospace; }
-.intelHeader { color: #00ffaa; border-bottom: 1px solid #00ffaa; margin-bottom: 10px; font-weight: bold; }
-.rssItem { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #00ffaa33; }
-.rssItem a { color: #00ffaa; text-decoration: none; font-size: 0.9rem; display: block; }
-.rssDate { color: #666; font-size: 0.7rem; display: block; }
+.intelFeed{ flex:1; background:#010808; border:1px solid #00ffaa33; padding:15px; overflow-y:auto; }
+.intelHeader{ color:#00ffaa; border-bottom:1px solid #00ffaa; margin-bottom:10px; font-weight:bold; font-size:1.2rem; }
 
 /* ========================= */
-/* MARKET SPLIT LAYOUT */
+/* MARKETS SPLIT VIEW */
 /* ========================= */
-.marketSplitLayout { display: flex; gap: 15px; height: 80vh; width: 100%; }
-.marketWidgetSide { flex: 1.5; height: 100%; }
-.marketVideoSide { flex: 1; height: 100%; background: #000; border: 1px solid #00ffaa33; }
-.marketVideoSide iframe { width: 100%; height: 100%; border: none; }
+.marketSplitLayout{ display:flex; gap:15px; height:80vh; width:100%; }
+.marketWidgetSide{ flex:1.5; height:100%; }
+.marketVideoSide{ flex:1; height:100%; background:#000; border:1px solid #00ffaa33; }
+.marketVideoSide iframe{ width:100%; height:100%; border:none; }
 
 /* ========================= */
-/* PANELS & GRIDS */
+/* PANELS & FOOTER */
 /* ========================= */
-.tab { display: none; padding: 10px 20px; }
-.tab.active { display: block; }
-section iframe { width: 100%; height: 80vh; border: 0; }
-.livePlayer iframe { width: 100%; height: 75vh; border: 0; }
-.quadGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; height: 75vh; }
-.quadGrid iframe { width: 100%; height: 100%; border: none; }
+.tab{ display:none; padding:10px 20px; }
+.tab.active{ display:block; }
+section iframe{ width:100%; height:80vh; border:0; }
+.livePlayer iframe{ width:100%; height:75vh; border:0; }
+.quadGrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; height:75vh; }
+.mainFooter{ border-top:1px solid #00ffaa33; padding:18px; text-align:center; }
+.footerCenter a{ color:#00ffaa; text-decoration:none; }
 
-/* ========================= */
-/* FOOTER & DRAWER */
-/* ========================= */
-.mainFooter { border-top: 1px solid #00ffaa33; padding: 18px; text-align: center; }
-.footerTop video { width: 55px; }
-.footerCenter a { color: #00ffaa; text-decoration: none; }
-
-#africaDrawer { position: fixed; bottom: 0; left: 0; width: 100%; background: #010404; border-top: 1px solid #00ffaa33; z-index: 999; }
-#africaToggle { width: 100%; padding: 8px; background: #021212; color: #00ffaa; border: none; cursor: pointer; }
-#africaContent { display: none; padding: 10px; max-height: 260px; overflow-y: auto; }
-#africaContent.active { display: block; }
-.regionButtons, #country-buttons, #news-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+#africaDrawer{ position:fixed; bottom:0; left:0; width:100%; background:#010404; border-top:1px solid #00ffaa33; z-index:999; }
+#africaToggle{ width:100%; padding:8px; background:#021212; color:#00ffaa; border:none; cursor:pointer; }
+#africaContent{ display:none; padding:10px; max-height:260px; overflow-y:auto; }
+#africaContent.active{ display:block; }
+.regionButtons, #country-buttons, #news-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
 
 @media (max-width: 1024px) {
-    .homeGrid, .marketSplitLayout { flex-direction: column; height: auto; }
-    .homeHero, .intelFeed, .marketWidgetSide, .marketVideoSide { height: 50vh; }
+    .homeGrid, .marketSplitLayout{ flex-direction:column; height:auto; }
+    .homeHero, .intelFeed, .marketWidgetSide, .marketVideoSide{ height: 50vh; }
 }
