@@ -2,197 +2,215 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BSG Strategic Awareness OSINT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSG Strategic Awareness OSINT</title>
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 
-<meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark">
 
-<style>
-.tradingview-widget-container,
-.tradingview-widget-container__widget {
-    width: 100% !important;
-    height: 80vh !important;
-}
-</style>
+    <style>
+        .tradingview-widget-container,
+        .tradingview-widget-container__widget {
+            width: 100% !important;
+            height: 80vh !important;
+        }
+
+        /* Smooth fade out for the splash screen */
+        #introRadar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        
+        #introRadar.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #introRadar video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- ========================= -->
-<!-- NEWS OVERLAY -->
-<!-- ========================= -->
-<div id="newsOverlay">
-    <div class="newsLabel">LIVE INTEL</div>
-    <div class="newsTicker">
-        <div id="newsTrack"></div>
+    <div id="newsOverlay">
+        <div class="newsLabel">LIVE INTEL</div>
+        <div class="newsTicker">
+            <div id="newsTrack"></div>
+        </div>
     </div>
-</div>
 
-<!-- ========================= -->
-<!-- ORIGINAL SYSTEM -->
-<!-- ========================= -->
-
-<div id="introRadar">
-    <video autoplay muted playsinline>
-        <source src="RADAR3.mp4">
-    </video>
-</div>
-
-<header class="mainHeader">
-    <div class="headerVideo">
-        <video autoplay muted loop playsinline>
-            <source src="HEADER3.mp4">
+    <div id="introRadar">
+        <video autoplay muted playsinline id="splashVideo">
+            <source src="RADAR3.mp4">
         </video>
     </div>
 
-    <div class="headerContent">
-        <div class="headerLeft">
-            <div class="radarLogo">
-                <video autoplay muted loop playsinline>
-                    <source src="RADAR3.mp4">
-                </video>
+    <header class="mainHeader">
+        <div class="headerVideo">
+            <video autoplay muted loop playsinline>
+                <source src="HEADER3.mp4">
+            </video>
+        </div>
+
+        <div class="headerContent">
+            <div class="headerLeft">
+                <div class="radarLogo">
+                    <video autoplay muted loop playsinline>
+                        <source src="RADAR3.mp4">
+                    </video>
+                </div>
+                <h1>Global Strategic Awareness OSINT</h1>
             </div>
-            <h1>Global Strategic Awareness OSINT</h1>
+            <div id="dateTime"></div>
         </div>
-        <div id="dateTime"></div>
-    </div>
-</header>
+    </header>
 
-<nav>
-    <button data-tab="home" class="active">Home</button>
-    <button data-tab="live">LIVE NEWS</button>
-    <button data-tab="conflict">CONFLICT MAP</button>
-    <button data-tab="markets">Markets</button>
-    <button data-tab="aircraft">Aircraft Watch</button>
-    <button data-tab="marine">Marine Watch</button>
-    <button data-tab="cyber">Cyber Attacks</button>
-    <button data-tab="radio">Global Radio</button>
-    <button id="weatherBtn">Weather</button>
-</nav>
+    <nav>
+        <button data-tab="home" class="active">Home</button>
+        <button data-tab="live">LIVE NEWS</button>
+        <button data-tab="conflict">CONFLICT MAP</button>
+        <button data-tab="markets">Markets</button>
+        <button data-tab="aircraft">Aircraft Watch</button>
+        <button data-tab="marine">Marine Watch</button>
+        <button data-tab="cyber">Cyber Attacks</button>
+        <button data-tab="radio">Global Radio</button>
+        <button id="weatherBtn">Weather</button>
+    </nav>
 
-<div id="subMenuBar">
+    <div id="subMenuBar">
+        <div id="liveMenu" class="subMenu">
+            <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
+            <button onclick="showLive(event,'arise')">Arise News</button>
+            <button onclick="showLive(event,'africanews')">Africa News</button>
+            <button onclick="showLive(event,'channels')">ChannelsTV</button>
+            <button onclick="showLive(event,'cgtn')">CGTN</button>
+            <button onclick="showLive(event,'rt')">RT</button>
+            <button onclick="showLive(event,'sky')">SKY</button>
+            <button onclick="showLive(event,'wion')">WION</button>
+            <button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
+            <button onclick="showLive(event,'quad')">News Wall</button>
+            <button onclick="showLive(event,'africaQuad')">Africa Wall</button>
+            <button onclick="fullscreenPlayer()">Full Screen</button>
+        </div>
 
-<div id="liveMenu" class="subMenu">
-    <button onclick="showLive(event,'aj')" class="active">Al Jazeera</button>
-    <button onclick="showLive(event,'arise')">Arise News</button>
-    <button onclick="showLive(event,'africanews')">Africa News</button>
-    <button onclick="showLive(event,'channels')">ChannelsTV</button>
-    <button onclick="showLive(event,'cgtn')">CGTN</button>
-    <button onclick="showLive(event,'rt')">RT</button>
-    <button onclick="showLive(event,'sky')">SKY</button>
-    <button onclick="showLive(event,'wion')">WION</button>
-    <button onclick="showLive(event,'Bloomberg')">Bloomberg</button>
-    <button onclick="showLive(event,'quad')">News Wall</button>
-    <button onclick="showLive(event,'africaQuad')">Africa Wall</button>
-    <button onclick="fullscreenPlayer()">Full Screen</button>
-</div>
+        <div id="conflictMenu" class="subMenu">
+            <a href="https://monitor-the-situation.com/" target="_blank" class="subLinkBtn">Situation</a>
+            <a href="https://www.worldmonitor.app/" target="_blank" class="subLinkBtn">World</a>
+        </div>
 
-<div id="conflictMenu" class="subMenu">
-    <a href="https://monitor-the-situation.com/" target="_blank" class="subLinkBtn">Situation</a>
-    <a href="https://www.worldmonitor.app/" target="_blank" class="subLinkBtn">World</a>
-</div>
-
-<div id="marketsMenu" class="subMenu">
-    <button onclick="showMarket(event,'overview')" class="active">Overview</button>
-    <button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
-    <button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
-</div>
-
-</div>
-
-<main>
-
-<section id="home" class="tab active">
-    <div class="homeHero">
-        <img src="hero.png" class="heroImage">
-        <div class="heroOverlay">
-            <h2>BSG Strategic Awareness Dashboard</h2>
+        <div id="marketsMenu" class="subMenu">
+            <button onclick="showMarket(event,'overview')" class="active">Overview</button>
+            <button onclick="showMarket(event,'stocks')">Stock Heatmap</button>
+            <button onclick="showMarket(event,'crypto')">Crypto Heatmap</button>
         </div>
     </div>
-</section>
 
-<section id="live" class="tab">
-    <div id="liveSingle" class="livePlayer">
-        <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-    </div>
+    <main>
+        <section id="home" class="tab active">
+            <div class="homeHero">
+                <img src="hero.png" class="heroImage">
+                <div class="heroOverlay">
+                    <h2>BSG Strategic Awareness Dashboard</h2>
+                </div>
+            </div>
+        </section>
 
-    <div id="liveQuad" class="quadGrid">
-        <iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
-        <iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
-        <iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
-        <iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
-        <iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
-        <iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
-    </div>
-</section>
+        <section id="live" class="tab">
+            <div id="liveSingle" class="livePlayer">
+                <iframe id="liveFrame" src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+            </div>
 
-<section id="conflict" class="tab">
-    <iframe src="https://iran.liveuamap.com/" style="width:100%;height:80vh;border:0;"></iframe>
-</section>
+            <div id="liveQuad" class="quadGrid">
+                <iframe src="https://rumble.com/embed/v33aw1a/?pub=4jw3x3"></iframe>
+                <iframe src="https://www.youtube.com/embed/gCNeDWCI0vo"></iframe>
+                <iframe src="https://www.youtube.com/embed/W8nThq62Vb4"></iframe>
+                <iframe src="https://www.youtube.com/embed/BOy2xDU1LC8"></iframe>
+                <iframe src="https://www.youtube.com/embed/iEpJwprxDdk"></iframe>
+                <iframe src="https://www.youtube.com/embed/YDvsBbKfLPA"></iframe>
+            </div>
+        </section>
 
-<section id="markets" class="tab">
-    <!-- TradingView widgets unchanged -->
-</section>
+        <section id="conflict" class="tab">
+            <iframe src="https://iran.liveuamap.com/" style="width:100%;height:80vh;border:0;"></iframe>
+        </section>
 
-<section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
-<section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
-<section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
-<section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
+        <section id="markets" class="tab">
+            </section>
 
-</main>
+        <section id="aircraft" class="tab"><iframe src="https://globe.adsbexchange.com"></iframe></section>
+        <section id="marine" class="tab"><iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:2/maptype:4"></iframe></section>
+        <section id="cyber" class="tab"><iframe src="https://threatmap.checkpoint.com"></iframe></section>
+        <section id="radio" class="tab"><iframe src="https://radio.garden/"></iframe></section>
+    </main>
 
-<footer class="mainFooter">
-    <div class="footerVersion">BSG OSINT: VBase3</div>
-</footer>
+    <footer class="mainFooter">
+        <div class="footerVersion">BSG OSINT: VBase3</div>
+    </footer>
 
-<script>
+    <script>
+        /* CLOCK */
+        setInterval(() => {
+            document.getElementById("dateTime").textContent = new Date().toLocaleString()
+        }, 1000)
 
-/* CLOCK */
-setInterval(() => {
-    document.getElementById("dateTime").textContent = new Date().toLocaleString()
-}, 1000)
+        /* NAV */
+        document.querySelectorAll("nav button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (!btn.dataset.tab) return;
 
-/* NAV */
-document.querySelectorAll("nav button").forEach(btn => {
-    btn.addEventListener("click", () => {
-        if (!btn.dataset.tab) return;
+                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"))
+                document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"))
 
-        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"))
-        document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"))
-
-        btn.classList.add("active")
-        document.getElementById(btn.dataset.tab).classList.add("active")
-    });
-});
-
-/* NEWS OVERLAY */
-async function loadNewsOverlay() {
-    try {
-        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://rss.app/feeds/O2KD9iMlZxq5unj7.xml");
-        const data = await res.json();
-
-        const track = document.getElementById("newsTrack");
-        let items = data.items.slice(0, 15);
-
-        let html = "";
-        items.forEach(item => {
-            html += `<a href="${item.link}" target="_blank">• ${item.title}</a>`;
+                btn.classList.add("active")
+                document.getElementById(btn.dataset.tab).classList.add("active")
+            });
         });
 
-        track.innerHTML = html + html;
+        /* NEWS OVERLAY */
+        async function loadNewsOverlay() {
+            try {
+                const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://rss.app/feeds/O2KD9iMlZxq5unj7.xml");
+                const data = await res.json();
 
-    } catch (err) {
-        console.error("Overlay failed", err);
-    }
-}
+                const track = document.getElementById("newsTrack");
+                let items = data.items.slice(0, 15);
 
-loadNewsOverlay();
+                let html = "";
+                items.forEach(item => {
+                    html += `<a href="${item.link}" target="_blank">• ${item.title}</a>`;
+                });
 
-</script>
+                track.innerHTML = html + html;
+
+            } catch (err) {
+                console.error("Overlay failed", err);
+            }
+        }
+
+        loadNewsOverlay();
+
+        /* SPLASH EXIT LOGIC */
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('introRadar');
+            // Adjust the 4000 (4 seconds) to match your video length
+            setTimeout(() => {
+                splash.classList.add('hidden');
+            }, 4000); 
+        });
+    </script>
 
 </body>
 </html>
